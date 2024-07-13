@@ -37,7 +37,7 @@ const ProductCollection = () => {
       <div className="text-[#383921] text-4xl font-semibold ">
         Special Product
       </div>
-      <div className="flex justify-between w-[35%]">
+      <div className="flex justify-between w-[35%] py-8">
         <Button
           className={`p-6 text-white hover:bg-[#a6946b] ${
             active == "Office" ? "bg-[#a6946b]" : "bg-[#333333]"
@@ -63,7 +63,7 @@ const ProductCollection = () => {
           Kitchen Furniture
         </Button>
       </div>
-      <div className="w-full #e9e8e4 flex-center pb-20">
+      <div className="w-full #e9e8e4 flex-center">
         <div className="relative w-[95%] overflow-hidden">
           <Swiper
             autoplay={{ delay: 3000, disableOnInteraction: false }}
@@ -74,7 +74,7 @@ const ProductCollection = () => {
             className="p-4"
           >
             {ProductCollectionData.filter(
-              (product) => product.type === "Office"
+              (product) => product.type === active
             ).map((product) => {
               const furnitureData: Furniture = {
                 image: product.image,
