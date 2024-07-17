@@ -39,7 +39,7 @@ const Navbar = () => {
         visible ? "translate-y-0" : "-translate-y-full"
       } bg-gray-100`}
     >
-      <div className="container p-4 flex items-center justify-between">
+      <div className="py-4 px-8 flex items-center justify-between">
         <Image
           src="/image/logo.png"
           width={110}
@@ -107,7 +107,7 @@ const Navbar = () => {
           </Button>
           <Button className="bg-[#a6946b] group hover:bg-[#a6946b]">
             <Image
-              src="icon/briefcase.svg"
+              src="/icon/briefcase.svg"
               height={24}
               width={24}
               alt="briefcase"

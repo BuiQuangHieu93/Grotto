@@ -342,3 +342,22 @@ export const InstagramPostData = [
     image: "/image/in-06.webp",
   },
 ];
+
+export const CardData = [
+  {
+    image: "/image/furniture-01.jpg",
+    title: "Furniture 1",
+  },
+  {
+    image: "/image/furniture-11.jpg",
+    title: "Furniture 2",
+  },
+  {
+    image: "/image/L10-10.jpg",
+    title: "Home Page",
+  },
+  {
+    image: "/image/L10-01.jpg",
+    title: "Pottery",
+  },
+];

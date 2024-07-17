@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "Grotto",
   description: "Grotto is a platform for shopping",
   icons: {
-    icon: "/assets/images/logo.svg",
+    icon: "/image/favicon.png",
   },
 };
 
