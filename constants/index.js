@@ -361,3 +361,21 @@ export const CardData = [
     title: "Pottery",
   },
 ];
+
+export const dataEachProduct = [
+  {
+    image: "/image/furniture-15.jpg",
+  },
+  {
+    image: "/image/furniture-15-02.jpg",
+  },
+  {
+    image: "/image/furniture-15-03.jpg",
+  },
+  {
+    image: "/image/furniture-15-04.jpg",
+  },
+  {
+    image: "/image/furniture-15-05.jpg",
+  },
+];
