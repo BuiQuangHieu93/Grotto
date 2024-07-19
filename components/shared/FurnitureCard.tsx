@@ -39,13 +39,14 @@ const FurnitureCard = ({ data }: FurnitureData) => {
       >
         <Image
           src={hover ? data?.imageHover : data?.image}
-          height={350}
-          width={350}
+          height={370}
+          width={370}
           alt="furniture"
           className={`transition-transform duration-500 ease-in-out ${
             hover ? "scale-110 opacity-90" : "scale-100 opacity-100"
           }`}
         />
+
         {data?.salePrice && (
           <div className="absolute top-4 left-4 h-6 w-14 rounded-lg bg-[#a6946b] flex-center transition-all duration-500 ease-in-out text-xs text-white">
             - {calculateSale(data.originalPrice, data.salePrice)}%
