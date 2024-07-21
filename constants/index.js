@@ -71,6 +71,10 @@ export const FurnitureTrending = [
     title: "Field Lounge Chair",
     originalPrice: 200,
     salePrice: 150,
+    bestSelling: 5,
+    date: "2023-07-01",
+    available: 8,
+    feature: true,
   },
   {
     image: "/image/furniture-02.jpg",
@@ -78,6 +82,10 @@ export const FurnitureTrending = [
     title: "Peek 1 Door 3 Drawer Credenza",
     originalPrice: 150,
     salePrice: 130,
+    bestSelling: 3,
+    date: "2023-06-15",
+    available: 5,
+    feature: false,
   },
   {
     image: "/image/furniture-03.jpg",
@@ -85,6 +93,10 @@ export const FurnitureTrending = [
     title: "Bully Table Lamp",
     originalPrice: 350,
     salePrice: 250,
+    bestSelling: 8,
+    date: "2023-05-20",
+    available: 12,
+    feature: true,
   },
   {
     image: "/image/furniture-04.jpg",
@@ -92,6 +104,10 @@ export const FurnitureTrending = [
     title: "Bobber Table Lamp",
     originalPrice: 350,
     salePrice: 320,
+    bestSelling: 7,
+    date: "2023-07-10",
+    available: 3,
+    feature: false,
   },
   {
     image: "/image/furniture-05.jpg",
@@ -99,6 +115,10 @@ export const FurnitureTrending = [
     title: "Half Past Large Side Table",
     originalPrice: 200,
     salePrice: 180,
+    bestSelling: 6,
+    date: "2023-08-05",
+    available: 7,
+    feature: true,
   },
   {
     image: "/image/furniture-06.jpg",
@@ -106,6 +126,10 @@ export const FurnitureTrending = [
     title: "Signal 20 Square Pillow",
     originalPrice: 150,
     salePrice: 75,
+    bestSelling: 9,
+    date: "2023-09-12",
+    available: 20,
+    feature: false,
   },
   {
     image: "/image/furniture-07.jpg",
@@ -113,6 +137,10 @@ export const FurnitureTrending = [
     title: "Spot On Table Mirror",
     originalPrice: 160,
     salePrice: 90,
+    bestSelling: 4,
+    date: "2023-01-25",
+    available: 15,
+    feature: true,
   },
   {
     image: "/image/furniture-08.jpg",
@@ -120,6 +148,10 @@ export const FurnitureTrending = [
     title: "Longday Bar Cart",
     originalPrice: 210,
     salePrice: 160,
+    bestSelling: 2,
+    date: "2023-03-30",
+    available: 9,
+    feature: false,
   },
 ];
 

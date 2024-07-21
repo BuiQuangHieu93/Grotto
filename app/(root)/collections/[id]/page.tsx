@@ -16,14 +16,66 @@ import FurnitureCard from "@/components/shared/FurnitureCard";
 import { Checkbox } from "@/components/ui/checkbox";
 import RangeSlider from "@/components/shared/RangeSlider";
 
-const page = () => {
+const Page = () => {
   const [open, setOpen] = useState(false);
   const [openPrice, setOpenPrice] = useState(false);
   const [place, setPlace] = useState("first");
+  const [listType, setListType] = useState("three");
+  const [sortOption, setSortOption] = useState("featured");
+  const [priceRange, setPriceRange] = useState([0, 320]);
 
-  const handlePriceChange = (minPrice: number, maxPrice: number) => {
-    console.log(`Selected price range: $${minPrice} - $${maxPrice}`);
+  const handleSortChange = (value) => {
+    setSortOption(value);
   };
+
+  const filterAndSortFurniture = () => {
+    let filteredData = FurnitureTrending;
+
+    filteredData = filteredData.filter((item) => item.available > 0);
+
+    filteredData = filteredData.filter(
+      (item) =>
+        item.salePrice >= priceRange[0] && item.salePrice <= priceRange[1]
+    );
+
+    // Sort the filtered data
+    switch (sortOption) {
+      case "featured":
+        filteredData.sort((a, b) => b.feature - a.feature);
+        break;
+      case "bestSelling":
+        filteredData.sort((a, b) => b.bestSelling - a.bestSelling);
+        break;
+      case "alphabeticalAZ":
+        filteredData.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case "alphabeticalZA":
+        filteredData.sort((a, b) => b.title.localeCompare(a.title));
+        break;
+      case "priceHighToLow":
+        filteredData.sort((a, b) => b.salePrice - a.salePrice);
+        break;
+      case "priceLowToHigh":
+        filteredData.sort((a, b) => a.salePrice - b.salePrice);
+        break;
+      case "dateNewToOld":
+        filteredData.sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
+        break;
+      case "dateOldToNew":
+        filteredData.sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+        );
+        break;
+      default:
+        break;
+    }
+
+    return filteredData;
+  };
+
+  const filteredAndSortedFurniture = filterAndSortFurniture();
 
   return (
     <>
@@ -101,7 +153,14 @@ const page = () => {
               </button>
               {openPrice && (
                 <div>
-                  <RangeSlider min={0} max={320} step={1} priceGap={1} />
+                  <RangeSlider
+                    min={0}
+                    max={320}
+                    step={1}
+                    priceGap={1}
+                    values={priceRange}
+                    onChange={setPriceRange}
+                  />
                 </div>
               )}
             </div>
@@ -156,7 +215,10 @@ const page = () => {
           <div className="col-span-3">
             <div className="bg-[#ffffff] w-full flex justify-between p-4 mb-16">
               <div>
-                <Button className="bg-[#a6946b] w-9 h-9 px-0 py-0 mx-1">
+                <Button
+                  className="bg-[#a6946b] w-9 h-9 px-0 py-0 mx-1"
+                  onClick={() => setListType("three")}
+                >
                   <Image
                     src="/icon/line-horizontal-3.svg"
                     width={20}
@@ -165,7 +227,10 @@ const page = () => {
                     className="rotate-90"
                   />
                 </Button>
-                <Button className="bg-[#a6946b] w-9 h-9 px-0 py-0 mx-1">
+                <Button
+                  className="bg-[#a6946b] w-9 h-9 px-0 py-0 mx-1"
+                  onClick={() => setListType("two")}
+                >
                   <Image
                     src="/icon/menu.svg"
                     width={20}
@@ -174,7 +239,10 @@ const page = () => {
                     className="rotate-90"
                   />
                 </Button>
-                <Button className="bg-[#a6946b] w-9 h-9 px-0 py-0 mx-1">
+                <Button
+                  className="bg-[#a6946b] w-9 h-9 px-0 py-0 mx-1"
+                  onClick={() => setListType("one")}
+                >
                   <Image
                     src="/icon/line-horizontal-3.svg"
                     width={20}
@@ -186,7 +254,7 @@ const page = () => {
               <div className="flex flex-row">
                 <div className="text-sm flex-center mr-2">Sort by:</div>
                 <div>
-                  <Select>
+                  <Select onValueChange={handleSortChange}>
                     <SelectTrigger className="w-44 bg-gray-100 focus-visible:ring-0 focus-visible:border-none focus-visible:outline-none focus-ring-0 border-none focus:ring-0 focus:ring-offset-0">
                       <SelectValue placeholder="Featured" />
                     </SelectTrigger>
@@ -220,13 +288,26 @@ const page = () => {
                 </div>
               </div>
               <div className="bg-[#e9e8e4] px-2 rounded-xl font-semibold text-sm flex-center">
-                8 product
+                {filteredAndSortedFurniture.length} products
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-8">
-              {FurnitureTrending.map((data, index) => (
+            <div
+              className={`grid gap-8 ${
+                listType === "three"
+                  ? "grid-cols-3"
+                  : listType === "two"
+                  ? "grid-cols-2"
+                  : listType === "one"
+                  ? "grid-cols-1"
+                  : "hidden"
+              }`}
+            >
+              {filteredAndSortedFurniture.map((data, index) => (
                 <div key={index} className="mb-4">
-                  <FurnitureCard data={data} />
+                  <FurnitureCard
+                    data={data}
+                    type={listType === "one" ? "horizon" : "origin"}
+                  />
                 </div>
               ))}
             </div>
@@ -237,4 +318,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

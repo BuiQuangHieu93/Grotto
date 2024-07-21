@@ -1,4 +1,3 @@
-// components/RangeSlider.tsx
 import React, { useState } from "react";
 import { Range, getTrackBackground } from "react-range";
 
@@ -7,6 +6,8 @@ interface RangeSliderProps {
   max: number;
   step: number;
   priceGap: number;
+  values: number[];
+  onChange: (values: number[]) => void;
 }
 
 const RangeSlider: React.FC<RangeSliderProps> = ({
@@ -14,17 +15,17 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
   max,
   step,
   priceGap,
+  values,
+  onChange,
 }) => {
-  const [values, setValues] = useState([min, max]);
-
   const handleChange = (values: number[]) => {
     if (values[1] - values[0] >= priceGap) {
-      setValues(values);
+      onChange(values);
     }
   };
 
   return (
-    <div className="p-4 bg-bg-[#e9e8e4] rounded-lg shadow-md">
+    <div className="p-4 bg-[#e9e8e4] rounded-lg shadow-md">
       <header className="mb-4">
         <p className="mt-1 text-sm">The highest price is $320.00</p>
       </header>
@@ -49,7 +50,6 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
         <div className="flex-center">
           <span>-</span>
         </div>
-
         <div className="flex items-center space-x-2">
           <input
             type="number"
