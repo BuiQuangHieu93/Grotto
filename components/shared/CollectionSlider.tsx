@@ -9,8 +9,8 @@ const CollectionSlider = () => {
         Trending Products
       </div>
       <div className="grid grid-cols-4 grid-rows-2 w-full gap-5">
-        {FurnitureTrending.map((data, index) => (
-          <FurnitureCard key={index} data={data} />
+        {FurnitureTrending.slice(0, 8).map((data, index) => (
+          <FurnitureCard key={index} data={data} type="origin" />
         ))}
       </div>
     </div>

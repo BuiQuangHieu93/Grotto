@@ -8,25 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import FurnitureCard from "./FurnitureCard";
-import { ProductCollectionData } from "@/constants";
-
-interface ProductCollection {
-  id: string;
-  image: string;
-  imageHover: string;
-  title: string;
-  originalPrice: number;
-  salePrice: number;
-  type: string;
-}
-
-interface Furniture {
-  image: string;
-  imageHover: string;
-  title: string;
-  originalPrice: number;
-  salePrice: number;
-}
+import { FurnitureTrending } from "@/constants";
 
 const ProductCollection = () => {
   const [active, setActive] = useState("Office");
@@ -34,36 +16,36 @@ const ProductCollection = () => {
   return (
     <div className="flex-center flex-col bg-[#e9e8e4] w-full pl-4 pr-4 pt-20 pb-20">
       <div className="text-[#a6946b] font-semibold mb-2">TOP COLLECTIONS</div>
-      <div className="text-[#383921] text-4xl font-semibold ">
+      <div className="text-[#383921] text-4xl font-semibold">
         Special Product
       </div>
       <div className="flex justify-between w-[35%] py-8">
         <Button
           className={`p-6 text-white hover:bg-[#a6946b] ${
-            active == "Office" ? "bg-[#a6946b]" : "bg-[#333333]"
-          } `}
+            active === "Office" ? "bg-[#a6946b]" : "bg-[#333333]"
+          }`}
           onClick={() => setActive("Office")}
         >
           Office Furniture
         </Button>
         <Button
           className={`p-6 text-white hover:bg-[#a6946b] ${
-            active == "Home" ? "bg-[#a6946b]" : "bg-[#333333]"
-          } `}
+            active === "Home" ? "bg-[#a6946b]" : "bg-[#333333]"
+          }`}
           onClick={() => setActive("Home")}
         >
           Home Furniture
         </Button>
         <Button
           className={`p-6 text-white hover:bg-[#a6946b] ${
-            active == "Kitchen" ? "bg-[#a6946b]" : "bg-[#333333]"
-          } `}
+            active === "Kitchen" ? "bg-[#a6946b]" : "bg-[#333333]"
+          }`}
           onClick={() => setActive("Kitchen")}
         >
           Kitchen Furniture
         </Button>
       </div>
-      <div className="w-full #e9e8e4 flex-center">
+      <div className="w-full bg-[#e9e8e4] flex-center">
         <div className="relative w-[95%] overflow-hidden">
           <Swiper
             autoplay={{ delay: 3000, disableOnInteraction: false }}
@@ -73,22 +55,13 @@ const ProductCollection = () => {
             spaceBetween={30}
             className="p-4"
           >
-            {ProductCollectionData.filter(
-              (product) => product.type === active
-            ).map((product) => {
-              const furnitureData: Furniture = {
-                image: product.image,
-                imageHover: product.imageHover,
-                title: product.title,
-                originalPrice: product.originalPrice,
-                salePrice: product.salePrice,
-              };
-              return (
-                <SwiperSlide key={product.id} className="relative group">
-                  <FurnitureCard key={product.id} data={furnitureData} />
+            {FurnitureTrending.filter((product) => product.type === active).map(
+              (product, index) => (
+                <SwiperSlide key={index} className="relative group">
+                  <FurnitureCard data={product} type="origin" />
                 </SwiperSlide>
-              );
-            })}
+              )
+            )}
           </Swiper>
         </div>
       </div>

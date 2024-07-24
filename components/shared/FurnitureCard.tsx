@@ -14,6 +14,7 @@ interface Furniture {
   date: string;
   available: number;
   feature: boolean;
+  type: string;
 }
 
 interface FurnitureData {
