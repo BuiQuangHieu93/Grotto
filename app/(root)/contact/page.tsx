@@ -1,5 +1,11 @@
+import ContactInfo from "@/components/shared/ContactInfo";
+
 const page = () => {
-  return <div>page</div>;
+  return (
+    <div>
+      <ContactInfo />
+    </div>
+  );
 };
 
 export default page;

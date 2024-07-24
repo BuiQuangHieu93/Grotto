@@ -12,10 +12,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useAuth } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
+import Link from "next/link";
 
 const Navbar = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
+  const { userId } = useAuth();
 
   const handleScroll = useCallback(() => {
     const currentScrollPos = window.pageYOffset;
@@ -95,16 +99,27 @@ const Navbar = () => {
               </SelectGroup>
             </SelectContent>
           </Select>
-          <Button className="bg-gray-100 border-2 text-gray-600 group hover:bg-gray-100">
-            <Image
-              src="/icon/user.svg"
-              height={24}
-              width={24}
-              alt="user"
-              className="mr-2 group-hover:scale-110 duration-300"
-            />
-            <span className="font-normal">Log in</span>
-          </Button>
+
+          {userId ? (
+            <div className="flex-center">
+              <UserButton afterSignOutUrl="/home" showName />
+              <Link href="/home" />
+            </div>
+          ) : (
+            <Link href="/sign-in">
+              <Button className="bg-gray-100 border-2 text-gray-600 group hover:bg-gray-100">
+                <Image
+                  src="/icon/user.svg"
+                  height={24}
+                  width={24}
+                  alt="user"
+                  className="mr-2 group-hover:scale-110 duration-300"
+                />
+                <span className="font-normal">Log in</span>
+              </Button>
+            </Link>
+          )}
+
           <Button className="bg-[#a6946b] group hover:bg-[#a6946b]">
             <Image
               src="/icon/briefcase.svg"

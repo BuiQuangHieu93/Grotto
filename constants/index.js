@@ -309,6 +309,8 @@ export const BlogData = [
     day: "March 15, 2024",
     location: "LogicGo Infotech",
     title: "Discovering Grotto: A Journey into Timeless Home Elegance",
+    detail:
+      "Join us on an exploration of Grotto, where timeless elegance meets home decor. In this blog post, we delve into the rich heritage and craftsmanship behind Grotto's furniture collection. Explore how each piece tells a story of luxury, sophistication, and enduring style. Let Grotto inspire you to create a home that is truly timeless.",
   },
   {
     id: 2,
@@ -316,6 +318,8 @@ export const BlogData = [
     day: "March 15, 2024",
     location: "LogicGo Infotech",
     title: "Grotto: Crafting Your Signature Style in Home Decor",
+    detail:
+      "Unlock the secrets of crafting your signature style with Grotto's exquisite home decor. This blog post dives into the art of personalizing your living space, showcasing how Grotto's furniture pieces can serve as the canvas for your unique aesthetic vision. Discover how to infuse personality, elegance, and timeless charm into every corner of your home with Grotto.",
   },
   {
     id: 3,
@@ -323,6 +327,8 @@ export const BlogData = [
     day: "March 15, 2024",
     location: "LogicGo Infotech",
     title: "The Art of Timeless Living: Grotto's Furniture Masterpieces",
+    detail:
+      "Embark on a journey through the world of timeless living with Grotto's exquisite furniture masterpieces. In this blog post, we unveil the craftsmanship, elegance, and allure behind each meticulously crafted piece. Explore how Grotto's furniture can elevate your home decor, creating a space that resonates with sophistication and charm for generations to come.",
   },
   {
     id: 4,
@@ -330,6 +336,17 @@ export const BlogData = [
     day: "March 15, 2024",
     location: "LogicGo Infotech",
     title: "Elevate Your Home: Grotto's Guide to Timeless Interior Design",
+    detail:
+      "Transform your living space into a sanctuary of style and sophistication with Grotto's expert tips on timeless interior design. Discover how to infuse elegance into every corner of your home, from selecting the perfect furniture pieces to mastering the art of decor arrangement. Let Grotto be your partner in creating a space that stands the test of time.",
+  },
+  {
+    id: 5,
+    image: "/image/01.webp",
+    day: "March 15, 2024",
+    location: "LogicGo Infotech",
+    title: "Grotto: Elevating Your Home Decor With Timeless Sophistication",
+    detail:
+      "Uncover the essence of timeless sophistication with Grotto furniture. This blog post takes you on a journey through the elegance and refinement that define Grotto's signature style. Discover how each meticulously crafted piece can elevate your home decor, infusing it with a sense of luxury and charm that transcends trends. Explore the art of living beautifully with Grotto.",
   },
 ];
 

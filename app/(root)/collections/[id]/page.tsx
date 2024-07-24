@@ -24,7 +24,7 @@ const Page = () => {
   const [sortOption, setSortOption] = useState("featured");
   const [priceRange, setPriceRange] = useState([0, 320]);
 
-  const handleSortChange = (value) => {
+  const handleSortChange = (value: any) => {
     setSortOption(value);
   };
 
@@ -79,7 +79,7 @@ const Page = () => {
 
   return (
     <>
-      <div className="bg-[#e9e8e4] px-4">
+      <div className="bg-[#e9e8e4] px-4 pb-20">
         <div className="py-12">
           <div className="p-5 font-semibold text-4xl bg-[#ffffff] text-center ">
             Furniture 1
@@ -117,7 +117,7 @@ const Page = () => {
                       htmlFor="terms"
                       className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 hover:text-[#a6946b]"
                     >
-                      In stock (8)
+                      In stock ({FurnitureTrending.length})
                     </label>
                   </div>
                   <div className="flex items-center space-x-2 p-4">
@@ -288,7 +288,8 @@ const Page = () => {
                 </div>
               </div>
               <div className="bg-[#e9e8e4] px-2 rounded-xl font-semibold text-sm flex-center">
-                {filteredAndSortedFurniture.length} products
+                {filteredAndSortedFurniture.length} of{" "}
+                {FurnitureTrending.length} products
               </div>
             </div>
             <div
@@ -299,7 +300,7 @@ const Page = () => {
                   ? "grid-cols-2"
                   : listType === "one"
                   ? "grid-cols-1"
-                  : "hidden"
+                  : ""
               }`}
             >
               {filteredAndSortedFurniture.map((data, index) => (
