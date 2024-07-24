@@ -285,3 +285,7 @@ body {
 .swiper .swiper-button-next{
   color: #e9e8e4;
 }
+
+.rotate {
+  transform-origin: center;
+}
