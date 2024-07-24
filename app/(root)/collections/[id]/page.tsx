@@ -41,7 +41,11 @@ const Page = () => {
     // Sort the filtered data
     switch (sortOption) {
       case "featured":
-        filteredData.sort((a, b) => b.feature - a.feature);
+        filteredData.sort((a, b) => {
+          const featureA = a.feature ? 1 : 0;
+          const featureB = b.feature ? 1 : 0;
+          return featureB - featureA;
+        });
         break;
       case "bestSelling":
         filteredData.sort((a, b) => b.bestSelling - a.bestSelling);
