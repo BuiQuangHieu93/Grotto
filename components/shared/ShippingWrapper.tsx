@@ -3,9 +3,11 @@ import Image from "next/image";
 const ShippingWrapper = () => {
   return (
     <div className="bg-[#13392c] w-full flex justify-between p-4 text-white pt-20 pb-20">
-      <div className="p-4 text-4xl w-[45%]  font-semibold">
-        Providing A Wide Range Of Architectural And Interior Design Services.
-        Sustainable Trends You'll Love Forever
+      <div className="p-4 text-4xl w-[45%] font-semibold h-[472px] relative">
+        <div className="sticky h-[160px] top-0">
+          Providing A Wide Range Of Architectural And Interior Design Services.
+          Sustainable Trends You'll Love Forever
+        </div>
       </div>
       <div className="grid grid-cols-2 grid-rows-2 w-[45%] gap-6">
         <div className="group">

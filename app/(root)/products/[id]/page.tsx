@@ -4,24 +4,26 @@ import ImageZoom from "@/components/shared/ImageZoom";
 import { Button } from "@/components/ui/button";
 import { dataEachProduct } from "@/constants";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import React, { useState } from "react";
 
 const Page = () => {
   const [value, setValue] = useState<number>(1);
+  const product = useParams();
+  console.log(product.id);
+
+  //  find id and display as object
 
   return (
-    <div className="grid grid-cols-2 gap-6 p-8 bg-[#e9e8e4]">
-      <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-6 px-5 py-20 bg-[#e9e8e4]">
+      <div className="grid grid-cols-2 gap-8">
         {dataEachProduct.map((image, index) => (
-          <div
-            key={index}
-            className={index === 0 ? "col-span-2" : "row-span-1"}
-          >
+          <div key={index} className={index === 0 ? "col-span-2" : ""}>
             <ImageZoom
               src={image.image}
               alt="Magnified Image"
               width={750}
-              height={472}
+              height={250}
             />
           </div>
         ))}

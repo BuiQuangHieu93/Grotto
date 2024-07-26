@@ -6,6 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { BlogData } from "@/constants";
 import BlogCard from "./BlogCard";
+import Link from "next/link";
 
 const Blog = () => {
   return (
@@ -30,7 +31,9 @@ const Blog = () => {
           >
             {BlogData.map((data) => (
               <SwiperSlide key={data.id} className="relative group">
-                <BlogCard key={data.id} data={data} />
+                <Link href={`blogs/news/${data.id}`}>
+                  <BlogCard key={data.id} data={data} />
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>

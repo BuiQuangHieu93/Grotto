@@ -52,22 +52,22 @@ const Footer: React.FC = () => {
           <h3 className="text-lg font-semibold mb-4 ">My Account</h3>
           <ul className="text-sm text-[#cccccc]">
             <li className="mb-2">
-              <a href="#" className="hover:underline">
+              <a href="#" className="hover:text-[#d3c3a4]">
                 About us
               </a>
             </li>
             <li className="mb-2">
-              <a href="#" className="hover:underline">
+              <a href="#" className="hover:text-[#d3c3a4]">
                 Faq
               </a>
             </li>
             <li className="mb-2">
-              <a href="#" className="hover:underline">
+              <a href="#" className="hover:text-[#d3c3a4]">
                 Privacy policy
               </a>
             </li>
             <li className="mb-2">
-              <a href="#" className="hover:underline">
+              <a href="#" className="hover:text-[#d3c3a4]">
                 Contact
               </a>
             </li>
@@ -79,22 +79,22 @@ const Footer: React.FC = () => {
           <h3 className="text-lg font-semibold mb-4">Customer Service</h3>
           <ul className="text-sm text-[#cccccc]">
             <li className="mb-2">
-              <a href="#" className="hover:underline">
+              <a href="#" className="hover:text-[#d3c3a4]">
                 About us
               </a>
             </li>
             <li className="mb-2">
-              <a href="#" className="hover:underline">
+              <a href="#" className="hover:text-[#d3c3a4]">
                 Faq
               </a>
             </li>
             <li className="mb-2">
-              <a href="#" className="hover:underline">
+              <a href="#" className="hover:text-[#d3c3a4]">
                 Privacy policy
               </a>
             </li>
             <li className="mb-2">
-              <a href="#" className="hover:underline">
+              <a href="#" className="hover:text-[#d3c3a4]">
                 Contact
               </a>
             </li>

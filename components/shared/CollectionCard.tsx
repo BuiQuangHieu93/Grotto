@@ -19,7 +19,7 @@ const CollectionCard = ({ data }: CardData) => {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <div className="overflow-hidden w-[476px] h-[722px] relative aspect-w-3 aspect-h-4">
+      <div className="overflow-hidden w-[476px] h-[595px] relative aspect-w-3 aspect-h-4">
         <Image
           src={data.image}
           layout="fill"

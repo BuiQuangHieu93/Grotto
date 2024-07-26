@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 
 interface Furniture {
+  id: string;
   image: string;
   imageHover: string;
   title: string;

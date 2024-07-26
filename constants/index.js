@@ -66,6 +66,7 @@ export const dataCategories = [
 
 export const FurnitureTrending = [
   {
+    id: "1",
     image: "/image/furniture-01.jpg",
     imageHover: "/image/furniture-01-02.jpg",
     title: "Field Lounge Chair",
@@ -78,6 +79,7 @@ export const FurnitureTrending = [
     type: "Home",
   },
   {
+    id: "2",
     image: "/image/furniture-02.jpg",
     imageHover: "/image/furniture-02-02.jpg",
     title: "Peek 1 Door 3 Drawer Credenza",
@@ -90,6 +92,7 @@ export const FurnitureTrending = [
     type: "Home",
   },
   {
+    id: "3",
     image: "/image/furniture-03.jpg",
     imageHover: "/image/furniture-03-02.jpg",
     title: "Bully Table Lamp",
@@ -102,6 +105,7 @@ export const FurnitureTrending = [
     type: "Home",
   },
   {
+    id: "4",
     image: "/image/furniture-04.jpg",
     imageHover: "/image/furniture-04-02.jpg",
     title: "Bobber Table Lamp",
@@ -114,6 +118,7 @@ export const FurnitureTrending = [
     type: "Home",
   },
   {
+    id: "5",
     image: "/image/furniture-05.jpg",
     imageHover: "/image/furniture-05-02.jpg",
     title: "Half Past Large Side Table",
@@ -126,6 +131,7 @@ export const FurnitureTrending = [
     type: "Home",
   },
   {
+    id: "6",
     image: "/image/furniture-06.jpg",
     imageHover: "/image/furniture-06-02.jpg",
     title: "Signal 20 Square Pillow",
@@ -138,6 +144,7 @@ export const FurnitureTrending = [
     type: "Home",
   },
   {
+    id: "7",
     image: "/image/furniture-07.jpg",
     imageHover: "/image/furniture-07-02.jpg",
     title: "Spot On Table Mirror",
@@ -150,6 +157,7 @@ export const FurnitureTrending = [
     type: "Home",
   },
   {
+    id: "8",
     image: "/image/furniture-08.jpg",
     imageHover: "/image/furniture-08-02.jpg",
     title: "Longday Bar Cart",
@@ -162,6 +170,7 @@ export const FurnitureTrending = [
     type: "Kitchen",
   },
   {
+    id: "9",
     image: "/image/furniture-09.jpg",
     imageHover: "/image/furniture-09-02.jpg",
     title: "Offline Outdoor Chair",
@@ -174,6 +183,7 @@ export const FurnitureTrending = [
     type: "Kitchen",
   },
   {
+    id: "10",
     image: "/image/furniture-11.jpg",
     imageHover: "/image/furniture-11-02.jpg",
     title: "Ester Linen Quilt Set",
@@ -186,6 +196,7 @@ export const FurnitureTrending = [
     type: "Kitchen",
   },
   {
+    id: "11",
     image: "/image/furniture-12.jpg",
     imageHover: "/image/furniture-12-02.jpg",
     title: "Perch Outdoor Lounge Chair",
@@ -198,6 +209,7 @@ export const FurnitureTrending = [
     type: "Office",
   },
   {
+    id: "12",
     image: "/image/furniture-13.jpg",
     imageHover: "/image/furniture-13-02.jpg",
     title: "Offline Outdoor Chair",
@@ -210,6 +222,7 @@ export const FurnitureTrending = [
     type: "Kitchen",
   },
   {
+    id: "13",
     image: "/image/furniture-14.jpg",
     imageHover: "/image/furniture-14-02.jpg",
     title: "Offline Outdoor Chair",

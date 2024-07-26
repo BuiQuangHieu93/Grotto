@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import FurnitureCard from "./FurnitureCard";
 import { FurnitureTrending } from "@/constants";
+import Link from "next/link";
 
 const ProductCollection = () => {
   const [active, setActive] = useState("Office");
@@ -58,7 +59,9 @@ const ProductCollection = () => {
             {FurnitureTrending.filter((product) => product.type === active).map(
               (product, index) => (
                 <SwiperSlide key={index} className="relative group">
-                  <FurnitureCard data={product} type="origin" />
+                  <Link href={`/products/${product.id}`}>
+                    <FurnitureCard data={product} type="origin" />
+                  </Link>
                 </SwiperSlide>
               )
             )}

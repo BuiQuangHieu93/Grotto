@@ -102,7 +102,7 @@ const Navbar = () => {
 
           {userId ? (
             <div className="flex-center">
-              <UserButton afterSignOutUrl="/home" showName />
+              <UserButton showName />
               <Link href="/home" />
             </div>
           ) : (

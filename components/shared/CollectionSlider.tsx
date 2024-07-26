@@ -1,5 +1,6 @@
 import { FurnitureTrending } from "@/constants";
 import FurnitureCard from "./FurnitureCard";
+import Link from "next/link";
 
 const CollectionSlider = () => {
   return (
@@ -10,7 +11,9 @@ const CollectionSlider = () => {
       </div>
       <div className="grid grid-cols-4 grid-rows-2 w-full gap-5">
         {FurnitureTrending.slice(0, 8).map((data, index) => (
-          <FurnitureCard key={index} data={data} type="origin" />
+          <Link href={`/products/${data.id}`} key={index}>
+            <FurnitureCard data={data} type="origin" />
+          </Link>
         ))}
       </div>
     </div>

@@ -6,21 +6,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 interface Slide {
   id: number;
   title: string;
   tagline: string;
   image: string;
-  //   buttons: ButtonProps[];
 }
-
-// interface ButtonProps {
-//   id: number;
-//   text: string;
-//   link: string;
-//   type: string;
-// }
 
 interface DemoSliderProps {
   data: Slide[];
@@ -58,12 +51,17 @@ const DemoSlider = ({ data }: DemoSliderProps) => {
                       {title}
                     </p>
                     <div className="mt-8">
-                      <Button className="bg-white text-black font-thin rounded-sm cursor-pointer hover:bg-[#a6946b] hover:font-white delay-200 mr-2">
-                        <div className="p-4"> Shop now</div>
-                      </Button>
-                      <Button className="bg-white text-black font-thin rounded-sm cursor-pointer hover:bg-[#a6946b] hover:font-white delay-200 ml-2">
-                        <div className="p-4"> Collection</div>
-                      </Button>
+                      <Link href="/collections">
+                        <Button className="bg-white text-black font-thin rounded-sm cursor-pointer hover:bg-[#a6946b] hover:font-white delay-200 mr-2">
+                          <div className="p-4"> Shop now</div>
+                        </Button>
+                      </Link>
+
+                      <Link href="/collections">
+                        <Button className="bg-white text-black font-thin rounded-sm cursor-pointer hover:bg-[#a6946b] hover:font-white delay-200 ml-2">
+                          <div className="p-4"> Collection</div>
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </div>
