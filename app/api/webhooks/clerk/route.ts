@@ -27,6 +27,11 @@ export async function POST(req: Request) {
     });
   }
 
+  // Log headers
+  console.log("svix-id:", svix_id);
+  console.log("svix-timestamp:", svix_timestamp);
+  console.log("svix-signature:", svix_signature);
+
   // Get the body
   const payload = await req.json();
   const body = JSON.stringify(payload);
