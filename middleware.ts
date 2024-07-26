@@ -1,17 +1,16 @@
 import { authMiddleware } from "@clerk/nextjs/server";
 
-
 export default authMiddleware({
   publicRoutes: [
     "/",
     "/events/:id",
-    "/api/webhook/clerk",
-    "/api/webhook/stripe",
+    "/api/webhooks/clerk",
+    "/api/webhooks/stripe",
     "/api/uploadthing",
   ],
   ignoredRoutes: [
-    "/api/webhook/clerk",
-    "/api/webhook/stripe",
+    "/api/webhooks/clerk",
+    "/api/webhooks/stripe",
     "/api/uploadthing",
   ],
 });
