@@ -68,17 +68,23 @@ export async function POST(req: Request) {
       isAdmin: false,
     };
 
-    const newUser = await createUser(user);
+    try {
+      const newUser = await createUser(user);
+      console.log("New user created:", newUser);
 
-    if (newUser) {
-      await clerkClient.users.updateUserMetadata(id, {
-        publicMetadata: {
-          userId: newUser._id,
-        },
-      });
+      if (newUser) {
+        await clerkClient.users.updateUserMetadata(id, {
+          publicMetadata: {
+            userId: newUser._id,
+          },
+        });
+      }
+
+      return NextResponse.json({ message: "OK", user: newUser });
+    } catch (error) {
+      console.error("Error handling user.created event:", error);
+      return new Response("Error occurred", { status: 500 });
     }
-
-    return NextResponse.json({ message: "OK", user: newUser });
   }
 
   if (eventType === "user.updated") {
