@@ -28,9 +28,17 @@ export async function POST(req: Request) {
   }
 
   // Log headers
-  console.log("svix-id:", svix_id);
-  console.log("svix-timestamp:", svix_timestamp);
-  console.log("svix-signature:", svix_signature);
+
+  const svix_signature_parts = svix_signature.split(",");
+  const svix_signature_version = svix_signature_parts[0];
+  const svix_signature_value = svix_signature_parts[1];
+
+  console.log("Raw headers:", {
+    "svix-id": svix_id,
+    "svix-timestamp": svix_timestamp,
+    "svix-signature": svix_signature,
+    "svix-signature-value": svix_signature_value,
+  });
 
   // Get the body
   const payload = await req.json();
@@ -46,7 +54,7 @@ export async function POST(req: Request) {
     evt = wh.verify(body, {
       "svix-id": svix_id,
       "svix-timestamp": svix_timestamp,
-      "svix-signature": svix_signature,
+      "svix-signature": svix_signature_value,
     }) as WebhookEvent;
   } catch (err) {
     console.error("Error verifying webhook:", err);
