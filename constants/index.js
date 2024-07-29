@@ -509,3 +509,31 @@ export const dataEachProduct = [
     image: "/image/furniture-15-05.jpg",
   },
 ];
+
+export const sidebarLinks = [
+  {
+    imgURL: "/icon/home.svg",
+    route: "/admin/dashboard",
+    label: "Home",
+  },
+  {
+    imgURL: "/icon/leaderboard.svg",
+    route: "/admin/dashboard/leaderboard",
+    label: "Leaderboard",
+  },
+  {
+    imgURL: "/icon/cart.svg",
+    route: "/admin/dashboard/orders",
+    label: "Order",
+  },
+  {
+    imgURL: "/icon/products-major.svg",
+    route: "/admin/dashboard/products",
+    label: "Products",
+  },
+  {
+    imgURL: "/icon/messages-3.svg",
+    route: "/admin/dashboard/messages",
+    label: "Messages",
+  },
+];
