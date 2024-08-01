@@ -4,7 +4,7 @@ type Item = {
   featured: boolean;
   bestSelling: number;
   price: number;
-  date: string;
+  date: Date;
 };
 
 export const sortItems = (items: Item[], sortType: string): Item[] => {

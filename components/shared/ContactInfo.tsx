@@ -1,10 +1,53 @@
-// components/ContactInfo.tsx
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
 import Image from "next/image";
+import { createMessage } from "@/lib/actions/message.actions";
+
+interface MessageProps {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+}
 
 const ContactInfo = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const newMessage = await createMessage(formData);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+      alert("Message sent successfully!");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("An error occurred while sending the message.");
+    }
+  };
+
   return (
     <div className="py-20 px-5 bg-[#e9e8e4]">
       <div className="p-5 font-semibold text-4xl bg-[#ffffff] text-center mb-20">
@@ -77,38 +120,51 @@ const ContactInfo = () => {
         </div>
         <div className="w-full md:w-1/2 pl-4">
           <h2 className="text-2xl font-bold mb-4">Contact Form</h2>
-          <form className="space-y-4">
+
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Input
+              <input
                 type="text"
                 name="name"
+                value={formData.name}
+                onChange={handleChange}
                 placeholder="Name"
                 className="w-full p-3 border border-gray-300 rounded"
+                required
               />
             </div>
             <div>
-              <Input
+              <input
                 type="email"
                 name="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="Email"
                 className="w-full p-3 border border-gray-300 rounded"
+                required
               />
             </div>
             <div>
-              <Input
+              <input
                 type="text"
                 name="phone"
+                value={formData.phone}
+                onChange={handleChange}
                 placeholder="Phone number"
                 className="w-full p-3 border border-gray-300 rounded"
+                required
               />
             </div>
             <div>
-              <Textarea
-                name="comment"
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
                 placeholder="Comment"
                 className="w-full p-3 border border-gray-300 rounded"
                 rows={4}
-              ></Textarea>
+                required
+              ></textarea>
             </div>
             <button
               type="submit"

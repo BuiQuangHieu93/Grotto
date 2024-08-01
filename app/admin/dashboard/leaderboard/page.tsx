@@ -26,8 +26,6 @@ interface User {
 
 const Leaderboard: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [userToDelete, setUserToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -41,7 +39,7 @@ const Leaderboard: React.FC = () => {
     };
 
     fetchUsers();
-  }, []); // Dependency array should be empty to avoid infinite loop
+  }, []);
 
   const handleDelete = async (ClerkId: string) => {
     try {
@@ -49,7 +47,6 @@ const Leaderboard: React.FC = () => {
       // Refresh the page or re-fetch the users
       const fetchedUsers: User[] = await getAllUsers();
       setUsers(fetchedUsers);
-      setIsDeleteModalOpen(false);
     } catch (error) {
       console.error("Error deleting user:", error);
     }
@@ -101,20 +98,9 @@ const Leaderboard: React.FC = () => {
                 {user.isAdmin ? "Admin" : "User"}
               </td>
               <td className="py-2 px-4 border-b border-gray-200">
-                <Dialog
-                  open={isDeleteModalOpen}
-                  onOpenChange={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
-                >
+                <Dialog>
                   <DialogTrigger asChild>
-                    <Button
-                      variant="destructive"
-                      onClick={() => {
-                        setUserToDelete(user.clerkId);
-                        setIsDeleteModalOpen(true);
-                      }}
-                    >
-                      Delete Profile
-                    </Button>
+                    <Button variant="destructive">Delete Profile</Button>
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
@@ -137,9 +123,7 @@ const Leaderboard: React.FC = () => {
                               type="button"
                               variant="destructive"
                               onClick={() => {
-                                if (userToDelete) {
-                                  handleDelete(userToDelete);
-                                }
+                                handleDelete(user.clerkId);
                               }}
                             >
                               Delete

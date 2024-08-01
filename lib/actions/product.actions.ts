@@ -1,29 +1,30 @@
+"use server";
+
 import { connectToDatabase } from "../mongoose";
 import { handleError } from "../utils";
+import Furniture from "../models/product.models";
 
 interface CreateFurnitureParams {
-  id: string;
   images: string[];
   imageHover: string;
   title: string;
   originalPrice: number;
-  salePrice: number;
+  salePrice?: number;
   bestSelling: number;
-  date: string;
+  date: Date;
   available: number;
   feature: boolean;
   type: string;
 }
 
 interface UpdateFurnitureParams {
-  id: string;
   images?: string[];
   imageHover?: string;
   title?: string;
   originalPrice?: number;
   salePrice?: number;
   bestSelling?: number;
-  date?: string;
+  date?: Date;
   available?: number;
   feature?: boolean;
   type?: string;
@@ -32,6 +33,7 @@ interface UpdateFurnitureParams {
 export async function createFurniture(furniture: CreateFurnitureParams) {
   try {
     await connectToDatabase();
+    console.log("create furniture");
     const newFurniture = await Furniture.create(furniture);
     return JSON.parse(JSON.stringify(newFurniture));
   } catch (error) {

@@ -1,19 +1,18 @@
-const mongoose = require("mongoose");
+import { Schema, model, models } from "mongoose";
 
-const furnitureSchema = new mongoose.Schema({
-  id: { type: String, required: true },
+const FurnitureSchema = new Schema({
   images: { type: [String], required: true },
   imageHover: { type: String, required: true },
   title: { type: String, required: true },
   originalPrice: { type: Number, required: true },
-  salePrice: { type: Number, required: true },
+  salePrice: { type: Number, required: false },
   bestSelling: { type: Number, required: true },
-  date: { type: String, required: true },
+  date: { type: Date, required: true },
   available: { type: Number, required: true },
   feature: { type: Boolean, required: true },
   type: { type: String, required: true },
 });
 
-const Furniture = mongoose.model("Furniture", furnitureSchema);
+const Furniture = models.Furniture || model("Furniture", FurnitureSchema);
 
-module.exports = Furniture;
+export default Furniture;
