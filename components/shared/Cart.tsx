@@ -11,7 +11,7 @@ import {
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 const Cart = () => {
   return (

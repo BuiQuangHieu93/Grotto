@@ -13,9 +13,9 @@ export interface BlogDataProps {
 export interface Slide {
   id: number;
   title: string;
-  tagline: string;
+  tagline?: string;
   image: string;
-  count: number;
+  count?: number;
 }
 
 export interface DemoSliderProps {

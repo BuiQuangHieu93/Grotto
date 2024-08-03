@@ -1,5 +1,5 @@
 import Sidebar from "@/components/dashboard/Sidebar";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 export default async function RootLayout({
   children,

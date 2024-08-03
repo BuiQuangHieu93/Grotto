@@ -1,7 +1,7 @@
 "use client";
 import { BlogData } from "@/constants";
 import { BlogDataProps } from "@/types";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import React from "react";
 
 const Page = () => {
@@ -13,14 +13,14 @@ const Page = () => {
         </div>
       </div>
       <div className="grid grid-cols-2 gap-12">
-        {BlogData.map((item: BlogDataProps) => (
-          <div key={item.id} className="group">
-            <div className="w-[650px] h-[433px] overflow-hidden">
+        {BlogData.map((data: BlogDataProps) => (
+          <div key={data.id} className="group">
+            <div className="relative w-[650px] h-[433px] overflow-hidden">
               <Image
-                src={item.image}
-                width={700}
-                height={650}
-                alt={`image-${item.id}`}
+                src={data.image}
+                layout="fill"
+                style={{ objectFit: "cover" }}
+                alt={`image-${data.id}`}
                 className="transition-transform duration-300 group-hover:scale-110"
               />
             </div>
@@ -34,12 +34,12 @@ const Page = () => {
                     alt="calendar"
                   />
                 </span>
-                <div className="pl-4">{item.day}</div>
+                <div className="pl-4">{data.day}</div>
                 <span className="px-2">&bull;</span>
-                <div>{item.location}</div>
+                <div>{data.location}</div>
               </div>
               <div className="text-2xl font-semibold pb-4 group-hover:text-[#a6946b] h-20">
-                {item.title}
+                {data.title}
               </div>
               <div
                 className="text-[#666666] font-normal text-sm "
@@ -51,7 +51,7 @@ const Page = () => {
                   textOverflow: "ellipsis",
                 }}
               >
-                {item.detail}
+                {data.detail}
               </div>
             </div>
           </div>

@@ -6,7 +6,7 @@ import { generateClientDropzoneAccept } from "uploadthing/client";
 
 import { Button } from "@/components/ui/button";
 import { convertFileToUrl } from "@/lib/utils";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 type FileUploaderProps = {
   onFieldChange: (url: string) => void;

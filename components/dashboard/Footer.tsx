@@ -1,7 +1,7 @@
 import { SignOutButton } from "@clerk/nextjs";
 import React from "react";
 import { Button } from "../ui/button";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 const Footer = () => {
   return (

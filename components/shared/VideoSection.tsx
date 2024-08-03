@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 const VideoSection: React.FC = () => {
   const [clicked, setClicked] = useState(false);
@@ -18,13 +18,13 @@ const VideoSection: React.FC = () => {
       ) : (
         <div
           onClick={() => setClicked(true)}
-          className="cursor-pointer relative"
+          className="cursor-pointer relative w-full h-96"
         >
           <Image
             src="/image/L01-video.webp"
             alt="Video Thumbnail"
-            width={500}
-            height={300}
+            layout="fill"
+            style={{ objectFit: "cover" }}
             className="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-500"
           />
           <div className="absolute inset-0 flex items-center justify-center">

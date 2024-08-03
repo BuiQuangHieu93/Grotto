@@ -1,6 +1,6 @@
 "use client";
 import { getAllUsers, deleteUser } from "@/lib/actions/user.actions";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {

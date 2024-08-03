@@ -1,7 +1,7 @@
 import BlogCard from "@/components/shared/BlogCard";
 import { Button } from "@/components/ui/button";
 import { BlogData } from "@/constants";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import React from "react";
 
@@ -21,13 +21,17 @@ const Page = () => {
           </h2>
           <div className="h-[500px] overflow-y-auto rounded-b-md">
             {BlogData.map((data) => (
-              <div className="flex flex-row p-4" key={data.id}>
+              <Link
+                className="flex flex-row p-4"
+                key={data.id}
+                href={`/blogs/news/${data.id}`}
+              >
                 <div className="pr-4">
                   <div className="relative w-20 h-20">
                     <Image
                       src={data.image}
                       alt="image"
-                      fill
+                      layout="fill"
                       style={{ objectFit: "cover" }}
                     />
                   </div>
@@ -48,7 +52,7 @@ const Page = () => {
                     <div className="text-[#a6946b]">{data.day}</div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -57,8 +61,8 @@ const Page = () => {
             <div className="w-full overflow-hidden">
               <Image
                 src={item.image}
-                width={1000}
-                height={1000}
+                width={1034}
+                height={688}
                 alt={`image-${item.id}`}
                 className="transition-transform duration-300"
               />

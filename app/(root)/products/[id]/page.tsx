@@ -3,7 +3,7 @@
 import ImageZoom from "@/components/shared/ImageZoom";
 import { Button } from "@/components/ui/button";
 import { dataEachProduct } from "@/constants";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useParams } from "next/navigation";
 import React, { useState } from "react";
 

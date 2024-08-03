@@ -1,5 +1,5 @@
 import { ImageProps } from "@/types";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import React, { useState } from "react";
 
 const ImageZoom = ({ src, alt, width, height }: ImageProps) => {
