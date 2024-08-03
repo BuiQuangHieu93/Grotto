@@ -1,23 +1,15 @@
+import { RangeSliderProps } from "@/types";
 import React, { useState } from "react";
 import { Range, getTrackBackground } from "react-range";
 
-interface RangeSliderProps {
-  min: number;
-  max: number;
-  step: number;
-  priceGap: number;
-  values: number[];
-  onChange: (values: number[]) => void;
-}
-
-const RangeSlider: React.FC<RangeSliderProps> = ({
+const RangeSlider = ({
   min,
   max,
   step,
   priceGap,
   values,
   onChange,
-}) => {
+}: RangeSliderProps) => {
   const handleChange = (values: number[]) => {
     if (values[1] - values[0] >= priceGap) {
       onChange(values);

@@ -3,25 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Button } from "../ui/button";
-
-interface Furniture {
-  id: string;
-  image: string;
-  imageHover: string;
-  title: string;
-  originalPrice: number;
-  salePrice: number;
-  bestSelling: number;
-  date: string;
-  available: number;
-  feature: boolean;
-  type: string;
-}
-
-interface FurnitureData {
-  data: Furniture;
-  type: "origin" | "horizon";
-}
+import { FurnitureData } from "@/types";
 
 const FurnitureCard = ({ data, type }: FurnitureData) => {
   const [hover, setHover] = useState(false);
@@ -49,7 +31,7 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
         <div className={`relative overflow-hidden`}>
           <div>
             <Image
-              src={hover ? data?.imageHover : data?.image}
+              src={hover ? data?.imageHover : data?.images?.[0]}
               height={600}
               width={600}
               alt="furniture"

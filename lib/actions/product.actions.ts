@@ -3,32 +3,7 @@
 import { connectToDatabase } from "../mongoose";
 import { handleError } from "../utils";
 import Furniture from "../models/product.models";
-
-interface CreateFurnitureParams {
-  images: string[];
-  imageHover: string;
-  title: string;
-  originalPrice: number;
-  salePrice?: number;
-  bestSelling: number;
-  date: Date;
-  available: number;
-  feature: boolean;
-  type: string;
-}
-
-interface UpdateFurnitureParams {
-  images?: string[];
-  imageHover?: string;
-  title?: string;
-  originalPrice?: number;
-  salePrice?: number;
-  bestSelling?: number;
-  date?: Date;
-  available?: number;
-  feature?: boolean;
-  type?: string;
-}
+import { CreateFurnitureParams, UpdateFurnitureParams } from "@/types";
 
 export async function createFurniture(furniture: CreateFurnitureParams) {
   try {

@@ -5,34 +5,8 @@ import {
   createFurniture,
   getAllFurniture,
 } from "@/lib/actions/product.actions";
+import { Furniture, GetFurniture } from "@/types";
 import { useState, useEffect } from "react";
-
-interface Furniture {
-  images: string[];
-  imageHover: string;
-  title: string;
-  originalPrice: number;
-  salePrice?: number;
-  bestSelling: number;
-  date: Date;
-  available: number;
-  feature: boolean;
-  type: string;
-}
-
-interface GetFurniture {
-  _id: string;
-  images: string[];
-  imageHover: string;
-  title: string;
-  originalPrice: number;
-  salePrice?: number;
-  bestSelling: number;
-  date: Date;
-  available: number;
-  feature: boolean;
-  type: string;
-}
 
 export default function Home() {
   const [products, setProducts] = useState<GetFurniture[]>([]);

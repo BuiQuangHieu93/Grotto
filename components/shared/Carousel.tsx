@@ -7,27 +7,17 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { DemoSliderProps } from "@/types";
 
-interface Slide {
-  id: number;
-  title: string;
-  tagline: string;
-  image: string;
-}
-
-interface DemoSliderProps {
-  data: Slide[];
-}
-
-const DemoSlider = ({ data }: DemoSliderProps) => {
+const DemoSlider: React.FC<DemoSliderProps> = ({ data }) => {
   return (
     <section className="w-full">
-      <div className=" h-screen">
+      <div className="h-screen">
         <ul className="h-full w-full">
           <Swiper
             navigation
             pagination={{ type: "bullets", clickable: true }}
-            autoplay={true}
+            autoplay={{ delay: 2500 }}
             loop={true}
             modules={[Autoplay, Navigation, Pagination]}
           >
@@ -53,13 +43,13 @@ const DemoSlider = ({ data }: DemoSliderProps) => {
                     <div className="mt-8">
                       <Link href="/collections">
                         <Button className="bg-white text-black font-thin rounded-sm cursor-pointer hover:bg-[#a6946b] hover:font-white delay-200 mr-2">
-                          <div className="p-4"> Shop now</div>
+                          <div className="p-4">Shop now</div>
                         </Button>
                       </Link>
 
                       <Link href="/collections">
                         <Button className="bg-white text-black font-thin rounded-sm cursor-pointer hover:bg-[#a6946b] hover:font-white delay-200 ml-2">
-                          <div className="p-4"> Collection</div>
+                          <div className="p-4">Collection</div>
                         </Button>
                       </Link>
                     </div>

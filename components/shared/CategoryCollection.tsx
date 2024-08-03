@@ -7,19 +7,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Image from "next/image";
 import Link from "next/link";
+import { DemoSliderProps } from "@/types";
 
-interface Slider {
-  id: number;
-  image: string;
-  title: string;
-  count: number;
-}
-
-interface PropSlider {
-  data: Slider[];
-}
-
-const CategoryCollection = ({ data }: PropSlider) => {
+const CategoryCollection = ({ data }: DemoSliderProps) => {
   return (
     <div className="w-full bg-[#13392c] flex-center pb-20">
       <div className="relative w-[95%] overflow-hidden">

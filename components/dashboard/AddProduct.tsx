@@ -13,23 +13,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { UploadButton } from "@/lib/uploadthing";
 import { Value } from "@radix-ui/react-select";
-
-interface Furniture {
-  images: string[];
-  imageHover: string;
-  title: string;
-  originalPrice: number;
-  salePrice?: number;
-  bestSelling: number;
-  date: Date;
-  available: number;
-  feature: boolean;
-  type: string;
-}
-
-interface AddProductModalProps {
-  onSave: (newProduct: Furniture) => void;
-}
+import { AddProductModalProps, Furniture } from "@/types";
 
 const AddProductModal: React.FC<AddProductModalProps> = ({ onSave }) => {
   const [fileUrl, setFileUrl] = useState<string[]>([]);
@@ -248,13 +232,14 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onSave }) => {
                 </div>
               </div>
             </div>
-
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-6"
-            >
-              Submit
-            </button>
+            <DialogClose asChild>
+              <Button
+                type="submit"
+                className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-6"
+              >
+                Submit
+              </Button>
+            </DialogClose>
           </div>
         </form>
       </DialogContent>

@@ -1,16 +1,8 @@
 "use client";
 import { BlogData } from "@/constants";
+import { BlogDataProps } from "@/types";
 import Image from "next/image";
 import React from "react";
-
-interface BlogDataProps {
-  id: number;
-  image: string;
-  day: string;
-  location: string;
-  title: string;
-  detail: string;
-}
 
 const Page = () => {
   return (

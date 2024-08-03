@@ -1,12 +1,6 @@
+import { ImageProps } from "@/types";
 import Image from "next/image";
 import React, { useState } from "react";
-
-interface ImageProps {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-}
 
 const ImageZoom = ({ src, alt, width, height }: ImageProps) => {
   const [zoomProps, setZoomProps] = useState({

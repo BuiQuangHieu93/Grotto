@@ -1,18 +1,7 @@
+import { BlogDataProps } from "@/types";
 import Image from "next/image";
 
-interface BlogCardProps {
-  id: number;
-  image: string;
-  day: string;
-  location: string;
-  title: string;
-}
-
-interface BlogCardData {
-  data: BlogCardProps;
-}
-
-const BlogCard = ({ data }: BlogCardData) => {
+const BlogCard = (data: BlogDataProps) => {
   return (
     <div className="">
       <Image src={data?.image} width={476} height={287} alt={`${data?.id}`} />

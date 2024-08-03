@@ -13,16 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
-interface User {
-  clerkId: string;
-  email: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  photo: string;
-  isAdmin: boolean;
-}
+import { User } from "@/types";
 
 const Leaderboard: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);

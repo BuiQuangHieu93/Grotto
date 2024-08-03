@@ -5,23 +5,35 @@ import { handleError } from "@/lib/utils";
 import { connectToDatabase } from "../mongoose";
 import User from "../models/user.models";
 import { clerkClient } from "@clerk/nextjs/server";
-
-interface CreateUserParams {
-  clerkId: string;
-  firstName: string | null;
-  lastName: string | null;
-  username: string;
-  email: string;
-  photo: string;
-  isAdmin: boolean;
-}
+import mongoose from "mongoose";
+import Cart from "../models/cart.model";
+import { CreateUserParams, UpdateUserParams } from "@/types";
 
 export async function createUser(user: CreateUserParams) {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
   try {
     await connectToDatabase();
-    const newUser = await User.create(user);
-    return JSON.parse(JSON.stringify(newUser));
+
+    // Create the user
+    const newUser = await User.create([user], { session });
+
+    // Create an empty cart for the new user
+    const newCart = new Cart({
+      user: newUser[0].clerkId,
+      items: [],
+      totalPrice: 0,
+    });
+    await newCart.save({ session });
+
+    await session.commitTransaction();
+    session.endSession();
+
+    return JSON.parse(JSON.stringify(newUser[0]));
   } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
     handleError(error);
   }
 }
@@ -51,13 +63,6 @@ export async function CheckUserRoleById(userId: string) {
   } catch (error) {
     handleError(error);
   }
-}
-
-interface UpdateUserParams {
-  firstName: string;
-  lastName: string;
-  username: string;
-  photo: string;
 }
 
 export async function updateUser(clerkId: string, user: UpdateUserParams) {

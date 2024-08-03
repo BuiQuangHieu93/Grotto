@@ -9,7 +9,7 @@ const AboutusSection = () => {
           <Image
             src="/image/L01-cms-01.webp"
             layout="fill"
-            objectFit="cover"
+            style={{ objectFit: "cover" }}
             alt=""
             className="hover:scale-110 transition-transform duration-300"
           />

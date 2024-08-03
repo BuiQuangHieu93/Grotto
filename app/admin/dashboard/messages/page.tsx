@@ -17,17 +17,10 @@ import emailjs from "@emailjs/browser";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-
-interface Message {
-  _id: string;
-  name: string;
-  email: string;
-  phone: string;
-  message: string;
-}
+import { GetMessage } from "@/types";
 
 const Messages: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<GetMessage[]>([]);
   const [mailForm, setMailForm] = useState({
     from_name: "",
     to_name: "",

@@ -1,17 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Textarea } from "../ui/textarea";
-import { Input } from "../ui/input";
 import Image from "next/image";
 import { createMessage } from "@/lib/actions/message.actions";
-
-interface MessageProps {
-  name: string;
-  email: string;
-  phone: string;
-  message: string;
-}
 
 const ContactInfo = () => {
   const [formData, setFormData] = useState({

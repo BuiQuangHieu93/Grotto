@@ -1,17 +1,9 @@
 "use client";
+import { CardProps } from "@/types";
 import Image from "next/image";
 import React, { useState } from "react";
 
-interface CardProps {
-  image: string;
-  title: string;
-}
-
-interface CardData {
-  data: CardProps;
-}
-
-const CollectionCard = ({ data }: CardData) => {
+const CollectionCard = (data: CardProps) => {
   const [hover, setHover] = useState(false);
   return (
     <div

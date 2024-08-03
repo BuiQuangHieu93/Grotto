@@ -1,29 +1,13 @@
 import React from "react";
 
 import Image from "next/image";
+import { Furniture } from "@/types";
 
-interface Furniture {
-  images: string[];
-  imageHover: string;
-  title: string;
-  originalPrice: number;
-  salePrice?: number;
-  bestSelling: number;
-  date: Date;
-  available: number;
-  feature: boolean;
-  type: string;
-}
-
-interface ProductCardProps {
-  product: Furniture;
-}
-
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard = (product: Furniture) => {
   return (
     <div className="border rounded-lg shadow-md p-4 flex flex-col items-center">
       <Image
-        src={product.images[0]}
+        src={product.images?.[0]}
         alt={product.title}
         className="w-full h-48 object-cover rounded-lg"
         height={48}

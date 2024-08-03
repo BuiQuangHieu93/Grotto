@@ -15,6 +15,7 @@ import {
 import { useAuth } from "@clerk/nextjs";
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
+import Cart from "./Cart";
 
 const Navbar = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -120,16 +121,7 @@ const Navbar = () => {
             </Link>
           )}
 
-          <Button className="bg-[#a6946b] group hover:bg-[#a6946b]">
-            <Image
-              src="/icon/briefcase.svg"
-              height={24}
-              width={24}
-              alt="briefcase"
-              className="mr-2 group-hover:scale-110 duration-300"
-            />
-            <span className="font-normal"> Cart(0)</span>
-          </Button>
+          <Cart />
         </div>
       </div>
     </nav>

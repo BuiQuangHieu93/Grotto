@@ -1,17 +1,11 @@
 "use server";
 
+import { CreateMessage } from "@/types";
 import Message from "../models/message.models";
 import { connectToDatabase } from "../mongoose";
 import { handleError } from "../utils";
 
-interface MessageCreateParams {
-  name: string;
-  email: string;
-  phone: string;
-  message: string;
-}
-
-export async function createMessage(message: MessageCreateParams) {
+export async function createMessage(message: CreateMessage) {
   try {
     await connectToDatabase();
     const newMessage = await Message.create(message);
