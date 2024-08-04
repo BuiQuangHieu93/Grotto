@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/legacy/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -11,10 +11,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FurnitureTrending } from "@/constants";
 import FurnitureCard from "@/components/shared/FurnitureCard";
 import { Checkbox } from "@/components/ui/checkbox";
 import RangeSlider from "@/components/shared/RangeSlider";
+import { GetFurniture } from "@/types";
+import { getAllFurniture } from "@/lib/actions/product.actions";
 
 const Page = () => {
   const [open, setOpen] = useState(false);
@@ -23,20 +24,30 @@ const Page = () => {
   const [listType, setListType] = useState("three");
   const [sortOption, setSortOption] = useState("featured");
   const [priceRange, setPriceRange] = useState([0, 320]);
+  const [product, setProduct] = useState<GetFurniture[]>([]);
 
   const handleSortChange = (value: any) => {
     setSortOption(value);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const furniture = await getAllFurniture();
+      setProduct(furniture);
+    };
+
+    fetchData();
+  }, []);
+
   const filterAndSortFurniture = () => {
-    let filteredData = FurnitureTrending;
+    let filteredData = product;
 
     filteredData = filteredData.filter((item) => item.available > 0);
 
-    filteredData = filteredData.filter(
-      (item) =>
-        item.salePrice >= priceRange[0] && item.salePrice <= priceRange[1]
-    );
+    filteredData = filteredData.filter((item) => {
+      const price = item.salePrice ?? item.originalPrice;
+      return price >= priceRange[0] && price <= priceRange[1];
+    });
 
     // Sort the filtered data
     switch (sortOption) {
@@ -57,10 +68,18 @@ const Page = () => {
         filteredData.sort((a, b) => b.title.localeCompare(a.title));
         break;
       case "priceHighToLow":
-        filteredData.sort((a, b) => b.salePrice - a.salePrice);
+        filteredData.sort((a, b) => {
+          const priceA = a.salePrice ?? a.originalPrice;
+          const priceB = b.salePrice ?? b.originalPrice;
+          return priceB - priceA;
+        });
         break;
       case "priceLowToHigh":
-        filteredData.sort((a, b) => a.salePrice - b.salePrice);
+        filteredData.sort((a, b) => {
+          const priceA = a.salePrice ?? a.originalPrice;
+          const priceB = b.salePrice ?? b.originalPrice;
+          return priceA - priceB;
+        });
         break;
       case "dateNewToOld":
         filteredData.sort(
@@ -121,7 +140,7 @@ const Page = () => {
                       htmlFor="terms"
                       className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 hover:text-[#a6946b]"
                     >
-                      In stock ({FurnitureTrending.length})
+                      In stock ({product.length})
                     </label>
                   </div>
                   <div className="flex items-center space-x-2 p-4">
@@ -292,8 +311,7 @@ const Page = () => {
                 </div>
               </div>
               <div className="bg-[#e9e8e4] px-2 rounded-xl font-semibold text-sm flex-center">
-                {filteredAndSortedFurniture.length} of{" "}
-                {FurnitureTrending.length} products
+                {filteredAndSortedFurniture.length} of {product.length} products
               </div>
             </div>
             <div
