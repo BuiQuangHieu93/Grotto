@@ -1,3 +1,5 @@
+"use server";
+
 import mongoose from "mongoose";
 import { handleError } from "../utils";
 import { connectToDatabase } from "../mongoose";
@@ -6,11 +8,22 @@ import Furniture from "../models/product.models";
 import {
   AddItemsParams,
   CartItem,
+  CreateCartParams,
   DeleteItemParams,
   UpdateCartParams,
 } from "@/types";
 
-export const getCartByUserId = async (userId: mongoose.Types.ObjectId) => {
+export const createCart = async (cart: CreateCartParams) => {
+  try {
+    connectToDatabase();
+    const newCart = await Cart.create(cart);
+    return JSON.parse(JSON.stringify(newCart));
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const getCartByUserId = async (userId: String) => {
   try {
     await connectToDatabase();
 
@@ -27,8 +40,15 @@ export const addItemsToCart = async ({ userId, items }: AddItemsParams) => {
   try {
     await connectToDatabase();
 
-    const cart = await Cart.findOne({ user: userId }).populate("items.product");
-    if (!cart) throw new Error("Cart not found");
+    let cart = await Cart.findOne({ user: userId }).populate("items.product");
+    if (!cart) {
+      await createCart({
+        user: userId,
+        items: [],
+        totalPrice: 0,
+      });
+      cart = await Cart.findOne({ user: userId }).populate("items.product");
+    }
 
     items.forEach((newItem) => {
       const existingItem = cart.items.find(
@@ -44,7 +64,7 @@ export const addItemsToCart = async ({ userId, items }: AddItemsParams) => {
 
     cart.totalPrice = await calculateTotalPrice(cart.items);
     await cart.save();
-    return cart;
+    return JSON.parse(JSON.stringify(cart));
   } catch (error) {
     handleError(error);
   }
@@ -65,7 +85,7 @@ export const updateCart = async ({
     ).populate("items.product");
 
     if (!updatedCart) throw new Error("Cart not found");
-    return updatedCart;
+    return JSON.parse(JSON.stringify(updatedCart));
   } catch (error) {
     handleError(error);
   }
@@ -87,7 +107,7 @@ export const deleteItemInCart = async ({
     cart.totalPrice = await calculateTotalPrice(cart.items);
 
     await cart.save();
-    return cart;
+    return JSON.parse(JSON.stringify(cart));
   } catch (error) {
     handleError(error);
   }
@@ -104,7 +124,7 @@ export const clearCart = async (userId: mongoose.Types.ObjectId) => {
     cart.totalPrice = 0;
 
     await cart.save();
-    return cart;
+    return JSON.parse(JSON.stringify(cart));
   } catch (error) {
     handleError(error);
   }

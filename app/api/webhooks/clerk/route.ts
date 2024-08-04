@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { clerkClient, WebhookEvent } from "@clerk/nextjs/server";
 import { createUser, deleteUser, updateUser } from "@/lib/actions/user.actions";
 import { NextResponse } from "next/server";
+import { createCart } from "@/lib/actions/cart.actions";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
@@ -72,6 +73,11 @@ export async function POST(req: Request) {
     try {
       const newUser = await createUser(user);
       console.log("New user created:", newUser);
+      const newCart = await createCart({
+        user: id,
+        items: [],
+        totalPrice: 0,
+      });
 
       if (newUser) {
         await clerkClient.users.updateUserMetadata(id, {

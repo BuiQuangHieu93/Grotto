@@ -1,5 +1,5 @@
 "use client";
-import { FurnitureTrending } from "@/constants";
+
 import FurnitureCard from "./FurnitureCard";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -8,6 +8,7 @@ import { GetFurniture } from "@/types";
 
 const CollectionSlider = () => {
   const [product, setProduct] = useState<GetFurniture[]>([]);
+
   useEffect(() => {
     const fetchData = async () => {
       const furniture = await getAllFurniture();

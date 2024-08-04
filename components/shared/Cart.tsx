@@ -1,3 +1,4 @@
+"use client";
 import {
   Sheet,
   SheetClose,
@@ -9,11 +10,24 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import { Button } from "../ui/button";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
 import Image from "next/legacy/image";
+import { useEffect, useState } from "react";
+import { getCartByUserId } from "@/lib/actions/cart.actions";
+import { useAuth } from "@clerk/nextjs";
+import { CartItem } from "@/types";
 
 const Cart = () => {
+  // const [product, setProduct] = useState<CartItem>([]);
+  // const { userId } = useAuth();
+  // useEffect(() => {
+  //   const fetchCart = () => {
+  //     if (userId) {
+  //       const product = getCartByUserId(userId);
+  //       setProduct(product);
+  //     }
+  //   };
+  //   fetchCart();
+  // }, [userId]);
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -30,24 +44,18 @@ const Cart = () => {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
+          <SheetTitle className="text-2xl">Main Cart</SheetTitle>
           <SheetDescription>
-            Make changes to your profile here. Click save when you're done.
+            Buy $1,740.00 enjoy Free shipping within USA.
           </SheetDescription>
         </SheetHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input id="name" value="Pedro Duarte" className="col-span-3" />
+        <div className="flex flex-col">
+          <div className="flex flex-row justify-between py-2">
+            <span className="text-sm text-[#333333] ">Product</span>
+            <span className="text-sm text-[#333333]">Total</span>
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label>
-            <Input id="username" value="@peduarte" className="col-span-3" />
-          </div>
+          <div className="w-full h-[1px] bg-[#666666] mb-2"></div>
+          {}
         </div>
         <SheetFooter>
           <SheetClose asChild>

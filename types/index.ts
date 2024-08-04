@@ -30,8 +30,6 @@ export interface CardProps {
 export interface ImageProps {
   src: string;
   alt: string;
-  width: number;
-  height: number;
 }
 
 export interface RangeSliderProps {
@@ -152,23 +150,29 @@ export interface AddProductModalProps {
 
 //Cart actions
 
+export interface CreateCartParams {
+  user: String;
+  items: { product: String; quantity: number }[];
+  totalPrice: Number;
+}
+
 export interface AddItemsParams {
-  userId: mongoose.Types.ObjectId;
-  items: { product: mongoose.Types.ObjectId; quantity: number }[];
+  userId: String;
+  items: { product: String; quantity: number }[];
 }
 
 export interface UpdateCartParams {
-  userId: mongoose.Types.ObjectId;
-  items: { product: mongoose.Types.ObjectId; quantity: number }[];
+  userId: String;
+  items: { product: String; quantity: number }[];
   totalPrice: number;
 }
 
 export interface DeleteItemParams {
-  userId: mongoose.Types.ObjectId;
-  productId: mongoose.Types.ObjectId;
+  userId: String;
+  productId: String;
 }
 
 export interface CartItem {
-  product: mongoose.Types.ObjectId;
+  product: String;
   quantity: number;
 }

@@ -2,7 +2,7 @@ import { ImageProps } from "@/types";
 import Image from "next/legacy/image";
 import React, { useState } from "react";
 
-const ImageZoom = ({ src, alt, width, height }: ImageProps) => {
+const ImageZoom = ({ src, alt }: ImageProps) => {
   const [zoomProps, setZoomProps] = useState({
     display: "none",
     zoomX: "0%",
@@ -35,17 +35,19 @@ const ImageZoom = ({ src, alt, width, height }: ImageProps) => {
 
   return (
     <div
-      className={`relative w-[${width}px] h-[${height}px]`}
+      className="relative w-full h-0 pb-[100%]" // Makes the container responsive
       onMouseMove={handleMouseMove}
       onMouseOut={handleMouseOut}
     >
-      <Image
-        src={src}
-        alt={alt}
-        height={height}
-        width={width}
-        className="object-cover object-top"
-      />
+      <div className="absolute inset-0">
+        <Image
+          src={src}
+          alt={alt}
+          layout="fill"
+          style={{ objectFit: "cover" }}
+          className="object-cover object-top"
+        />
+      </div>
       <div
         className="absolute inset-0 bg-black"
         style={{

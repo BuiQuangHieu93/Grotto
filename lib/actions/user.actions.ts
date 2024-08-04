@@ -10,31 +10,15 @@ import Cart from "../models/cart.model";
 import { CreateUserParams, UpdateUserParams } from "@/types";
 
 export async function createUser(user: CreateUserParams) {
-  const session = await mongoose.startSession();
-  session.startTransaction();
-
   try {
     await connectToDatabase();
 
-    // Create the user
-    const newUser = await User.create([user], { session });
-
-    // Create an empty cart for the new user
-    const newCart = new Cart({
-      user: newUser[0].clerkId,
-      items: [],
-      totalPrice: 0,
-    });
-    await newCart.save({ session });
-
-    await session.commitTransaction();
-    session.endSession();
+    const newUser = await User.create(user);
 
     return JSON.parse(JSON.stringify(newUser[0]));
   } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
-    handleError(error);
+    console.error("Error creating user and cart:", error); // Enhanced error logging
+    handleError(error); // Ensure handleError function is defined
   }
 }
 

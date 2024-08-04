@@ -2,43 +2,81 @@
 
 import ImageZoom from "@/components/shared/ImageZoom";
 import { Button } from "@/components/ui/button";
-import { dataEachProduct } from "@/constants";
+import { addItemsToCart, createCart } from "@/lib/actions/cart.actions";
+import { getFurnitureById } from "@/lib/actions/product.actions";
+import { GetFurniture } from "@/types";
+import { useAuth } from "@clerk/nextjs";
 import Image from "next/legacy/image";
 import { useParams } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Page = () => {
   const [value, setValue] = useState<number>(1);
-  const product = useParams();
-  console.log(product.id);
+  const [product, setProduct] = useState<GetFurniture>();
+  const item = useParams();
+  const { userId } = useAuth();
 
   //  find id and display as object
+  useEffect(() => {
+    const fetchProduct = async () => {
+      if (typeof item.id === "string") {
+        const product = await getFurnitureById(item.id);
+        setProduct(product);
+      } else {
+        console.error("Invalid product ID");
+      }
+    };
+    fetchProduct();
+    console.log(product);
+  }, [item.id]);
+
+  const handleAddToCart = async () => {
+    if (product?._id && userId) {
+      const addItem = await addItemsToCart({
+        userId,
+        items: [{ product: product._id, quantity: value }],
+      });
+      console.log(addItem);
+      // const createNewCart = await createCart({
+      //   user: userId,
+      //   items: [],
+      //   totalPrice: 0,
+      // });
+      // console.log(createNewCart);
+    } else {
+      console.error("Product ID or User ID is missing");
+    }
+  };
 
   return (
     <div className="grid grid-cols-2 gap-6 px-5 py-20 bg-[#e9e8e4]">
       <div className="grid grid-cols-2 gap-8">
-        {dataEachProduct.map((image, index) => (
-          <div key={index} className={index === 0 ? "col-span-2" : ""}>
-            <ImageZoom
-              src={image.image}
-              alt="Magnified Image"
-              width={750}
-              height={250}
-            />
+        {product?.images.map((image, index) => (
+          <div key={index} className={`${index === 0 ? "col-span-2" : ""}`}>
+            <ImageZoom src={image} alt="Magnified Image" />
           </div>
         ))}
       </div>
       <div className="flex flex-col space-y-4 mr-32 ml-20 sticky top-0 items-start h-[550px]">
-        <div className="text-sm text-[#666666]">Home furniture</div>
-        <div className="text-3xl font-medium">Decade Stacking Chair</div>
-        <div className="text-base">
-          <span className="line-through font-normal text-[#666666]">
-            $160.00 USD
-          </span>
-          <span className="font-semibold text-lg ml-2">$150.00 USD</span>
-          <span className="bg-[#d3c3a4] text-gray-100 text-xs ml-2 px-2.5 py-0.5 rounded-sm">
-            Sale
-          </span>
+        <div className="text-sm text-[#666666]">{product?.type} furniture</div>
+        <div className="text-3xl font-medium">{product?.title}</div>
+        <div className="text-base flex flex-row">
+          <div className="flex-center">
+            <span className="line-through font-normal text-[#666666]">
+              ${product?.originalPrice.toFixed(2)} USD
+            </span>
+          </div>
+
+          {product?.salePrice && (
+            <div>
+              <span className="font-semibold text-lg ml-2">
+                ${product?.salePrice.toFixed(2)} USD
+              </span>
+              <span className="bg-[#d3c3a4] text-gray-100 text-xs ml-2 px-2.5 py-0.5 rounded-sm">
+                Sale
+              </span>
+            </div>
+          )}
         </div>
         <div className="flex items-center space-x-2 text-sm text-[#333333] font-normal">
           <svg
@@ -110,13 +148,13 @@ const Page = () => {
               ></circle>
             </svg>
           </div>
-          <span>Only 50 left in stock!</span>
+          <span>Only {product?.available} left in stock!</span>
         </div>
         <div className="w-full h-1 bg-gray-900 my-4 rounded-full"></div>
         <div className="text-sm text-[#333333] font-normal">Quantity</div>
         <div className="flex-row w-full flex">
           <div className="flex-center h-full">
-            <div className="flex-center border-[1px] border-black rounded-lg">
+            <div className="flex-center border-[2px] border-[#cccccc] rounded-lg">
               <Button
                 onClick={() => setValue(value > 1 ? value - 1 : 1)}
                 className="bg-[#ffffff] rounded-l-md hover:bg-[#a6946b] text-gray-900"
@@ -135,7 +173,10 @@ const Page = () => {
             </div>
           </div>
           <div className="flex-center h-full w-full ml-2">
-            <Button className="py-2 bg-[#d3c3a4] text-white w-full uppercase">
+            <Button
+              className="py-2 bg-[#d3c3a4] text-white w-full uppercase"
+              onClick={() => handleAddToCart()}
+            >
               Add to cart
             </Button>
           </div>

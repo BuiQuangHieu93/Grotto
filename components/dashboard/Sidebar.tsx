@@ -54,7 +54,7 @@ const Sidebar = () => {
                 <Image
                   src={item.imgURL}
                   alt={item.label}
-                  fill
+                  layout="fill"
                   className={cn({
                     "brightness-[3] invert-0": isActive,
                   })}

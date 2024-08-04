@@ -1,17 +1,20 @@
 import React from "react";
-
 import Image from "next/legacy/image";
-import { Furniture } from "@/types";
+import { GetFurniture } from "@/types";
 
-const ProductCard = (product: Furniture) => {
+interface ProductCardProps {
+  product: GetFurniture;
+}
+
+const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div className="border rounded-lg shadow-md p-4 flex flex-col items-center">
       <Image
         src={product.images?.[0]}
         alt={product.title}
         className="w-full h-48 object-cover rounded-lg"
-        height={48}
-        width={48}
+        height={192} // Adjusted for better aspect ratio
+        width={192} // Adjusted for better aspect ratio
       />
       <h2 className="mt-4 text-xl font-semibold">{product.title}</h2>
       <p className="text-gray-600">
