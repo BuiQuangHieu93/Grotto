@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -10,9 +10,21 @@ import "swiper/css/pagination";
 import FurnitureCard from "./FurnitureCard";
 import { FurnitureTrending } from "@/constants";
 import Link from "next/link";
+import { GetFurniture } from "@/types";
+import { getAllFurniture } from "@/lib/actions/product.actions";
 
 const ProductCollection = () => {
   const [active, setActive] = useState("Office");
+  const [product, setProduct] = useState<GetFurniture[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const furniture = await getAllFurniture();
+      setProduct(furniture);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="flex-center flex-col bg-[#e9e8e4] w-full pl-4 pr-4 pt-20 pb-20">
@@ -56,15 +68,15 @@ const ProductCollection = () => {
             spaceBetween={30}
             className="p-4"
           >
-            {FurnitureTrending.filter((product) => product.type === active).map(
-              (product, index) => (
+            {product
+              .filter((product) => product.type === active)
+              .map((product, index) => (
                 <SwiperSlide key={index} className="relative group">
-                  <Link href={`/products/${product.id}`}>
+                  <Link href={`/products/${product._id}`}>
                     <FurnitureCard data={product} type="origin" />
                   </Link>
                 </SwiperSlide>
-              )
-            )}
+              ))}
           </Swiper>
         </div>
       </div>
