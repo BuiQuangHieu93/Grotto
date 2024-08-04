@@ -1,5 +1,3 @@
-import mongoose from "mongoose";
-
 //Other
 export interface BlogDataProps {
   id: number;

@@ -3,7 +3,7 @@ import { CardProps } from "@/types";
 import Image from "next/legacy/image";
 import React, { useState } from "react";
 
-const CollectionCard = (data: CardProps) => {
+const CollectionCard = ({ data }: { data: CardProps }) => {
   const [hover, setHover] = useState(false);
   return (
     <div
