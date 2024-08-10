@@ -1,15 +1,15 @@
-import mongoose, { Schema, model, models } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const orderSchema = new Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
+  userId: {
+    type: String,
     ref: "User",
     required: true,
   },
   items: [
     {
       product: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "Furniture",
         required: true,
       },
@@ -24,48 +24,13 @@ const orderSchema = new Schema({
       },
     },
   ],
-  totalAmount: {
+  totalPrice: {
     type: Number,
     required: true,
-  },
-  shippingAddress: {
-    fullName: {
-      type: String,
-      required: true,
-    },
-    addressLine1: {
-      type: String,
-      required: true,
-    },
-    addressLine2: {
-      type: String,
-    },
-    city: {
-      type: String,
-      required: true,
-    },
-    state: {
-      type: String,
-      required: true,
-    },
-    postalCode: {
-      type: String,
-      required: true,
-    },
-    country: {
-      type: String,
-      required: true,
-    },
   },
   paymentMethod: {
     type: String,
     required: true,
-  },
-  paymentResult: {
-    id: String,
-    status: String,
-    update_time: String,
-    email_address: String,
   },
   status: {
     type: String,

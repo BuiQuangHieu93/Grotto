@@ -149,28 +149,50 @@ export interface AddProductModalProps {
 //Cart actions
 
 export interface CreateCartParams {
-  user: String;
-  items: { product: String; quantity: number }[];
-  totalPrice: Number;
-}
-
-export interface AddItemsParams {
-  userId: String;
-  items: { product: String; quantity: number }[];
-}
-
-export interface UpdateCartParams {
-  userId: String;
-  items: { product: String; quantity: number }[];
+  user: string;
+  items: { product: string; quantity: number }[];
   totalPrice: number;
 }
 
+export interface AddItemsParams {
+  userId: string;
+  items: { product: string; quantity: number }[];
+}
+
+export interface UpdateCartParams {
+  userId: string;
+  items: { product: GetFurniture; quantity: number }[];
+}
+
 export interface DeleteItemParams {
-  userId: String;
-  productId: String;
+  userId: string;
+  productId: string;
 }
 
 export interface CartItem {
-  product: String;
+  product: GetFurniture;
   quantity: number;
+}
+
+//Order
+
+export interface CreateOrderParams {
+  stripeId: string;
+  userId: string;
+  items: {
+    product: GetFurniture;
+    quantity: number;
+    price: number;
+  }[];
+  totalPrice: number;
+  paymentMethod: string;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface OrderParams {
+  userId: string;
+  items: { product: GetFurniture; quantity: number }[];
+  totalPrice: number;
 }

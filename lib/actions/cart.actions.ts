@@ -70,21 +70,22 @@ export const addItemsToCart = async ({ userId, items }: AddItemsParams) => {
   }
 };
 
-export const updateCart = async ({
-  userId,
-  items,
-  totalPrice,
-}: UpdateCartParams) => {
+export const updateCart = async ({ userId, items }: UpdateCartParams) => {
   try {
     await connectToDatabase();
 
     const updatedCart = await Cart.findOneAndUpdate(
       { user: userId },
-      { items, totalPrice },
+      { items },
       { new: true, runValidators: true }
     ).populate("items.product");
 
     if (!updatedCart) throw new Error("Cart not found");
+
+    // Recalculate total price
+    updatedCart.totalPrice = await calculateTotalPrice(updatedCart.items);
+    await updatedCart.save();
+
     return JSON.parse(JSON.stringify(updatedCart));
   } catch (error) {
     handleError(error);
