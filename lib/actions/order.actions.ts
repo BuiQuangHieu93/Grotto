@@ -78,9 +78,12 @@ export const updateOrder = async (order: UpdateOrderParams) => {
     // Log the order being updated
     console.log("Updating order with userId:", userId);
 
-    const updateResult = await Order.updateOne(
+    const updateResult = await Order.findOneAndUpdate(
       { userId: userId },
-      { stripeId: stripeId, status: status }
+      { stripeId: stripeId, status: status },
+      {
+        new: true,
+      }
     );
 
     // Log the result of the update operation
