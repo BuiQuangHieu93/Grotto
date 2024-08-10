@@ -6,6 +6,7 @@ const orderSchema = new Schema({
     ref: "User",
     required: true,
   },
+  stripeId: { type: String, required: true },
   items: [
     {
       product: {

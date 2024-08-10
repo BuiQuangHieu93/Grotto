@@ -80,18 +80,25 @@ export const updateOrder = async (order: UpdateOrderParams) => {
     // Log the order being updated
     console.log("Updating order with userId:", userId);
 
-    const updateResult = await Order.findOneAndUpdate(
-      { userId: userId },
+    const latestOrder = await Order.findOne({ userId: userId })
+      .sort({ createdAt: -1 }) // Assuming you have a `createdAt` field for ordering
+      .exec();
+
+    if (!latestOrder) {
+      console.log("No orders found for the user.");
+      return null; // Return null if no order is found
+    }
+
+    // Update the latest order
+    const updatedOrder = await Order.findOneAndUpdate(
+      { _id: latestOrder._id },
       { stripeId: stripeId, status: status },
-      {
-        new: true,
-      }
-    );
+      { new: true }
+    ).exec();
 
-    // Log the result of the update operation
-    console.log("Update result:", updateResult);
+    console.log("Updated order:", updatedOrder);
 
-    return JSON.parse(JSON.stringify(updateResult));
+    return JSON.parse(JSON.stringify(updatedOrder));
   } catch (error) {
     handleError(error);
     return null;
