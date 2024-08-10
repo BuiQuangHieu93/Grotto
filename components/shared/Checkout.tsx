@@ -38,17 +38,7 @@ const Checkout = ({
     };
 
     try {
-      const url = await checkoutOrder(order);
-
-      if (url) {
-        console.log("Here is the URL in the client side: ", url);
-
-        // Save the URL to localStorage
-        localStorage.setItem("checkoutUrl", url);
-
-        // Redirect the user to the checkout page
-        router.push(url);
-      }
+      await checkoutOrder(order);
     } catch (error) {
       console.error("Error during checkout: ", error);
     }
