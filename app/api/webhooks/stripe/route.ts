@@ -21,10 +21,10 @@ export async function POST(request: Request) {
 
   if (eventType === "checkout.session.completed") {
     // const { id, amount_total, metadata, line_items } = event.data.object;
-    localStorage.setItem(
-      "checkout.session.completed",
-      JSON.stringify(event.data.object)
-    );
+    // localStorage.setItem(
+    //   "checkout.session.completed",
+    //   JSON.stringify(event.data.object)
+    // );
     const { id, amount_total, metadata } = event.data.object;
 
     // const items = line_items?.data.map((item: any) => ({
