@@ -5,6 +5,7 @@ import { connectToDatabase } from "../mongoose";
 import { handleError } from "../utils";
 import Order from "../models/order.models";
 import { OrderParams, CreateOrderParams } from "@/types";
+import { redirect } from "next/navigation";
 
 export const checkoutOrder = async (order: OrderParams) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -31,8 +32,9 @@ export const checkoutOrder = async (order: OrderParams) => {
       success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/home`,
       cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
     });
-    console.log("here is url in server side: ", session.url);
-    return session.url;
+    if (session.url) {
+      redirect(session.url);
+    }
   } catch (error) {
     handleError(error);
   }

@@ -6,7 +6,7 @@ const isPublicRoute = createRouteMatcher([
   "/",
   "/api/webhooks/clerk",
   "/api/uploadthing",
-  "/api/webhook/stripe",
+  "/api/webhooks/stripe",
 ]);
 
 export default clerkMiddleware((auth, request) => {
