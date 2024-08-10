@@ -33,8 +33,10 @@ export const checkoutOrder = async (order: OrderParams) => {
       cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
     });
 
+    const stripeId = session.id;
+
     await createOrder({
-      stripeId: "",
+      stripeId: stripeId,
       userId: order.userId,
       items: order.items.map((item) => ({
         product: item.product,
