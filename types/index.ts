@@ -179,11 +179,11 @@ export interface CartItem {
 export interface CreateOrderParams {
   stripeId: string;
   userId: string;
-  items: {
-    product: GetFurniture;
-    quantity: number;
-    price: number;
-  }[];
+  // items: {
+  //   product: GetFurniture;
+  //   quantity: number;
+  //   price: number;
+  // }[];
   totalPrice: number;
   paymentMethod: string;
   status: string;

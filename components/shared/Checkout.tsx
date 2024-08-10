@@ -37,9 +37,20 @@ const Checkout = ({
       totalPrice: products.totalPrice,
     };
 
-    const url = await checkoutOrder(order);
-    if (url) {
-      router.push(url);
+    try {
+      const url = await checkoutOrder(order);
+
+      if (url) {
+        console.log("Here is the URL in the client side: ", url);
+
+        // Save the URL to localStorage
+        localStorage.setItem("checkoutUrl", url);
+
+        // Redirect the user to the checkout page
+        router.push(url);
+      }
+    } catch (error) {
+      console.error("Error during checkout: ", error);
     }
   };
 

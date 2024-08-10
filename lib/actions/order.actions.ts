@@ -31,6 +31,7 @@ export const checkoutOrder = async (order: OrderParams) => {
       success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/home`,
       cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
     });
+    console.log("here is url in server side: ", session.url);
     return session.url;
   } catch (error) {
     handleError(error);
