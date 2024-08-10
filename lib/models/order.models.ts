@@ -6,24 +6,24 @@ const orderSchema = new Schema({
     ref: "User",
     required: true,
   },
-  // items: [
-  //   {
-  //     product: {
-  //       type: String,
-  //       ref: "Furniture",
-  //       required: true,
-  //     },
-  //     quantity: {
-  //       type: Number,
-  //       required: true,
-  //       min: 1,
-  //     },
-  //     price: {
-  //       type: Number,
-  //       required: true,
-  //     },
-  //   },
-  // ],
+  items: [
+    {
+      product: {
+        type: String,
+        ref: "Furniture",
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+        min: 1,
+      },
+      price: {
+        type: Number,
+        required: true,
+      },
+    },
+  ],
   totalPrice: {
     type: Number,
     required: true,

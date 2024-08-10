@@ -20,23 +20,23 @@ export async function POST(request: Request) {
   const eventType = event.type;
 
   if (eventType === "checkout.session.completed") {
-    // const { id, amount_total, metadata, line_items } = event.data.object;
+    const { id, amount_total, metadata, line_items } = event.data.object;
     // localStorage.setItem(
     //   "checkout.session.completed",
     //   JSON.stringify(event.data.object)
     // );
-    const { id, amount_total, metadata } = event.data.object;
+    // const { id, amount_total, metadata } = event.data.object;
 
-    // const items = line_items?.data.map((item: any) => ({
-    //   product: item.description,
-    //   quantity: item.quantity,
-    //   price: item.amount_total / item.quantity / 100,
-    // }));
+    const items = line_items?.data.map((item: any) => ({
+      product: item.description,
+      quantity: item.quantity,
+      price: item.amount_total / item.quantity / 100,
+    }));
 
     const order: CreateOrderParams = {
       stripeId: id,
       userId: metadata?.userId || "",
-      // items: items || [],
+      items: items || [],
       totalPrice: amount_total ? amount_total / 100 : 0,
       paymentMethod: "Stripe",
       status: "Paid",
