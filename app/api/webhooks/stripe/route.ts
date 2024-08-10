@@ -26,6 +26,7 @@ export async function POST(request: Request) {
     //   JSON.stringify(event.data.object)
     // );
     // const { id, amount_total, metadata } = event.data.object;
+    console.log("here is checkout post", event.data.object);
 
     const items = line_items?.data.map((item: any) => ({
       product: item.description,
