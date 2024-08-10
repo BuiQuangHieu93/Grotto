@@ -4,7 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Button } from "../ui/button";
 import { checkoutOrder } from "@/lib/actions/order.actions";
 import { OrderParams } from "@/types";
-import { useRouter } from "next/navigation";
+
 
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -15,7 +15,6 @@ const Checkout = ({
   products: OrderParams;
   userId: string;
 }) => {
-  const router = useRouter();
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
