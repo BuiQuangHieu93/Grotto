@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 import { NextResponse } from "next/server";
-import { createOrder, updateOrder } from "@/lib/actions/order.actions";
-import { CreateOrderParams, UpdateOrderParams } from "@/types";
+import { updateOrder } from "@/lib/actions/order.actions";
+import { UpdateOrderParams } from "@/types";
 
 export async function POST(request: Request) {
   const body = await request.text();
@@ -25,7 +25,9 @@ export async function POST(request: Request) {
     const updateOrderParams: UpdateOrderParams = {
       userId: metadata?.userId || "",
       stripeId: id,
+      status: "Paid",
     };
+
     const updatedOrder = await updateOrder(updateOrderParams);
 
     if (updatedOrder) {

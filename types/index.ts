@@ -200,4 +200,5 @@ export interface OrderParams {
 export interface UpdateOrderParams {
   userId: string;
   stripeId: string;
+  status: string;
 }

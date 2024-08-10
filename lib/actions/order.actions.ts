@@ -45,7 +45,7 @@ export const checkoutOrder = async (order: OrderParams) => {
       })),
       totalPrice: order.totalPrice,
       paymentMethod: "Stripe",
-      status: "Paid",
+      status: "Pending",
       createdAt: new Date(),
       updatedAt: new Date(),
     });
@@ -72,14 +72,23 @@ export const createOrder = async (order: CreateOrderParams) => {
 export const updateOrder = async (order: UpdateOrderParams) => {
   try {
     await connectToDatabase();
-    const updateOrder = await Order.updateOne(
-      { userId: order.userId },
-      {
-        stripeId: order.stripeId,
-      }
+
+    const { userId, stripeId, status } = order;
+
+    // Log the order being updated
+    console.log("Updating order with userId:", userId);
+
+    const updateResult = await Order.updateOne(
+      { userId: userId },
+      { stripeId: stripeId, status: status }
     );
-    return JSON.parse(JSON.stringify(updateOrder));
+
+    // Log the result of the update operation
+    console.log("Update result:", updateResult);
+
+    return JSON.parse(JSON.stringify(updateResult));
   } catch (error) {
     handleError(error);
+    return null;
   }
 };
