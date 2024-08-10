@@ -196,3 +196,8 @@ export interface OrderParams {
   items: { product: GetFurniture; quantity: number }[];
   totalPrice: number;
 }
+
+export interface UpdateOrderParams {
+  userId: string;
+  stripeId: string;
+}
