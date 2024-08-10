@@ -42,8 +42,8 @@ export const checkoutOrder = async (order: OrderParams) => {
         product: item.product,
         quantity: item.quantity,
         price: item.product.salePrice
-          ? Math.round(item.product.salePrice * 100)
-          : Math.round(item.product.originalPrice * 100),
+          ? Math.round(item.product.salePrice)
+          : Math.round(item.product.originalPrice),
       })),
       totalPrice: order.totalPrice,
       paymentMethod: "Stripe",
