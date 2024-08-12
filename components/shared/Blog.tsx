@@ -4,11 +4,21 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { BlogData } from "@/constants";
 import BlogCard from "./BlogCard";
 import Link from "next/link";
+import { GetBlogParams } from "@/types";
+import { getAllBlog } from "@/lib/actions/blog.actions";
+import { useEffect, useState } from "react";
 
 const Blog = () => {
+  const [blogs, setBlogs] = useState<GetBlogParams[]>([]);
+  useEffect(() => {
+    const fetchBlog = async () => {
+      const blogs = await getAllBlog();
+      setBlogs(blogs);
+    };
+    fetchBlog();
+  }, []);
   return (
     <>
       <div className="flex-center flex-col bg-[#e9e8e4] w-full pb-9">
@@ -29,10 +39,10 @@ const Blog = () => {
             spaceBetween={30}
             className="p-4"
           >
-            {BlogData.map((data) => (
-              <SwiperSlide key={data.id} className="relative group">
-                <Link href={`blogs/news/${data.id}`}>
-                  <BlogCard key={data.id} data={data} />
+            {blogs.map((data) => (
+              <SwiperSlide key={data._id} className="relative group">
+                <Link href={`blogs/news/${data._id}`}>
+                  <BlogCard key={data._id} data={data} />
                 </Link>
               </SwiperSlide>
             ))}

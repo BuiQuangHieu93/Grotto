@@ -1,7 +1,7 @@
 "use client";
-import { BlogData } from "@/constants";
+
 import { getAllBlog } from "@/lib/actions/blog.actions";
-import { BlogDataProps, GetBlogParams } from "@/types";
+import { GetBlogParams } from "@/types";
 import Image from "next/legacy/image";
 import React, { useEffect, useState } from "react";
 

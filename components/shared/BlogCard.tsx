@@ -1,10 +1,10 @@
-import { BlogDataProps } from "@/types";
+import { GetBlogParams } from "@/types";
 import Image from "next/legacy/image";
 
-const BlogCard = ({ data }: { data: BlogDataProps }) => {
+const BlogCard = ({ data }: { data: GetBlogParams }) => {
   return (
     <div className="">
-      <Image src={data?.image} width={476} height={287} alt={`${data?.id}`} />
+      <Image src={data?.image} width={476} height={287} alt={`${data?._id}`} />
       <div className="flex flex-row text-center text-sm text-[#a6946b] uppercase">
         <span>
           <Image
@@ -14,7 +14,7 @@ const BlogCard = ({ data }: { data: BlogDataProps }) => {
             alt="calendar"
           />
         </span>
-        <span className="pl-2">{data?.day}</span>
+        <span className="pl-2">{data?.day.toString()}</span>
         <span className="px-2">&bull;</span>
         <span> {data?.location}</span>
       </div>
