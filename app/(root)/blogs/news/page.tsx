@@ -3,10 +3,14 @@
 import { getAllBlog } from "@/lib/actions/blog.actions";
 import { GetBlogParams } from "@/types";
 import Image from "next/legacy/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const Page = () => {
   const [blogs, setBlogs] = useState<GetBlogParams[]>([]);
+  const formattedDate = (day: Date) => {
+    return new Date(day).toLocaleDateString();
+  };
   useEffect(() => {
     const fetchBlog = async () => {
       const blogs = await getAllBlog();
@@ -23,7 +27,11 @@ const Page = () => {
       </div>
       <div className="grid grid-cols-2 gap-12">
         {blogs.map((data: GetBlogParams) => (
-          <div key={data._id} className="group">
+          <Link
+            key={data._id}
+            className="group"
+            href={`/blogs/news/${data._id}`}
+          >
             <div className="relative w-[650px] h-[433px] overflow-hidden">
               <Image
                 src={data.image}
@@ -43,7 +51,7 @@ const Page = () => {
                     alt="calendar"
                   />
                 </span>
-                <div className="pl-4">{data.day.toString()}</div>
+                <div className="pl-4">{formattedDate(data.day)}</div>
                 <span className="px-2">&bull;</span>
                 <div>{data.location}</div>
               </div>
@@ -63,7 +71,7 @@ const Page = () => {
                 {data.detail}
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

@@ -1,12 +1,46 @@
-import BlogCard from "@/components/shared/BlogCard";
+"use client";
 import { Button } from "@/components/ui/button";
-import { BlogData } from "@/constants";
+import { Skeleton } from "@/components/ui/skeleton";
+import { getAllBlog, GetBlogById } from "@/lib/actions/blog.actions";
+import { GetBlogParams } from "@/types";
 import Image from "next/legacy/image";
 import Link from "next/link";
-import React from "react";
+import { useParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 const Page = () => {
-  const item = BlogData[0];
+  const [blogs, setBlogs] = useState<GetBlogParams[]>([]);
+  const [blog, setBlog] = useState<GetBlogParams>();
+  const [loading, setLoading] = useState(true); // Loading state
+  const params = useParams();
+
+  const blogId = Array.isArray(params.id) ? params.id[0] : params.id;
+
+  useEffect(() => {
+    const fetchBlog = async () => {
+      const blogs = await getAllBlog();
+      setBlogs(blogs);
+    };
+
+    const getBlog = async () => {
+      if (blogId) {
+        const blog = await GetBlogById(blogId);
+        setBlog(blog);
+        setLoading(false); // Stop loading after fetching data
+      }
+    };
+
+    fetchBlog();
+    getBlog();
+  }, [blogId]);
+
+  const formattedDate = (day?: Date) => {
+    if (day) {
+      return new Date(day).toLocaleDateString();
+    }
+    return "Unknown Date";
+  };
+
   return (
     <div className="bg-[#e9e8e4] w-full py-20 px-5">
       <div className="pb-12">
@@ -20,21 +54,25 @@ const Page = () => {
             Recent Post
           </h2>
           <div className="h-[500px] overflow-y-auto rounded-b-md">
-            {BlogData.map((data) => (
+            {blogs.map((data) => (
               <Link
                 className="flex flex-row p-4"
-                key={data.id}
-                href={`/blogs/news/${data.id}`}
+                key={data._id}
+                href={`/blogs/news/${data._id}`}
               >
                 <div className="pr-4">
-                  <div className="relative w-20 h-20">
-                    <Image
-                      src={data.image}
-                      alt="image"
-                      layout="fill"
-                      style={{ objectFit: "cover" }}
-                    />
-                  </div>
+                  {loading ? (
+                    <Skeleton className="w-20 h-20 rounded-sm" />
+                  ) : (
+                    <div className="relative w-20 h-20">
+                      <Image
+                        src={data.image}
+                        alt="image"
+                        layout="fill"
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
+                  )}
                 </div>
                 <div className="flex flex-col">
                   <div className="text-base text-[#666666] hover:text-black">
@@ -49,7 +87,9 @@ const Page = () => {
                         height={24}
                       />
                     </div>
-                    <div className="text-[#a6946b]">{data.day}</div>
+                    <div className="text-[#a6946b]">
+                      {formattedDate(data.day)}
+                    </div>
                   </div>
                 </div>
               </Link>
@@ -57,47 +97,43 @@ const Page = () => {
           </div>
         </div>
         <div className="col-span-2">
-          <div key={item.id} className="group">
-            <div className="w-full overflow-hidden">
-              <Image
-                src={item.image}
-                width={1034}
-                height={688}
-                alt={`image-${item.id}`}
-                className="transition-transform duration-300"
-              />
-            </div>
-            <div>
-              <div className="flex flex-row text-center text-sm text-[#a6946b] uppercase py-4">
-                <span>
-                  <Image
-                    src="/icon/calendar.svg"
-                    width={24}
-                    height={24}
-                    alt="calendar"
-                  />
-                </span>
-                <div className="pl-4">{item.day}</div>
-                <span className="px-2">&bull;</span>
-                <div>{item.location}</div>
+          {loading ? (
+            // Render SkeletonDemo while loading
+            <Skeleton className="w-[1034px] h-[688px] rounded-sm" />
+          ) : (
+            <div key={blog?._id} className="group">
+              <div className="w-full overflow-hidden">
+                <Image
+                  src={blog?.image as string}
+                  width={1034}
+                  height={688}
+                  alt={`image-${blog?._id}`}
+                  className="transition-transform duration-300"
+                />
               </div>
-              <div className="text-2xl font-semibold pb-4 group-hover:text-[#a6946b]">
-                {item.title}
-              </div>
-              <div
-                className="text-[#666666] font-normal text-sm"
-                style={{
-                  display: "-webkit-box",
-                  WebkitLineClamp: 2,
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}
-              >
-                {item.detail}
+              <div>
+                <div className="flex flex-row text-center text-sm text-[#a6946b] uppercase py-4">
+                  <span>
+                    <Image
+                      src="/icon/calendar.svg"
+                      width={24}
+                      height={24}
+                      alt="calendar"
+                    />
+                  </span>
+                  <div className="pl-4">{formattedDate(blog?.day)}</div>
+                  <span className="px-2">&bull;</span>
+                  <div>{blog?.location}</div>
+                </div>
+                <div className="text-2xl font-semibold pb-4 group-hover:text-[#a6946b]">
+                  {blog?.title}
+                </div>
+                <div className="text-[#666666] font-normal text-sm">
+                  {blog?.detail}
+                </div>
               </div>
             </div>
-          </div>
+          )}
           <Button className="flex items-center mt-5 py-2 bg-[#333333] text-white w-[20%]">
             <Image
               src="/icon/upload-share.svg"

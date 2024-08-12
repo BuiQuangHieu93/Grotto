@@ -2,6 +2,9 @@ import { GetBlogParams } from "@/types";
 import Image from "next/legacy/image";
 
 const BlogCard = ({ data }: { data: GetBlogParams }) => {
+  const formattedDate = (day: Date) => {
+    return new Date(day).toLocaleDateString();
+  };
   return (
     <div className="">
       <Image src={data?.image} width={476} height={287} alt={`${data?._id}`} />
@@ -14,7 +17,7 @@ const BlogCard = ({ data }: { data: GetBlogParams }) => {
             alt="calendar"
           />
         </span>
-        <span className="pl-2">{data?.day.toString()}</span>
+        <span className="pl-2">{formattedDate(data?.day)}</span>
         <span className="px-2">&bull;</span>
         <span> {data?.location}</span>
       </div>

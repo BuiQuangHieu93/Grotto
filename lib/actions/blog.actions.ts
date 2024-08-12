@@ -46,3 +46,13 @@ export async function DeleteBlogById(blogId: string): Promise<boolean> {
     return false; // Failed to delete
   }
 }
+
+export async function GetBlogById(BlogId: string) {
+  try {
+    await connectToDatabase();
+    const blog = await Blog.findById(BlogId);
+    return JSON.parse(JSON.stringify(blog));
+  } catch (error) {
+    handleError(error);
+  }
+}
