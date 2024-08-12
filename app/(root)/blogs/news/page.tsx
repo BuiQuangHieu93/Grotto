@@ -1,10 +1,19 @@
 "use client";
 import { BlogData } from "@/constants";
-import { BlogDataProps } from "@/types";
+import { getAllBlog } from "@/lib/actions/blog.actions";
+import { BlogDataProps, GetBlogParams } from "@/types";
 import Image from "next/legacy/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Page = () => {
+  const [blogs, setBlogs] = useState<GetBlogParams[]>([]);
+  useEffect(() => {
+    const fetchBlog = async () => {
+      const blogs = await getAllBlog();
+      setBlogs(blogs);
+    };
+    fetchBlog();
+  }, []);
   return (
     <div className="bg-[#e9e8e4] w-full p-20">
       <div className="pb-12">
@@ -13,14 +22,14 @@ const Page = () => {
         </div>
       </div>
       <div className="grid grid-cols-2 gap-12">
-        {BlogData.map((data: BlogDataProps) => (
-          <div key={data.id} className="group">
+        {blogs.map((data: GetBlogParams) => (
+          <div key={data._id} className="group">
             <div className="relative w-[650px] h-[433px] overflow-hidden">
               <Image
                 src={data.image}
                 layout="fill"
                 style={{ objectFit: "cover" }}
-                alt={`image-${data.id}`}
+                alt={`image-${data._id}`}
                 className="transition-transform duration-300 group-hover:scale-110"
               />
             </div>
@@ -34,7 +43,7 @@ const Page = () => {
                     alt="calendar"
                   />
                 </span>
-                <div className="pl-4">{data.day}</div>
+                <div className="pl-4">{data.day.toString()}</div>
                 <span className="px-2">&bull;</span>
                 <div>{data.location}</div>
               </div>
