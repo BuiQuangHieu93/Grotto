@@ -4,6 +4,7 @@ import { connectToDatabase } from "../mongoose";
 import { handleError } from "../utils";
 import Furniture from "../models/product.models";
 import { CreateFurnitureParams, UpdateFurnitureParams } from "@/types";
+import { utapi } from "../uploadthing";
 
 export async function createFurniture(furniture: CreateFurnitureParams) {
   try {
@@ -35,6 +36,11 @@ export async function deleteFurniture(id: string) {
   try {
     await connectToDatabase();
     await Furniture.findByIdAndDelete(id);
+    const imageUrl = await Furniture.findById(id);
+    const listUrl = imageUrl.images;
+    const hoverImage = imageUrl.imageHover;
+    await utapi.deleteFiles(listUrl);
+    await utapi.deleteFiles(hoverImage);
     return { message: "Furniture item deleted successfully" };
   } catch (error) {
     handleError(error);

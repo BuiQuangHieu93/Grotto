@@ -10,7 +10,7 @@ import {
 const Footer: React.FC = () => {
   return (
     <div className="bg-[#13392c] text-white py-4 px-4">
-      <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-5 gap-8">
+      <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-5 gap-8 py-10">
         {/* Email Subscription Section */}
         <div className="col-span-2 pr-28">
           <div className="text-2xl font-semibold mb-4 ">
@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
                 className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke="currentColor"
+                stroke="black"
               >
                 <path
                   strokeLinecap="round"

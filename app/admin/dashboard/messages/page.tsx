@@ -77,24 +77,26 @@ const Messages: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-6">
-      <h2 className="text-2xl font-semibold mb-4">Messages</h2>
+      <div className="flex-center w-full">
+        <h2 className="text-2xl font-semibold mb-4">Messages</h2>
+      </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-300">
           <thead>
             <tr>
-              <th className="px-6 py-3 border-b-2 border-gray-300 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Name
               </th>
-              <th className="px-6 py-3 border-b-2 border-gray-300 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Email
               </th>
-              <th className="px-6 py-3 border-b-2 border-gray-300 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Phone
               </th>
-              <th className="px-6 py-3 border-b-2 border-gray-300 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Message
               </th>
-              <th className="px-6 py-3 border-b-2 border-gray-300 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-700 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Actions
               </th>
             </tr>
@@ -102,19 +104,19 @@ const Messages: React.FC = () => {
           <tbody>
             {messages.map((message) => (
               <tr key={message._id}>
-                <td className="px-6 py-4 border-b border-gray-300">
+                <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   {message.name}
                 </td>
-                <td className="px-6 py-4 border-b border-gray-300">
+                <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   {message.email}
                 </td>
-                <td className="px-6 py-4 border-b border-gray-300">
+                <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   {message.phone}
                 </td>
-                <td className="px-6 py-4 border-b border-gray-300">
+                <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   {message.message}
                 </td>
-                <td className="px-6 py-4 border-b border-gray-300">
+                <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button

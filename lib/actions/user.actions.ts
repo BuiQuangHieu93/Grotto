@@ -5,8 +5,6 @@ import { handleError } from "@/lib/utils";
 import { connectToDatabase } from "../mongoose";
 import User from "../models/user.models";
 import { clerkClient } from "@clerk/nextjs/server";
-import mongoose from "mongoose";
-import Cart from "../models/cart.model";
 import { CreateUserParams, UpdateUserParams } from "@/types";
 
 export async function createUser(user: CreateUserParams) {

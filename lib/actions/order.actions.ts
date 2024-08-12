@@ -104,3 +104,13 @@ export const updateOrder = async (order: UpdateOrderParams) => {
     return null;
   }
 };
+
+export const getAllOrders = async () => {
+  try {
+    connectToDatabase();
+    const orders = await Order.find({});
+    return JSON.parse(JSON.stringify(orders));
+  } catch (error) {
+    handleError(error);
+  }
+};

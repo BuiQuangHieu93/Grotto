@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useAuth } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import Cart from "./Cart";
@@ -20,7 +20,7 @@ import Cart from "./Cart";
 const Navbar = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
-  const { userId } = useAuth();
+  const { user } = useUser();
 
   const handleScroll = useCallback(() => {
     const currentScrollPos = window.pageYOffset;
@@ -101,7 +101,7 @@ const Navbar = () => {
             </SelectContent>
           </Select>
 
-          {userId ? (
+          {user ? (
             <div className="flex-center">
               <UserButton showName />
               <Link href="/home" />

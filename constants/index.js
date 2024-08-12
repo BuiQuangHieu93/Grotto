@@ -536,4 +536,9 @@ export const sidebarLinks = [
     route: "/admin/dashboard/messages",
     label: "Messages",
   },
+  {
+    imgURL: "/icon/blog-major.svg",
+    route: "/admin/dashboard/blogs",
+    label: "Blogs",
+  },
 ];

@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import {
   Dialog,
   DialogTrigger,
@@ -14,6 +14,7 @@ import { Input } from "../ui/input";
 import { UploadButton } from "@/lib/uploadthing";
 import { Value } from "@radix-ui/react-select";
 import { AddProductModalProps, Furniture } from "@/types";
+import Image from "next/image";
 
 const AddProductModal: React.FC<AddProductModalProps> = ({ onSave }) => {
   const [fileUrl, setFileUrl] = useState<string[]>([]);
@@ -48,14 +49,16 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onSave }) => {
       imageHover: fileHoverUrl,
     };
     onSave(updatedFormData);
-    console.log(updatedFormData);
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-          Add Product
+          <div className="pr-2">
+            <Image src="/icon/plus.svg" width={16} height={16} alt="plus" />
+          </div>
+          <span> Add Product</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

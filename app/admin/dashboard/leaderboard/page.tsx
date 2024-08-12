@@ -45,38 +45,51 @@ const Leaderboard: React.FC = () => {
 
   return (
     <div className="w-full p-4">
+      <div className="flex-center w-full">
+        <h2 className="text-2xl font-semibold mb-4">Leaderboard</h2>
+      </div>
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr className="bg-gray-100">
-            <th className="py-2 px-4 border-b border-gray-200">Clerk ID</th>
-            <th className="py-2 px-4 border-b border-gray-200">Email</th>
-            <th className="py-2 px-4 border-b border-gray-200">Username</th>
-            <th className="py-2 px-4 border-b border-gray-200">First Name</th>
-            <th className="py-2 px-4 border-b border-gray-200">Last Name</th>
-            <th className="py-2 px-4 border-b border-gray-200">Photo</th>
-            <th className="py-2 px-4 border-b border-gray-200">Is Admin</th>
-            <th className="py-2 px-4 border-b border-gray-200">Actions</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Email
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Username
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              First Name
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Last Name
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Photo
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Is Admin
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody>
           {users.map((user, index) => (
             <tr key={index} className="hover:bg-gray-50">
-              <td className="py-2 px-4 border-b border-gray-200">
-                {user.clerkId}
-              </td>
-              <td className="py-2 px-4 border-b border-gray-200">
+              <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 {user.email}
               </td>
-              <td className="py-2 px-4 border-b border-gray-200">
+              <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 {user.username}
               </td>
-              <td className="py-2 px-4 border-b border-gray-200">
+              <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 {user.firstName}
               </td>
-              <td className="py-2 px-4 border-b border-gray-200">
+              <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 {user.lastName}
               </td>
-              <td className="py-2 px-4 border-b border-gray-200">
+              <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 <Image
                   src={user.photo}
                   alt={`${user.username}'s photo`}
@@ -85,10 +98,10 @@ const Leaderboard: React.FC = () => {
                   className="rounded-full"
                 />
               </td>
-              <td className="py-2 px-4 border-b border-gray-200">
+              <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 {user.isAdmin ? "Admin" : "User"}
               </td>
-              <td className="py-2 px-4 border-b border-gray-200">
+              <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 <Dialog>
                   <DialogTrigger asChild>
                     <Button variant="destructive">Delete Profile</Button>

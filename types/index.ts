@@ -1,42 +1,36 @@
-//Other
+//Blog
 export interface BlogDataProps {
-  id: number;
   image: string;
-  day: string;
+  day: Date;
   location: string;
   title: string;
   detail: string;
 }
 
-export interface Slide {
-  id: number;
-  title: string;
-  tagline?: string;
+export interface CreateBlogParams {
   image: string;
-  count?: number;
-}
-
-export interface DemoSliderProps {
-  data: Slide[];
-}
-
-export interface CardProps {
-  image: string;
+  day: Date;
+  location: string;
   title: string;
+  detail: string;
 }
 
-export interface ImageProps {
-  src: string;
-  alt: string;
+export interface GetBlogParams {
+  _id: string;
+  image: string;
+  day: Date;
+  location: string;
+  title: string;
+  detail: string;
 }
 
-export interface RangeSliderProps {
-  min: number;
-  max: number;
-  step: number;
-  priceGap: number;
-  values: number[];
-  onChange: (values: number[]) => void;
+export interface AddBlogModalProps {
+  onSave: (newBlog: BlogDataProps) => void;
+}
+
+export interface BlogCardDeleteProps {
+  blog: GetBlogParams;
+  onDelete: (blogId: string) => void;
 }
 
 //User
@@ -146,8 +140,13 @@ export interface AddProductModalProps {
   onSave: (newProduct: Furniture) => void;
 }
 
-//Cart actions
+export interface ProductCardProps {
+  product: GetFurniture;
+  onDelete: (productId: string) => void;
+  onUpdate: (updatedProduct: GetFurniture) => void;
+}
 
+//Cart actions
 export interface CreateCartParams {
   user: string;
   items: { product: string; quantity: number }[];
@@ -190,6 +189,21 @@ export interface CreateOrderParams {
   createdAt: Date;
   updatedAt: Date;
 }
+export interface GetOrderParams {
+  _id: string;
+  stripeId: string;
+  userId: string;
+  items: {
+    product: GetFurniture;
+    quantity: number;
+    price: number;
+  }[];
+  totalPrice: number;
+  paymentMethod: string;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export interface OrderParams {
   userId: string;
@@ -201,4 +215,36 @@ export interface UpdateOrderParams {
   userId: string;
   stripeId: string;
   status: string;
+}
+
+//Other
+export interface Slide {
+  id: number;
+  title: string;
+  tagline?: string;
+  image: string;
+  count?: number;
+}
+
+export interface DemoSliderProps {
+  data: Slide[];
+}
+
+export interface CardProps {
+  image: string;
+  title: string;
+}
+
+export interface ImageProps {
+  src: string;
+  alt: string;
+}
+
+export interface RangeSliderProps {
+  min: number;
+  max: number;
+  step: number;
+  priceGap: number;
+  values: number[];
+  onChange: (values: number[]) => void;
 }

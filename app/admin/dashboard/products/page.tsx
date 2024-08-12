@@ -24,17 +24,36 @@ export default function Home() {
     setProducts((prevProducts) => [...prevProducts, createdProduct]);
   };
 
+  const handleDeleteProduct = (productId: string) => {
+    setProducts((prevProducts) =>
+      prevProducts.filter((product) => product._id !== productId)
+    );
+  };
+
+  const handleUpdateProduct = (updatedProduct: GetFurniture) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product._id === updatedProduct._id ? updatedProduct : product
+      )
+    );
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center mb-8">
-        Furniture Products
-      </h1>
+      <div className="flex-center w-full">
+        <h2 className="text-2xl font-semibold mb-4">Furniture Product</h2>
+      </div>
       <div className="flex justify-end mb-4">
         <AddProductModal onSave={handleAddProduct} />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map((product) => (
-          <ProductCard key={product._id} product={product} />
+          <ProductCard
+            key={product._id}
+            product={product}
+            onDelete={handleDeleteProduct}
+            onUpdate={handleUpdateProduct}
+          />
         ))}
       </div>
     </div>
