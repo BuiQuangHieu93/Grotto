@@ -16,6 +16,7 @@ import { useAuth, useUser } from "@clerk/nextjs";
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import Cart from "./Cart";
+import { navbar } from "@/constants";
 
 const Navbar = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -45,21 +46,25 @@ const Navbar = () => {
       } bg-gray-100`}
     >
       <div className="py-4 px-8 flex items-center justify-between">
-        <Image
-          src="/image/logo.png"
-          width={110}
-          height={30}
-          alt="logo"
-          className="mr-8"
-        />
+        <Link href="/home">
+          <Image
+            src="/image/logo.png"
+            width={110}
+            height={30}
+            alt="logo"
+            className="mr-8"
+          />
+        </Link>
+
         <div className="flex space-x-8 h-14 w-96 items-center">
-          {["Home", "Product & collection", "Blog", "Contact"].map((item) => (
-            <div
-              key={item}
+          {navbar.map((item) => (
+            <Link
+              href={`${item.link}`}
+              key={item.title}
               className="text-gray-800 hover:text-[#a6946b] text-sm font-semibold h-full flex items-center cursor-pointer transition-colors duration-200"
             >
-              {item}
-            </div>
+              {item.title}
+            </Link>
           ))}
         </div>
         <div className="flex bg-white h-12 w-80 items-center rounded-lg shadow">

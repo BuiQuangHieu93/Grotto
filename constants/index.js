@@ -542,3 +542,22 @@ export const sidebarLinks = [
     label: "Blogs",
   },
 ];
+
+export const navbar = [
+  {
+    title: "Home",
+    link: "/home",
+  },
+  {
+    title: "Product & collection",
+    link: "/collections",
+  },
+  {
+    title: "Blog",
+    link: "/blogs/news",
+  },
+  {
+    title: "Contact",
+    link: "/contact",
+  },
+];
