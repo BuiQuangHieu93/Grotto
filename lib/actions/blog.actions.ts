@@ -4,7 +4,8 @@ import { handleError } from "@/lib/utils";
 import { connectToDatabase } from "../mongoose";
 import Blog from "../models/blog.models";
 import { CreateBlogParams } from "@/types";
-import { utapi } from "../uploadthing";
+import { UTApi } from "uploadthing/server";
+const utapi = new UTApi();
 
 export async function createBlog(blog: CreateBlogParams) {
   try {

@@ -20,7 +20,11 @@ const ProductCollection = () => {
   useEffect(() => {
     const fetchData = async () => {
       const furniture = await getAllFurniture();
-      setProduct(furniture);
+      const specialProducts = furniture.filter(
+        (product: GetFurniture) => product.feature
+      );
+
+      setProduct(specialProducts);
     };
 
     fetchData();

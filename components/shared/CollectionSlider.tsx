@@ -12,9 +12,13 @@ const CollectionSlider = () => {
   useEffect(() => {
     const fetchData = async () => {
       const furniture = await getAllFurniture();
-      setProduct(furniture);
+      const trendingProducts = furniture
+        .sort(
+          (a: GetFurniture, b: GetFurniture) => b.bestSelling - a.bestSelling
+        )
+        .slice(0, 8); // Sort by bestSelling in descending order and take the top 8
+      setProduct(trendingProducts);
     };
-
     fetchData();
   }, []);
 
@@ -25,7 +29,7 @@ const CollectionSlider = () => {
         Trending Products
       </div>
       <div className="grid grid-cols-4 grid-rows-2 w-full gap-5">
-        {product.slice(0, 8).map((data, index) => (
+        {product.map((data, index) => (
           <Link href={`/products/${data._id}`} key={index}>
             <FurnitureCard data={data} type="origin" />
           </Link>

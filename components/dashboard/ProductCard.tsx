@@ -83,7 +83,7 @@ const ProductCard = ({ product, onDelete, onUpdate }: ProductCardProps) => {
         height={192}
         width={192}
       />
-      <h2 className="mt-4 text-xl font-semibold">{product.title}</h2>
+      <h2 className="mt-4 text-xl font-semibold h-14">{product.title}</h2>
       <p className="text-gray-600">
         ${product.salePrice}
         <span className="line-through">${product.originalPrice}</span>
