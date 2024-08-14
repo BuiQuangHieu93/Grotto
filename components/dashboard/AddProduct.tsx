@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import {
   Dialog,
   DialogTrigger,
@@ -9,10 +9,16 @@ import {
   DialogFooter,
   DialogClose,
 } from "../ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { UploadButton } from "@/lib/uploadthing";
-import { Value } from "@radix-ui/react-select";
 import { AddProductModalProps, Furniture } from "@/types";
 import Image from "next/image";
 
@@ -31,6 +37,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onSave }) => {
     available: 0,
     feature: false,
     type: "",
+    category: "",
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,6 +58,13 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onSave }) => {
     onSave(updatedFormData);
   };
 
+  const handleCategoryChange = (value: string) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      category: value,
+    }));
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -58,7 +72,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onSave }) => {
           <div className="pr-2">
             <Image src="/icon/plus.svg" width={16} height={16} alt="plus" />
           </div>
-          <span> Add Product</span>
+          <span>Add Product</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
@@ -232,6 +246,29 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onSave }) => {
                     onChange={handleChange}
                     className="w-full border-gray-300 rounded-md shadow-sm p-3"
                   />
+                </div>
+                <div>
+                  <label
+                    htmlFor="category"
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Category
+                  </label>
+                  <Select onValueChange={handleCategoryChange}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select a category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="table and chair">
+                        Table and Chair
+                      </SelectItem>
+                      <SelectItem value="ceramic art">Ceramic Art</SelectItem>
+                      <SelectItem value="lighting">Lighting</SelectItem>
+                      <SelectItem value="sofa and chair">
+                        Sofa and Chair
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
             </div>

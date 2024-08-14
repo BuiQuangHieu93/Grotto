@@ -11,6 +11,7 @@ const FurnitureSchema = new Schema({
   available: { type: Number, required: true },
   feature: { type: Boolean, required: true },
   type: { type: String, required: true },
+  category: { type: String, required: true },
 });
 
 const Furniture = models.Furniture || model("Furniture", FurnitureSchema);

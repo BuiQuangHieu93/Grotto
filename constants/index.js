@@ -77,6 +77,7 @@ export const FurnitureTrending = [
     available: 8,
     feature: true,
     type: "Home",
+    category: "sofa and chair", // Added category
   },
   {
     id: "2",
@@ -90,6 +91,7 @@ export const FurnitureTrending = [
     available: 5,
     feature: false,
     type: "Home",
+    category: "table and chair", // Added category
   },
   {
     id: "3",
@@ -103,6 +105,7 @@ export const FurnitureTrending = [
     available: 12,
     feature: true,
     type: "Home",
+    category: "lighting", // Added category
   },
   {
     id: "4",
@@ -116,6 +119,7 @@ export const FurnitureTrending = [
     available: 3,
     feature: false,
     type: "Home",
+    category: "lighting", // Added category
   },
   {
     id: "5",
@@ -129,6 +133,7 @@ export const FurnitureTrending = [
     available: 7,
     feature: true,
     type: "Home",
+    category: "table and chair", // Added category
   },
   {
     id: "6",
@@ -142,6 +147,7 @@ export const FurnitureTrending = [
     available: 20,
     feature: false,
     type: "Home",
+    category: "sofa and chair", // Added category
   },
   {
     id: "7",
@@ -155,6 +161,7 @@ export const FurnitureTrending = [
     available: 15,
     feature: true,
     type: "Home",
+    category: "ceramic art", // Added category
   },
   {
     id: "8",
@@ -168,6 +175,7 @@ export const FurnitureTrending = [
     available: 9,
     feature: false,
     type: "Kitchen",
+    category: "table and chair", // Added category
   },
   {
     id: "9",
@@ -181,6 +189,7 @@ export const FurnitureTrending = [
     available: 10,
     feature: false,
     type: "Kitchen",
+    category: "sofa and chair", // Added category
   },
   {
     id: "10",
@@ -194,6 +203,7 @@ export const FurnitureTrending = [
     available: 7,
     feature: false,
     type: "Kitchen",
+    category: "table and chair", // Added category
   },
   {
     id: "11",
@@ -207,6 +217,7 @@ export const FurnitureTrending = [
     available: 5,
     feature: false,
     type: "Office",
+    category: "sofa and chair", // Added category
   },
   {
     id: "12",
@@ -220,6 +231,7 @@ export const FurnitureTrending = [
     available: 3,
     feature: false,
     type: "Kitchen",
+    category: "sofa and chair", // Added category
   },
   {
     id: "13",
@@ -233,8 +245,10 @@ export const FurnitureTrending = [
     available: 6,
     feature: false,
     type: "Office",
+    category: "sofa and chair", // Added category
   },
 ];
+
 
 export const ProductCollectionData = [
   {

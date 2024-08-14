@@ -17,6 +17,7 @@ import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import Cart from "./Cart";
 import { navbar } from "@/constants";
+import FurnitureSearch from "./FurnitureSearch";
 
 const Navbar = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -67,13 +68,14 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-        <div className="flex bg-white h-12 w-80 items-center rounded-lg shadow">
+        {/* <div className="flex bg-white h-12 w-80 items-center rounded-lg shadow">
           <Input
             className="focus-visible:ring-transparent border-none w-[85%] ml-2"
             placeholder="Search..."
           />
           <Image src="/icon/search.svg" height={24} width={24} alt="search" />
-        </div>
+        </div> */}
+        <FurnitureSearch />
         <div className="flex space-x-4 focus-visible:ring-0">
           <Select>
             <SelectTrigger className="w-36 bg-gray-100 focus-visible:ring-0 focus-visible:border-none focus-visible:outline-none focus-ring-0 border-none focus:ring-0 focus:ring-offset-0">

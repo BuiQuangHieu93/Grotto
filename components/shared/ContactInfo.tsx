@@ -113,27 +113,29 @@ const ContactInfo = () => {
           <h2 className="text-2xl font-bold mb-4">Contact Form</h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Name"
-                className="w-full p-3 border border-gray-300 rounded"
-                required
-              />
-            </div>
-            <div>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Email"
-                className="w-full p-3 border border-gray-300 rounded"
-                required
-              />
+            <div className="grid grid-cols-2 gap-4 ">
+              <div>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Name"
+                  className="w-full p-3 border border-gray-300 rounded"
+                  required
+                />
+              </div>
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Email"
+                  className="w-full p-3 border border-gray-300 rounded"
+                  required
+                />
+              </div>
             </div>
             <div>
               <input

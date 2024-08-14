@@ -16,6 +16,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -28,6 +35,7 @@ const ProductCard = ({ product, onDelete, onUpdate }: ProductCardProps) => {
     feature: product.feature,
     type: product.type,
     bestSelling: product.bestSelling,
+    category: product.category,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +43,13 @@ const ProductCard = ({ product, onDelete, onUpdate }: ProductCardProps) => {
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleCategoryChange = (value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      category: value,
     }));
   };
 
@@ -70,7 +85,7 @@ const ProductCard = ({ product, onDelete, onUpdate }: ProductCardProps) => {
       />
       <h2 className="mt-4 text-xl font-semibold">{product.title}</h2>
       <p className="text-gray-600">
-        ${product.salePrice}{" "}
+        ${product.salePrice}
         <span className="line-through">${product.originalPrice}</span>
       </p>
       <div className="grid grid-cols-2 gap-4 pt-4">
@@ -225,17 +240,43 @@ const ProductCard = ({ product, onDelete, onUpdate }: ProductCardProps) => {
                           className="w-full border-gray-300 rounded-md shadow-sm p-3"
                         />
                       </div>
+
+                      <div>
+                        <Label
+                          htmlFor="category"
+                          className="block text-sm font-medium text-gray-700 mb-2"
+                        >
+                          Category
+                        </Label>
+                        <Select onValueChange={handleCategoryChange}>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select a category" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="table and chair">
+                              Table and Chair
+                            </SelectItem>
+                            <SelectItem value="ceramic art">
+                              Ceramic Art
+                            </SelectItem>
+                            <SelectItem value="lighting">Lighting</SelectItem>
+                            <SelectItem value="sofa and chair">
+                              Sofa and Chair
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
                     </div>
                   </div>
-                  <DialogClose asChild>
-                    <Button
-                      type="submit"
-                      className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-6"
-                    >
-                      Update
-                    </Button>
-                  </DialogClose>
                 </div>
+                <DialogClose asChild>
+                  <Button
+                    type="submit"
+                    className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-6"
+                  >
+                    Update
+                  </Button>
+                </DialogClose>
               </form>
             </DialogContent>
           </Dialog>

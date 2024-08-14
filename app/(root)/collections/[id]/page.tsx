@@ -105,7 +105,7 @@ const Page = () => {
       <div className="bg-[#e9e8e4] px-4 pb-20">
         <div className="py-12">
           <div className="p-5 font-semibold text-4xl bg-[#ffffff] text-center ">
-            Furniture 1
+            {product[0].category}
           </div>
         </div>
         <div className="grid grid-cols-4">

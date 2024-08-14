@@ -89,6 +89,7 @@ export interface Furniture {
   available: number;
   feature: boolean;
   type: string;
+  category: string;
 }
 
 export interface GetFurniture {
@@ -103,6 +104,7 @@ export interface GetFurniture {
   available: number;
   feature: boolean;
   type: string;
+  category: string;
 }
 
 export interface CreateFurnitureParams {
@@ -116,6 +118,7 @@ export interface CreateFurnitureParams {
   available: number;
   feature: boolean;
   type: string;
+  category: string;
 }
 
 export interface UpdateFurnitureParams {
@@ -129,6 +132,7 @@ export interface UpdateFurnitureParams {
   available?: number;
   feature?: boolean;
   type?: string;
+  category?: string;
 }
 
 export interface FurnitureData {
