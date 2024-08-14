@@ -177,9 +177,9 @@ const Page = () => {
           </div>
         </div>
 
-        <Button className="mt-2 py-2 bg-[#333333] text-white w-full hover:bg-[#d3c3a4] uppercase">
+        {/* <Button className="mt-2 py-2 bg-[#333333] text-white w-full hover:bg-[#d3c3a4] uppercase">
           Buy it now
-        </Button>
+        </Button> */}
         <CheckoutButton
           products={{
             userId: userId || "", // Provide a fallback string

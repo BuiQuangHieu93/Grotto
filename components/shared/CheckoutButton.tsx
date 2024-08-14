@@ -12,7 +12,7 @@ const CheckoutButton = ({ products }: { products: OrderParams }) => {
   const userId = user?.id || ""; // Correctly accessing the Clerk user ID
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 w-full">
       <>
         <SignedOut>
           <Button asChild className="button rounded-full" size="lg">

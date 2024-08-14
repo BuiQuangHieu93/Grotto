@@ -51,9 +51,14 @@ const Checkout = ({
   };
 
   return (
-    <form action={onCheckout} method="post">
-      <Button type="submit" role="link" size="lg" className="button sm:w-fit">
-        Checkout
+    <form action={onCheckout} method="post" className="w-full">
+      <Button
+        type="submit"
+        role="link"
+        size="lg"
+        className="mt-2 py-2 bg-[#333333] text-white w-full hover:bg-[#d3c3a4] uppercase"
+      >
+        Buy it now
       </Button>
     </form>
   );
