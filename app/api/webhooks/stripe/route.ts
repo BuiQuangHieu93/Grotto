@@ -2,6 +2,7 @@ import Stripe from "stripe";
 import { NextResponse } from "next/server";
 import { updateOrder } from "@/lib/actions/order.actions";
 import { UpdateOrderParams } from "@/types";
+import { clearCart } from "@/lib/actions/cart.actions";
 
 export async function POST(request: Request) {
   const body = await request.text();
@@ -29,6 +30,7 @@ export async function POST(request: Request) {
     };
 
     const updatedOrder = await updateOrder(updateOrderParams);
+    await clearCart(metadata?.userId || "");
 
     if (updatedOrder) {
       console.log("Updated order in database", updatedOrder);

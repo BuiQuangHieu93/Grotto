@@ -1,15 +1,17 @@
 "use client";
 import { CardProps } from "@/types";
 import Image from "next/legacy/image";
+import Link from "next/link";
 import React, { useState } from "react";
 
 const CollectionCard = ({ data }: { data: CardProps }) => {
   const [hover, setHover] = useState(false);
   return (
-    <div
+    <Link
       className="flex-center w-full flex-col group"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      href={`${data.link}`}
     >
       <div className="overflow-hidden w-[476px] h-[595px] relative aspect-w-3 aspect-h-4">
         <Image
@@ -38,7 +40,7 @@ const CollectionCard = ({ data }: { data: CardProps }) => {
           />
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

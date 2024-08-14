@@ -104,7 +104,7 @@ export interface GetFurniture {
   available: number;
   feature: boolean;
   type: string;
-  category: string;
+  category: "table and chair" | "ceramic art" | "lighting" | "sofa and chair";
 }
 
 export interface CreateFurnitureParams {
@@ -237,6 +237,7 @@ export interface DemoSliderProps {
 export interface CardProps {
   image: string;
   title: string;
+  link: string;
 }
 
 export interface ImageProps {

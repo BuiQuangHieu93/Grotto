@@ -249,7 +249,6 @@ export const FurnitureTrending = [
   },
 ];
 
-
 export const ProductCollectionData = [
   {
     id: 1,
@@ -489,20 +488,24 @@ export const InstagramPostData = [
 
 export const CardData = [
   {
-    image: "/image/furniture-01.jpg",
-    title: "Furniture 1",
+    image: "/image/L01-category-01.webp",
+    title: "Table and Chair",
+    link: "/collections/tableandchair",
   },
   {
-    image: "/image/furniture-11.jpg",
-    title: "Furniture 2",
+    image: "/image/L01-category-02.webp",
+    title: "Ceramic Art",
+    link: "/collections/ceramicart",
   },
   {
-    image: "/image/L10-10.jpg",
-    title: "Home Page",
+    image: "/image/L01-category-03.webp",
+    title: "Lighting",
+    link: "/collections/lighting",
   },
   {
-    image: "/image/L10-01.jpg",
-    title: "Pottery",
+    image: "/image/L01-category-04.webp",
+    title: "Sofa and Chair",
+    link: "/collections/sofaandchair",
   },
 ];
 

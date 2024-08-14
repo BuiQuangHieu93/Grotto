@@ -4,6 +4,7 @@ import Image from "next/legacy/image";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { FurnitureData } from "@/types";
+import Link from "next/link";
 
 const FurnitureCard = ({ data, type }: FurnitureData) => {
   const [hover, setHover] = useState(false);
@@ -20,7 +21,10 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
   };
 
   return (
-    <div className={`flex ${type === "horizon" ? "flex-row" : "flex-col"}`}>
+    <Link
+      className={`flex ${type === "horizon" ? "flex-row" : "flex-col"}`}
+      href={`/products/${data._id}`}
+    >
       <div
         className={`relative group overflow-hidden ${
           type === "horizon" ? "pr-4" : ""
@@ -104,7 +108,7 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
           )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

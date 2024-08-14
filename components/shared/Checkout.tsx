@@ -5,7 +5,6 @@ import { Button } from "../ui/button";
 import { checkoutOrder } from "@/lib/actions/order.actions";
 import { OrderParams } from "@/types";
 
-
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 const Checkout = ({
@@ -37,7 +36,15 @@ const Checkout = ({
     };
 
     try {
-      await checkoutOrder(order);
+      const response = await checkoutOrder(order);
+
+      if (response?.redirect) {
+        window.location.href = response.redirect;
+      } else {
+        console.error(
+          "Failed to obtain the redirection URL or the response was undefined."
+        );
+      }
     } catch (error) {
       console.error("Error during checkout: ", error);
     }

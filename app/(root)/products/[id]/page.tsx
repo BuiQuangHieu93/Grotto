@@ -1,5 +1,6 @@
 "use client";
 
+import CheckoutButton from "@/components/shared/CheckoutButton";
 import ImageZoom from "@/components/shared/ImageZoom";
 import { Button } from "@/components/ui/button";
 import { addItemsToCart, createCart } from "@/lib/actions/cart.actions";
@@ -7,6 +8,7 @@ import { getFurnitureById } from "@/lib/actions/product.actions";
 import { GetFurniture } from "@/types";
 import { useAuth } from "@clerk/nextjs";
 import Image from "next/legacy/image";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -27,7 +29,6 @@ const Page = () => {
       }
     };
     fetchProduct();
-    console.log(product);
   }, [item.id]);
 
   const handleAddToCart = async () => {
@@ -37,12 +38,6 @@ const Page = () => {
         items: [{ product: product._id, quantity: value }],
       });
       console.log(addItem);
-      // const createNewCart = await createCart({
-      //   user: userId,
-      //   items: [],
-      //   totalPrice: 0,
-      // });
-      // console.log(createNewCart);
     } else {
       console.error("Product ID or User ID is missing");
     }
@@ -58,7 +53,7 @@ const Page = () => {
         ))}
       </div>
       <div className="flex flex-col space-y-4 mr-32 ml-20 sticky top-0 items-start h-[550px]">
-        <div className="text-sm text-[#666666]">{product?.type} furniture</div>
+        <div className="text-sm text-[#666666]">{product?.type} Furniture</div>
         <div className="text-3xl font-medium">{product?.title}</div>
         <div className="text-base flex flex-row">
           <div className="flex-center">
@@ -174,7 +169,7 @@ const Page = () => {
           </div>
           <div className="flex-center h-full w-full ml-2">
             <Button
-              className="py-2 bg-[#d3c3a4] text-white w-full uppercase"
+              className="py-2 bg-[#d3c3a4] text-white w-full uppercase hover:bg-[#333333]"
               onClick={() => handleAddToCart()}
             >
               Add to cart
@@ -185,11 +180,29 @@ const Page = () => {
         <Button className="mt-2 py-2 bg-[#333333] text-white w-full hover:bg-[#d3c3a4] uppercase">
           Buy it now
         </Button>
+        <CheckoutButton
+          products={{
+            userId: userId || "", // Provide a fallback string
+            items: product
+              ? [{ product: product, quantity: value }] // Ensure product is defined
+              : [],
+            totalPrice: product
+              ? product.salePrice
+                ? product.salePrice * value
+                : product.originalPrice * value
+              : 0, // Provide a fallback for totalPrice
+          }}
+        />
         <div className="text-sm text-[#333333] font-normal mt-4">
           Categories:{" "}
-          <a href="#" className="underline text-[#666666]">
-            Furniture 2
-          </a>
+          <Link
+            href={`collections/${product?.category
+              .toLowerCase()
+              .replace(/\s+/g, "")}`}
+            className="underline text-[#666666] uppercase"
+          >
+            {product?.category}
+          </Link>
         </div>
         <Button className="flex items-center mt-2 py-2 bg-[#333333] text-white w-[20%]">
           <Image

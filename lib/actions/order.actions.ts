@@ -5,7 +5,7 @@ import { connectToDatabase } from "../mongoose";
 import { handleError } from "../utils";
 import Order from "../models/order.models";
 import { OrderParams, CreateOrderParams, UpdateOrderParams } from "@/types";
-import { redirect } from "next/navigation";
+import { updateFurniture } from "./product.actions";
 
 export const checkoutOrder = async (order: OrderParams) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -36,7 +36,7 @@ export const checkoutOrder = async (order: OrderParams) => {
     const stripeId = session.id;
 
     await createOrder({
-      stripeId: stripeId,
+      stripeId,
       userId: order.userId,
       items: order.items.map((item) => ({
         product: item.product,
@@ -51,8 +51,20 @@ export const checkoutOrder = async (order: OrderParams) => {
       createdAt: new Date(),
       updatedAt: new Date(),
     });
+
+    await Promise.all(
+      order.items.map((item) =>
+        updateFurniture(item.product._id, {
+          available: item.product.available - item.quantity,
+        })
+      )
+    );
+
+    // Redirect to the Stripe checkout session URL
     if (session.url) {
-      redirect(session.url);
+      return {
+        redirect: session.url,
+      };
     }
   } catch (error) {
     handleError(error);
@@ -107,7 +119,7 @@ export const updateOrder = async (order: UpdateOrderParams) => {
 
 export const getAllOrders = async () => {
   try {
-    connectToDatabase();
+    await connectToDatabase(); // Ensure you await the connection
     const orders = await Order.find({});
     return JSON.parse(JSON.stringify(orders));
   } catch (error) {

@@ -114,20 +114,29 @@ export const deleteItemInCart = async ({
   }
 };
 
-export const clearCart = async (userId: mongoose.Types.ObjectId) => {
+export const clearCart = async (userId: string) => {
   try {
     await connectToDatabase();
 
     const cart = await Cart.findOne({ user: userId });
-    if (!cart) throw new Error("Cart not found");
+    if (!cart) {
+      console.error(`Cart not found for userId: ${userId}`);
+      throw new Error("Cart not found");
+    }
+
+    console.log(`Clearing cart for userId: ${userId}`);
 
     cart.items = [];
     cart.totalPrice = 0;
 
     await cart.save();
+
+    console.log(`Cart cleared successfully for userId: ${userId}`);
     return JSON.parse(JSON.stringify(cart));
   } catch (error) {
+    console.error("Error clearing cart:", error);
     handleError(error);
+    throw error; // Re-throw the error for further inspection
   }
 };
 
