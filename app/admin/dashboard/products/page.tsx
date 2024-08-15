@@ -5,7 +5,7 @@ import {
   createFurniture,
   getAllFurniture,
 } from "@/lib/actions/product.actions";
-import { IFurniture } from "@/types";
+import { CreateFurnitureParams, IFurniture, IFurnitureFrontend } from "@/types";
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -19,8 +19,11 @@ export default function Home() {
     getProducts();
   }, []);
 
-  const handleAddProduct = async (newProduct: IFurniture) => {
-    const createdProduct = await createFurniture(newProduct);
+  const handleAddProduct = async (newProduct: IFurnitureFrontend) => {
+    const fullProduct: CreateFurnitureParams = {
+      ...newProduct,
+    };
+    const createdProduct = await createFurniture(fullProduct);
     setProducts((prevProducts) => [...prevProducts, createdProduct]);
   };
 
