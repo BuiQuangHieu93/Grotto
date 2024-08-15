@@ -1,0 +1,34 @@
+import { GetFurnitureByCategory } from "@/lib/actions/product.actions";
+import { CategoryRelatedProps, GetFurniture } from "@/types";
+import React, { useEffect, useState } from "react";
+import FurnitureCard from "./FurnitureCard";
+
+const CategoryRelated = ({ category, id }: CategoryRelatedProps) => {
+  const [products, setProducts] = useState<GetFurniture[]>([]);
+
+  useEffect(() => {
+    const fetchRelatedProduct = async () => {
+      const product = await GetFurnitureByCategory(category);
+      setProducts(product);
+    };
+    fetchRelatedProduct();
+  }, [category]); // Include `category` as a dependency
+
+  // Filter out the current product from the related products
+  const relatedProduct = products.filter((item) => item._id !== id);
+
+  return (
+    <div className="flex flex-col pb-20">
+      <div className="flex-center text-4xl font-semibold uppercase py-20">
+        You may also like
+      </div>
+      <div className="grid grid-cols-4 gap-5 px-5">
+        {relatedProduct.slice(0, 4).map((product) => (
+          <FurnitureCard data={product} type="origin" key={product._id} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default CategoryRelated;

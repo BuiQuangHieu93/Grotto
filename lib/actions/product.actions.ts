@@ -70,6 +70,17 @@ export async function getAllFurniture() {
   }
 }
 
+export async function GetFurnitureByCategory(category: string) {
+  try {
+    await connectToDatabase();
+    const furnitureItems = await Furniture.find({ category: category });
+    return JSON.parse(JSON.stringify(furnitureItems));
+  } catch (error) {
+    handleError(error);
+    return []; // Optional: Return an empty array in case of error
+  }
+}
+
 // Define the getFurnitureById function
 export async function getFurnitureById(id: string) {
   try {

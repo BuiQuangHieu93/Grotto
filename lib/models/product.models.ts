@@ -1,6 +1,7 @@
+import { IFurniture } from "@/types";
 import { Schema, model, models } from "mongoose";
 
-const FurnitureSchema = new Schema({
+const FurnitureSchema = new Schema<IFurniture>({
   images: { type: [String], required: true },
   imageHover: { type: String, required: true },
   title: { type: String, required: true },

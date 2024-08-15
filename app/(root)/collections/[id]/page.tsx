@@ -14,9 +14,9 @@ import {
 import FurnitureCard from "@/components/shared/FurnitureCard";
 import { Checkbox } from "@/components/ui/checkbox";
 import RangeSlider from "@/components/shared/RangeSlider";
-import { GetFurniture } from "@/types";
-import { getAllFurniture } from "@/lib/actions/product.actions";
-import { useParams, useRouter } from "next/navigation";
+import { CardProps, IFurniture } from "@/types";
+import { GetFurnitureByCategory } from "@/lib/actions/product.actions";
+import { useParams } from "next/navigation";
 import { CardData } from "@/constants";
 
 const Page = () => {
@@ -27,38 +27,35 @@ const Page = () => {
   const [listType, setListType] = useState("three");
   const [sortOption, setSortOption] = useState("featured");
   const [priceRange, setPriceRange] = useState([0, 320]);
-  const [product, setProduct] = useState<GetFurniture[]>([]);
+  const [product, setProduct] = useState<IFurniture[]>([]);
+  const [categoryType, setCategoryType] = useState<CardProps>();
+
+  useEffect(() => {
+    const getTitle = () => {
+      const item = CardData.find(
+        (item) => item.link === `/collections/${category}`
+      );
+      setCategoryType(item);
+    };
+    getTitle();
+  }, [category]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const furniture = await getAllFurniture();
-      setProduct(furniture);
+      if (categoryType?.type) {
+        const furniture = await GetFurnitureByCategory(categoryType.type);
+        setProduct(furniture);
+      }
     };
-
     fetchData();
-  }, []);
+  }, [categoryType]);
 
   const handleSortChange = (value: string) => {
     setSortOption(value);
   };
 
-  const normalizeCategory = (cat: string | string[] | undefined) => {
-    if (typeof cat === "string") {
-      return cat.toLowerCase().replace(/\s+/g, "");
-    }
-    return "";
-  };
-
   const filteredFurniture = () => {
     let filteredData = product;
-
-    // Filter by category
-    const normalizedCategory = normalizeCategory(category);
-    if (normalizedCategory) {
-      filteredData = filteredData.filter(
-        (item) => normalizeCategory(item.category) === normalizedCategory
-      );
-    }
 
     filteredData = filteredData.filter((item) => item.available > 0);
 
@@ -118,18 +115,11 @@ const Page = () => {
 
   const filteredAndSortedFurniture = filteredFurniture();
 
-  const getTitle = () => {
-    const item = CardData.find(
-      (item) => item.link === `/collections/${category}`
-    );
-    return item ? item.title : "Furniture";
-  };
-
   return (
     <div className="bg-[#e9e8e4] px-4 pb-20">
       <div className="py-12">
         <div className="p-5 font-semibold text-4xl bg-[#ffffff] text-center uppercase">
-          {getTitle()}
+          {categoryType?.title}
         </div>
       </div>
       <div className="grid grid-cols-4">
@@ -333,7 +323,7 @@ const Page = () => {
               </div>
             </div>
             <div className="bg-[#e9e8e4] px-2 rounded-xl font-semibold text-sm flex-center">
-              {filteredAndSortedFurniture.length} products
+              {filteredAndSortedFurniture.length} of {product.length} products
             </div>
           </div>
           <div

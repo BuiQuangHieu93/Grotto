@@ -1,3 +1,5 @@
+import { Document } from "mongoose";
+
 //Blog
 export interface BlogDataProps {
   image: string;
@@ -34,7 +36,8 @@ export interface BlogCardDeleteProps {
 }
 
 //User
-export interface User {
+export interface IUser extends Document {
+  _id: string;
   clerkId: string;
   email: string;
   username: string;
@@ -78,21 +81,7 @@ export interface CreateMessage {
 }
 
 //Furniture
-export interface Furniture {
-  images: string[];
-  imageHover: string;
-  title: string;
-  originalPrice: number;
-  salePrice?: number;
-  bestSelling: number;
-  date: Date;
-  available: number;
-  feature: boolean;
-  type: string;
-  category: string;
-}
-
-export interface GetFurniture {
+export interface IFurniture extends Document {
   _id: string;
   images: string[];
   imageHover: string;
@@ -135,36 +124,54 @@ export interface UpdateFurnitureParams {
   category?: string;
 }
 
+export interface CategoryRelatedProps {
+  category: "table and chair" | "ceramic art" | "lighting" | "sofa and chair";
+  id: string;
+}
+
 export interface FurnitureData {
-  data: GetFurniture;
+  data: IFurniture;
   type: "origin" | "horizon";
 }
 
 export interface AddProductModalProps {
-  onSave: (newProduct: Furniture) => void;
+  onSave: (newProduct: IFurniture) => void;
 }
 
 export interface ProductCardProps {
-  product: GetFurniture;
+  product: IFurniture;
   onDelete: (productId: string) => void;
-  onUpdate: (updatedProduct: GetFurniture) => void;
+  onUpdate: (updatedProduct: IFurniture) => void;
 }
 
 //Cart actions
+
+export interface ICartItem {
+  product: IFurniture["_id"];
+  quantity: number;
+}
+
+export interface ICart extends Document {
+  _id: string;
+  userId: string;
+  items: ICartItem[];
+  totalPrice: number;
+}
+
 export interface CreateCartParams {
-  user: string;
+  userId: string;
   items: { product: string; quantity: number }[];
   totalPrice: number;
 }
 
 export interface AddItemsParams {
   userId: string;
-  items: { product: string; quantity: number }[];
+  items: { product: IFurniture; quantity: number }[];
 }
 
 export interface UpdateCartParams {
   userId: string;
-  items: { product: GetFurniture; quantity: number }[];
+  items: { product: IFurniture; quantity: number }[];
 }
 
 export interface DeleteItemParams {
@@ -173,7 +180,7 @@ export interface DeleteItemParams {
 }
 
 export interface CartItem {
-  product: GetFurniture;
+  product: IFurniture;
   quantity: number;
 }
 
@@ -183,7 +190,7 @@ export interface CreateOrderParams {
   stripeId: string;
   userId: string;
   items: {
-    product: GetFurniture;
+    product: IFurniture;
     quantity: number;
     price: number;
   }[];
@@ -198,7 +205,7 @@ export interface GetOrderParams {
   stripeId: string;
   userId: string;
   items: {
-    product: GetFurniture;
+    product: IFurniture;
     quantity: number;
     price: number;
   }[];
@@ -211,7 +218,7 @@ export interface GetOrderParams {
 
 export interface OrderParams {
   userId: string;
-  items: { product: GetFurniture; quantity: number }[];
+  items: { product: IFurniture; quantity: number }[];
   totalPrice: number;
 }
 
@@ -238,6 +245,7 @@ export interface CardProps {
   image: string;
   title: string;
   link: string;
+  type: string;
 }
 
 export interface ImageProps {

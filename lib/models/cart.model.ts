@@ -1,15 +1,15 @@
-import mongoose, { Schema, model, models } from "mongoose";
+import { ICart } from "@/types";
+import { Schema, model, models } from "mongoose";
 
-const cartSchema = new mongoose.Schema({
-  user: {
+const cartSchema = new Schema<ICart>({
+  userId: {
     type: String,
-    ref: "User",
     required: true,
   },
   items: [
     {
       product: {
-        type: String,
+        type: Schema.Types.ObjectId,
         ref: "Furniture",
         required: true,
       },

@@ -50,18 +50,46 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onSave }) => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
     const updatedFormData = {
       ...formData,
       images: fileUrl,
       imageHover: fileHoverUrl,
     };
+
     onSave(updatedFormData);
+
+    // Reset the form to its initial state
+    setFormData({
+      images: [],
+      imageHover: "",
+      title: "",
+      originalPrice: 0,
+      salePrice: 0,
+      bestSelling: 0,
+      date: new Date(),
+      available: 0,
+      feature: false,
+      type: "",
+      category: "",
+    });
+
+    // Reset the file URLs
+    setFileUrl([]);
+    setFileHoverUrl("");
   };
 
   const handleCategoryChange = (value: string) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       category: value,
+    }));
+  };
+
+  const handleTypeChange = (value: string) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      type: value,
     }));
   };
 
@@ -237,15 +265,16 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onSave }) => {
                   >
                     Type
                   </label>
-                  <Input
-                    type="text"
-                    id="type"
-                    name="type"
-                    placeholder="Type"
-                    value={formData.type}
-                    onChange={handleChange}
-                    className="w-full border-gray-300 rounded-md shadow-sm p-3"
-                  />
+                  <Select onValueChange={handleTypeChange}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select a type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Home">Home</SelectItem>
+                      <SelectItem value="Office">Office</SelectItem>
+                      <SelectItem value="Kitchen">Kitchen</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div>
                   <label

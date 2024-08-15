@@ -23,12 +23,21 @@ export const createCart = async (cart: CreateCartParams) => {
   }
 };
 
-export const getCartByUserId = async (userId: String) => {
+export const getCartByUserId = async (userId: string) => {
   try {
     await connectToDatabase();
 
-    const cart = await Cart.findOne({ user: userId }).populate("items.product");
-    if (!cart) throw new Error("Cart not found");
+    const cart = await Cart.findOne({ userId: userId }).populate(
+      "items.product"
+    );
+    if (!cart) {
+      await createCart({
+        userId: userId,
+        items: [],
+        totalPrice: 0,
+      });
+      await Cart.findOne({ userId: userId });
+    }
 
     return JSON.parse(JSON.stringify(cart));
   } catch (error) {
@@ -40,30 +49,38 @@ export const addItemsToCart = async ({ userId, items }: AddItemsParams) => {
   try {
     await connectToDatabase();
 
-    let cart = await Cart.findOne({ user: userId }).populate("items.product");
+    let cart = await Cart.findOne({ userId: userId }).populate("items.product");
+
     if (!cart) {
-      await createCart({
-        user: userId,
+      // Create a new cart if one doesn't exist
+      cart = new Cart({
+        userId: userId,
         items: [],
         totalPrice: 0,
       });
-      cart = await Cart.findOne({ user: userId }).populate("items.product");
     }
 
     items.forEach((newItem) => {
-      const existingItem = cart.items.find(
-        (item: any) =>
-          item.product._id.toString() === newItem.product.toString()
-      );
+      console.log("New Item Product ID:", newItem.product._id.toString());
+
+      const existingItem = cart.items.find((item: any) => {
+        console.log("Existing Item Product ID:", item.product._id.toString());
+        return item.product._id.toString() === newItem.product._id.toString();
+      });
+
       if (existingItem) {
+        // Update the quantity if the item already exists in the cart
         existingItem.quantity += newItem.quantity;
       } else {
+        // Add new item to the cart if it doesn't exist
         cart.items.push(newItem);
       }
     });
 
+    // Recalculate the total price
     cart.totalPrice = await calculateTotalPrice(cart.items);
     await cart.save();
+
     return JSON.parse(JSON.stringify(cart));
   } catch (error) {
     handleError(error);
@@ -75,9 +92,9 @@ export const updateCart = async ({ userId, items }: UpdateCartParams) => {
     await connectToDatabase();
 
     const updatedCart = await Cart.findOneAndUpdate(
-      { user: userId },
+      { userId: userId },
       { items },
-      { new: true, runValidators: true }
+      { new: true }
     ).populate("items.product");
 
     if (!updatedCart) throw new Error("Cart not found");
@@ -99,7 +116,9 @@ export const deleteItemInCart = async ({
   try {
     await connectToDatabase();
 
-    const cart = await Cart.findOne({ user: userId }).populate("items.product");
+    const cart = await Cart.findOne({ userId: userId }).populate(
+      "items.product"
+    );
     if (!cart) throw new Error("Cart not found");
 
     cart.items = cart.items.filter(
@@ -118,7 +137,7 @@ export const clearCart = async (userId: string) => {
   try {
     await connectToDatabase();
 
-    const cart = await Cart.findOne({ user: userId });
+    const cart = await Cart.findOne({ userId: userId });
     if (!cart) {
       console.error(`Cart not found for userId: ${userId}`);
       throw new Error("Cart not found");

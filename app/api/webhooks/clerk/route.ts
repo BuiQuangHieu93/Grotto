@@ -73,8 +73,8 @@ export async function POST(req: Request) {
     try {
       const newUser = await createUser(user);
       console.log("New user created:", newUser);
-      const newCart = await createCart({
-        user: id,
+      await createCart({
+        userId: id,
         items: [],
         totalPrice: 0,
       });

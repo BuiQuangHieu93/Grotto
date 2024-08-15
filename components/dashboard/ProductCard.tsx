@@ -53,6 +53,13 @@ const ProductCard = ({ product, onDelete, onUpdate }: ProductCardProps) => {
     }));
   };
 
+  const handleTypeChange = (value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      type: value,
+    }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const updatedProduct = await handleUpdate(formData);
@@ -84,9 +91,11 @@ const ProductCard = ({ product, onDelete, onUpdate }: ProductCardProps) => {
         width={192}
       />
       <h2 className="mt-4 text-xl font-semibold h-14">{product.title}</h2>
-      <p className="text-gray-600">
-        ${product.salePrice}
-        <span className="line-through">${product.originalPrice}</span>
+      <p className="text-gray-600 font-medium">
+        <span className="line-through mx-2">
+          ${product.originalPrice.toFixed(2)}
+        </span>
+        ${product.salePrice?.toFixed(2)}
       </p>
       <div className="grid grid-cols-2 gap-4 pt-4">
         <div>
@@ -230,15 +239,16 @@ const ProductCard = ({ product, onDelete, onUpdate }: ProductCardProps) => {
                         >
                           Type
                         </Label>
-                        <Input
-                          type="text"
-                          id="type"
-                          name="type"
-                          placeholder="Type"
-                          value={formData.type || ""}
-                          onChange={handleChange}
-                          className="w-full border-gray-300 rounded-md shadow-sm p-3"
-                        />
+                        <Select onValueChange={handleTypeChange}>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select a type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Home">Home</SelectItem>
+                            <SelectItem value="Office">Office</SelectItem>
+                            <SelectItem value="Kitchen">Kitchen</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
 
                       <div>

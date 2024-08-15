@@ -30,7 +30,12 @@ export async function POST(request: Request) {
     };
 
     const updatedOrder = await updateOrder(updateOrderParams);
-    await clearCart(metadata?.userId || "");
+
+    console.log("useId:", metadata?.userId);
+
+    if (metadata?.userId) {
+      await clearCart(metadata?.userId);
+    }
 
     if (updatedOrder) {
       console.log("Updated order in database", updatedOrder);

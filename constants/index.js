@@ -491,21 +491,25 @@ export const CardData = [
     image: "/image/L01-category-01.webp",
     title: "Table and Chair",
     link: "/collections/tableandchair",
+    type: "table and chair",
   },
   {
     image: "/image/L01-category-02.webp",
     title: "Ceramic Art",
     link: "/collections/ceramicart",
+    type: "ceramic art",
   },
   {
     image: "/image/L01-category-03.webp",
     title: "Lighting",
     link: "/collections/lighting",
+    type: "lighting",
   },
   {
     image: "/image/L01-category-04.webp",
     title: "Sofa and Chair",
     link: "/collections/sofaandchair",
+    type: "sofa and chair",
   },
 ];
 

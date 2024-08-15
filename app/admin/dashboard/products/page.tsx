@@ -5,11 +5,11 @@ import {
   createFurniture,
   getAllFurniture,
 } from "@/lib/actions/product.actions";
-import { Furniture, GetFurniture } from "@/types";
+import { IFurniture } from "@/types";
 import { useState, useEffect } from "react";
 
 export default function Home() {
-  const [products, setProducts] = useState<GetFurniture[]>([]);
+  const [products, setProducts] = useState<IFurniture[]>([]);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -19,7 +19,7 @@ export default function Home() {
     getProducts();
   }, []);
 
-  const handleAddProduct = async (newProduct: Furniture) => {
+  const handleAddProduct = async (newProduct: IFurniture) => {
     const createdProduct = await createFurniture(newProduct);
     setProducts((prevProducts) => [...prevProducts, createdProduct]);
   };
@@ -30,7 +30,7 @@ export default function Home() {
     );
   };
 
-  const handleUpdateProduct = (updatedProduct: GetFurniture) => {
+  const handleUpdateProduct = (updatedProduct: IFurniture) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
         product._id === updatedProduct._id ? updatedProduct : product
@@ -47,7 +47,7 @@ export default function Home() {
         <AddProductModal onSave={handleAddProduct} />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
+        {products.map((product, index) => (
           <ProductCard
             key={product._id}
             product={product}
