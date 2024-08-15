@@ -21,7 +21,7 @@ const Leaderboard: React.FC = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const fetchedUsers: User[] = await getAllUsers();
+        const fetchedUsers: IUser[] = await getAllUsers();
         setUsers(fetchedUsers);
         console.log(fetchedUsers);
       } catch (error) {
@@ -36,7 +36,7 @@ const Leaderboard: React.FC = () => {
     try {
       await deleteUser(ClerkId);
       // Refresh the page or re-fetch the users
-      const fetchedUsers: User[] = await getAllUsers();
+      const fetchedUsers: IUser[] = await getAllUsers();
       setUsers(fetchedUsers);
     } catch (error) {
       console.error("Error deleting user:", error);
