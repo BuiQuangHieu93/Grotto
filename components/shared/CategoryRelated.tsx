@@ -1,10 +1,10 @@
 import { GetFurnitureByCategory } from "@/lib/actions/product.actions";
-import { CategoryRelatedProps, GetFurniture } from "@/types";
+import { CategoryRelatedProps, IFurniture } from "@/types";
 import React, { useEffect, useState } from "react";
 import FurnitureCard from "./FurnitureCard";
 
 const CategoryRelated = ({ category, id }: CategoryRelatedProps) => {
-  const [products, setProducts] = useState<GetFurniture[]>([]);
+  const [products, setProducts] = useState<IFurniture[]>([]);
 
   useEffect(() => {
     const fetchRelatedProduct = async () => {

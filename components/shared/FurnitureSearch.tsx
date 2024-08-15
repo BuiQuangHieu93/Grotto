@@ -6,14 +6,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getAllFurniture } from "@/lib/actions/product.actions";
-import { GetFurniture } from "@/types";
+import { IFurniture } from "@/types";
 
 const FurnitureSearch: React.FC = () => {
   const [query, setQuery] = useState("");
-  const [furnitureItems, setFurnitureItems] = useState<GetFurniture[]>([]);
-  const [filteredFurniture, setFilteredFurniture] = useState<GetFurniture[]>(
-    []
-  );
+  const [furnitureItems, setFurnitureItems] = useState<IFurniture[]>([]);
+  const [filteredFurniture, setFilteredFurniture] = useState<IFurniture[]>([]);
   const router = useRouter(); // Use Next.js router for navigation
 
   useEffect(() => {

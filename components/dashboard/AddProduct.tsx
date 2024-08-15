@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent, useCallback } from "react";
 import {
   Dialog,
   DialogTrigger,
@@ -19,14 +19,14 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { UploadButton } from "@/lib/uploadthing";
-import { AddProductModalProps, Furniture } from "@/types";
+import { AddProductModalProps, IFurniture, IFurnitureFrontend } from "@/types";
 import Image from "next/image";
 
 const AddProductModal: React.FC<AddProductModalProps> = ({ onSave }) => {
   const [fileUrl, setFileUrl] = useState<string[]>([]);
   const [fileHoverUrl, setFileHoverUrl] = useState("");
 
-  const [formData, setFormData] = useState<Furniture>({
+  const [formData, setFormData] = useState<IFurnitureFrontend>({
     images: [],
     imageHover: "",
     title: "",
@@ -36,62 +36,73 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onSave }) => {
     date: new Date(),
     available: 0,
     feature: false,
-    type: "",
-    category: "",
+    type: "Home", // Default to a valid value
+    category: "table and chair", // Default to a valid value
   });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
     }));
-  };
+  }, []);
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
 
-    const updatedFormData = {
-      ...formData,
-      images: fileUrl,
-      imageHover: fileHoverUrl,
-    };
+      const updatedFormData = {
+        ...formData,
+        images: fileUrl,
+        imageHover: fileHoverUrl,
+      };
 
-    onSave(updatedFormData);
+      onSave(updatedFormData);
 
-    // Reset the form to its initial state
-    setFormData({
-      images: [],
-      imageHover: "",
-      title: "",
-      originalPrice: 0,
-      salePrice: 0,
-      bestSelling: 0,
-      date: new Date(),
-      available: 0,
-      feature: false,
-      type: "",
-      category: "",
-    });
+      // Reset the form to its initial state
+      setFormData({
+        images: [],
+        imageHover: "",
+        title: "",
+        originalPrice: 0,
+        salePrice: 0,
+        bestSelling: 0,
+        date: new Date(),
+        available: 0,
+        feature: false,
+        type: "Home", // Default to a valid value
+        category: "table and chair", // Default to a valid value
+      });
 
-    // Reset the file URLs
-    setFileUrl([]);
-    setFileHoverUrl("");
-  };
+      // Reset the file URLs
+      setFileUrl([]);
+      setFileHoverUrl("");
+    },
+    [fileUrl, fileHoverUrl, formData, onSave]
+  );
 
-  const handleCategoryChange = (value: string) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      category: value,
-    }));
-  };
+  const handleTypeChange = useCallback(
+    (value: "Home" | "Office" | "Kitchen") => {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        type: value,
+      }));
+    },
+    []
+  );
 
-  const handleTypeChange = (value: string) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      type: value,
-    }));
-  };
+  const handleCategoryChange = useCallback(
+    (
+      value: "table and chair" | "ceramic art" | "lighting" | "sofa and chair"
+    ) => {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        category: value,
+      }));
+    },
+    []
+  );
 
   return (
     <Dialog>
@@ -245,7 +256,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onSave }) => {
                     htmlFor="salePrice"
                     className="block text-sm font-medium text-gray-700 mb-2"
                   >
-                    Sale Price (Optional)
+                    Sale Price
                   </label>
                   <Input
                     type="number"
@@ -260,56 +271,80 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onSave }) => {
 
                 <div>
                   <label
-                    htmlFor="type"
+                    htmlFor="bestSelling"
                     className="block text-sm font-medium text-gray-700 mb-2"
                   >
-                    Type
+                    Best Selling
                   </label>
-                  <Select onValueChange={handleTypeChange}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select a type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Home">Home</SelectItem>
-                      <SelectItem value="Office">Office</SelectItem>
-                      <SelectItem value="Kitchen">Kitchen</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <label
-                    htmlFor="category"
-                    className="block text-sm font-medium text-gray-700 mb-2"
-                  >
-                    Category
-                  </label>
-                  <Select onValueChange={handleCategoryChange}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select a category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="table and chair">
-                        Table and Chair
-                      </SelectItem>
-                      <SelectItem value="ceramic art">Ceramic Art</SelectItem>
-                      <SelectItem value="lighting">Lighting</SelectItem>
-                      <SelectItem value="sofa and chair">
-                        Sofa and Chair
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Input
+                    type="number"
+                    id="bestSelling"
+                    name="bestSelling"
+                    placeholder="Best Selling Rank"
+                    value={formData.bestSelling}
+                    onChange={handleChange}
+                    className="w-full border-gray-300 rounded-md shadow-sm p-3"
+                  />
                 </div>
               </div>
             </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              <div>
+                <label
+                  htmlFor="type"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Type
+                </label>
+                <Select onValueChange={handleTypeChange}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Home">Home</SelectItem>
+                    <SelectItem value="Office">Office</SelectItem>
+                    <SelectItem value="Kitchen">Kitchen</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="category"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Category
+                </label>
+                <Select onValueChange={handleCategoryChange}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="table and chair">
+                      Table and Chair
+                    </SelectItem>
+                    <SelectItem value="ceramic art">Ceramic Art</SelectItem>
+                    <SelectItem value="lighting">Lighting</SelectItem>
+                    <SelectItem value="sofa and chair">
+                      Sofa and Chair
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter>
             <DialogClose asChild>
               <Button
                 type="submit"
-                className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-6"
+                className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
               >
-                Submit
+                Save Product
               </Button>
             </DialogClose>
-          </div>
+          </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>

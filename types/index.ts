@@ -96,6 +96,20 @@ export interface IFurniture extends Document {
   category: "table and chair" | "ceramic art" | "lighting" | "sofa and chair";
 }
 
+export interface IFurnitureFrontend {
+  images: string[];
+  imageHover: string;
+  title: string;
+  originalPrice: number;
+  salePrice?: number;
+  bestSelling: number;
+  date: Date;
+  available: number;
+  feature: boolean;
+  type: "Home" | "Office" | "Kitchen";
+  category: "table and chair" | "ceramic art" | "lighting" | "sofa and chair";
+}
+
 export interface CreateFurnitureParams {
   images: string[];
   imageHover: string;
@@ -135,7 +149,7 @@ export interface FurnitureData {
 }
 
 export interface AddProductModalProps {
-  onSave: (newProduct: IFurniture) => void;
+  onSave: (newProduct: IFurnitureFrontend) => void;
 }
 
 export interface ProductCardProps {

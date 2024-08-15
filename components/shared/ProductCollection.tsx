@@ -10,18 +10,18 @@ import "swiper/css/pagination";
 import FurnitureCard from "./FurnitureCard";
 import { FurnitureTrending } from "@/constants";
 import Link from "next/link";
-import { GetFurniture } from "@/types";
+import { IFurniture } from "@/types";
 import { getAllFurniture } from "@/lib/actions/product.actions";
 
 const ProductCollection = () => {
   const [active, setActive] = useState("Office");
-  const [product, setProduct] = useState<GetFurniture[]>([]);
+  const [product, setProduct] = useState<IFurniture[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const furniture = await getAllFurniture();
       const specialProducts = furniture.filter(
-        (product: GetFurniture) => product.feature
+        (product: IFurniture) => product.feature
       );
 
       setProduct(specialProducts);

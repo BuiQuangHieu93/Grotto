@@ -4,18 +4,16 @@ import FurnitureCard from "./FurnitureCard";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getAllFurniture } from "@/lib/actions/product.actions";
-import { GetFurniture } from "@/types";
+import { IFurniture } from "@/types";
 
 const CollectionSlider = () => {
-  const [product, setProduct] = useState<GetFurniture[]>([]);
+  const [product, setProduct] = useState<IFurniture[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const furniture = await getAllFurniture();
       const trendingProducts = furniture
-        .sort(
-          (a: GetFurniture, b: GetFurniture) => b.bestSelling - a.bestSelling
-        )
+        .sort((a: IFurniture, b: IFurniture) => b.bestSelling - a.bestSelling)
         .slice(0, 8); // Sort by bestSelling in descending order and take the top 8
       setProduct(trendingProducts);
     };
