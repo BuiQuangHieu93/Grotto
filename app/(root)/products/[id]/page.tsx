@@ -5,7 +5,12 @@ import CheckoutButton from "@/components/shared/CheckoutButton";
 import ImageZoom from "@/components/shared/ImageZoom";
 import { Button } from "@/components/ui/button";
 import { addItemsToCart } from "@/lib/actions/cart.actions";
+import { addProductToCompare } from "@/lib/actions/compare.actions";
 import { getFurnitureById } from "@/lib/actions/product.actions";
+import {
+  addProductToWishlist,
+  removeProductInWishlist,
+} from "@/lib/actions/wishlist.actions";
 import { IFurniture } from "@/types";
 import { useAuth } from "@clerk/nextjs";
 import Image from "next/legacy/image";
@@ -18,6 +23,7 @@ const Page = () => {
   const item = useParams();
   const { userId } = useAuth();
   const router = useRouter();
+  const [checkWishlist, setCheckWishlist] = useState(false);
 
   //  find id and display as object
   useEffect(() => {
@@ -47,6 +53,36 @@ const Page = () => {
   const handleNavigation = () => {
     const categorySlug = product?.category.toLowerCase().replace(/\s+/g, "");
     router.push(`/collections/${categorySlug}`);
+  };
+
+  const handleAddToWishlist = async (product: IFurniture) => {
+    if (userId) {
+      await addProductToWishlist(userId, product);
+      setCheckWishlist(true);
+    }
+  };
+  const handleAddToCompare = async (product: IFurniture) => {
+    if (userId) {
+      await addProductToCompare(userId, product);
+      setCheckWishlist(true);
+    }
+  };
+
+  const handleRemoveItemWishlist = async (product: IFurniture) => {
+    if (userId) {
+      await removeProductInWishlist(userId, product);
+      setCheckWishlist(false);
+    }
+  };
+
+  const handleModifyWishlist = () => {
+    if (product) {
+      if (checkWishlist) {
+        handleRemoveItemWishlist(product);
+      } else {
+        handleAddToWishlist(product);
+      }
+    }
   };
 
   return (
@@ -115,21 +151,39 @@ const Page = () => {
             <span>Sold 30 products in the last 6 hours</span>
           </div>
           <div className="flex space-x-2">
-            <Button className="bg-[#a6946b] p-2 rounded-md">
-              <Image
-                src="/icon/star-outline.svg"
-                height={20}
-                width={20}
-                alt="Favorite"
-              />
+            <Button
+              className="bg-[#a6946b] p-2 rounded-md"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleModifyWishlist();
+              }}
+            >
+              <div className="w-[20px] h-[20px] relative">
+                <Image
+                  src={
+                    checkWishlist ? "/icon/star.svg" : "/icon/star-outline.svg"
+                  }
+                  layout="fill"
+                  style={{ objectFit: "cover" }}
+                  alt="Favorite"
+                />
+              </div>
             </Button>
-            <Button className="bg-[#a6946b] p-2 rounded-md">
-              <Image
-                src="/icon/customer-information-list.svg"
-                height={20}
-                width={20}
-                alt="Info"
-              />
+            <Button
+              className="bg-[#a6946b] p-2 rounded-md"
+              onClick={(e) => {
+                e.stopPropagation();
+                product && handleAddToCompare(product);
+              }}
+            >
+              <div className="w-[20px] h-[20px] relative">
+                <Image
+                  src="/icon/customer-information-list.svg"
+                  layout="fill"
+                  style={{ objectFit: "cover" }}
+                  alt="Info"
+                />
+              </div>
             </Button>
           </div>
           <div className="text-sm text-[#333333] font-normal flex items-center space-x-1">

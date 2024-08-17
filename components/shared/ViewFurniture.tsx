@@ -54,7 +54,7 @@ const ViewFurniture = ({ data }: { data: IFurniture }) => {
               <div className="flex flex-col w-1/2">
                 <div className="font-semibold text-2xl">{data.title}</div>
 
-                {data.salePrice && (
+                {data.salePrice ? (
                   <div className="flex items-center mt-2">
                     <div className="line-through text-gray-500 mr-2">
                       ${data.originalPrice.toFixed(2)} USD
@@ -65,6 +65,10 @@ const ViewFurniture = ({ data }: { data: IFurniture }) => {
                     <div className="ml-2 text-sm text-green-600">
                       {calPercentSale(data.originalPrice, data.salePrice)}% OFF
                     </div>
+                  </div>
+                ) : (
+                  <div className="text-xl font-bold text-black">
+                    ${data.originalPrice.toFixed(2)} USD
                   </div>
                 )}
 

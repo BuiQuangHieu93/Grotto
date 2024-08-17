@@ -11,6 +11,7 @@ import {
   checkProductWishlist,
   removeProductInWishlist,
 } from "@/lib/actions/wishlist.actions";
+import { addProductToCompare } from "@/lib/actions/compare.actions";
 
 const FurnitureCard = ({ data, type }: FurnitureData) => {
   const [hover, setHover] = useState(false);
@@ -42,6 +43,12 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
   const handleAddToWishlist = async (data: IFurniture) => {
     if (userId) {
       await addProductToWishlist(userId, data);
+      setCheckWishlist(true);
+    }
+  };
+  const handleAddToCompare = async (data: IFurniture) => {
+    if (userId) {
+      await addProductToCompare(userId, data);
       setCheckWishlist(true);
     }
   };
@@ -136,7 +143,10 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
 
               <Button
                 className="bg-[#a6946b] p-2 rounded-md w-10"
-                onClick={(e) => e.stopPropagation()} // Prevent Link navigation
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleAddToCompare(data);
+                }} // Prevent Link navigation
               >
                 <div className="w-[20px] h-[20px] relative">
                   <Image

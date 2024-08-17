@@ -59,7 +59,7 @@ const WishlistCard: React.FC<WishlistCardProps> = ({ data, onDelete }) => {
         </Button>
       </div>
       <div className="font-semibold pt-5">{data.title}</div>
-      {data.salePrice && (
+      {data.salePrice ? (
         <div className="flex items-center mt-2">
           <div className="line-through text-gray-500 mr-2">
             ${data.originalPrice.toFixed(2)} USD
@@ -70,6 +70,10 @@ const WishlistCard: React.FC<WishlistCardProps> = ({ data, onDelete }) => {
           <div className="ml-2 text-sm text-green-600">
             {calPercentSale(data.originalPrice, data.salePrice)}% OFF
           </div>
+        </div>
+      ) : (
+        <div className="text-xl font-bold text-black">
+          ${data.originalPrice.toFixed(2)} USD
         </div>
       )}
 

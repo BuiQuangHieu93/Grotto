@@ -288,3 +288,16 @@ export interface WishlistCardProps {
   data: IFurniture;
   onDelete: (productId: string) => void;
 }
+
+//Compare
+
+export interface ICompare extends Document {
+  _id: string;
+  clerkId: string;
+  compare: IFurniture[];
+}
+
+export interface CompareCardProps {
+  data: IFurniture;
+  onDelete: (productId: string) => void;
+}
