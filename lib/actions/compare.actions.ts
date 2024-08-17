@@ -3,7 +3,6 @@
 import { IFurniture } from "@/types";
 import { connectToDatabase } from "../mongoose";
 import { handleError } from "../utils";
-import Wishlist from "../models/wishlist.models";
 import Compare from "../models/compare.models";
 
 export const addProductToCompare = async (
@@ -33,10 +32,8 @@ export const addProductToCompare = async (
       }
     }
 
-    // Populate the wishlist with full product details
     const populatedCompare = await compare.populate("compare");
 
-    // Return the fully populated wishlist
     return JSON.parse(JSON.stringify(populatedCompare));
   } catch (error) {
     handleError(error);
@@ -62,7 +59,7 @@ export const removeProductInCompare = async (
 ) => {
   try {
     await connectToDatabase();
-    const compare = await Wishlist.findOne({ clerkId: userId });
+    const compare = await Compare.findOne({ clerkId: userId });
 
     if (compare) {
       compare.compare = compare.compare.filter(
