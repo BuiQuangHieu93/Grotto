@@ -275,3 +275,16 @@ export interface RangeSliderProps {
   values: number[];
   onChange: (values: number[]) => void;
 }
+
+//Wishlist
+
+export interface IWishlist extends Document {
+  _id: string;
+  clerkId: string;
+  wishlist: IFurniture[];
+}
+
+export interface WishlistCardProps {
+  data: IFurniture;
+  onDelete: (productId: string) => void;
+}

@@ -28,9 +28,9 @@ const CollectionSlider = () => {
       </div>
       <div className="grid grid-cols-4 grid-rows-2 w-full gap-5">
         {product.map((data, index) => (
-          <Link href={`/products/${data._id}`} key={index}>
+          <div key={index}>
             <FurnitureCard data={data} type="origin" />
-          </Link>
+          </div>
         ))}
       </div>
     </div>

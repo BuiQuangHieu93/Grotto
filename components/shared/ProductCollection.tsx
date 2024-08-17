@@ -76,9 +76,9 @@ const ProductCollection = () => {
               .filter((product) => product.type === active)
               .map((product, index) => (
                 <SwiperSlide key={index} className="relative group">
-                  <Link href={`/products/${product._id}`}>
+                  <div>
                     <FurnitureCard data={product} type="origin" />
-                  </Link>
+                  </div>
                 </SwiperSlide>
               ))}
           </Swiper>

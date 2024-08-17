@@ -110,7 +110,7 @@ const Cart = () => {
             alt="briefcase"
             className="mr-2 group-hover:scale-110 transition duration-300"
           />
-          <div className="font-normal">Cart</div>
+          <div className="font-normal ml-2">Cart</div>
         </Button>
       </SheetTrigger>
       <SheetContent className="min-w-[525px] h-full p-6">

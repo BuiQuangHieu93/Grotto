@@ -1,19 +1,68 @@
-"use client";
-
 import Image from "next/legacy/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { FurnitureData } from "@/types";
+import { FurnitureData, IFurniture } from "@/types";
 import Link from "next/link";
+import { addItemsToCart } from "@/lib/actions/cart.actions";
+import { useAuth } from "@clerk/nextjs";
+import ViewFurniture from "./ViewFurniture";
+import {
+  addProductToWishlist,
+  checkProductWishlist,
+  removeProductInWishlist,
+} from "@/lib/actions/wishlist.actions";
 
 const FurnitureCard = ({ data, type }: FurnitureData) => {
   const [hover, setHover] = useState(false);
+  const [checkWishlist, setCheckWishlist] = useState(false);
+  const { userId } = useAuth();
+
+  useEffect(() => {
+    const checkWishlistF = async (data: IFurniture) => {
+      if (userId) {
+        const check = await checkProductWishlist(userId, data);
+        setCheckWishlist(check);
+      }
+    };
+    checkWishlistF(data);
+  }, [userId, data]);
+
+  const handleAddToCart = async () => {
+    if (data && userId) {
+      const addItem = await addItemsToCart({
+        userId,
+        items: [{ product: data, quantity: 1 }],
+      });
+      console.log(addItem);
+    } else {
+      console.error("Product ID or User ID is missing");
+    }
+  };
+
+  const handleAddToWishlist = async (data: IFurniture) => {
+    if (userId) {
+      await addProductToWishlist(userId, data);
+      setCheckWishlist(true);
+    }
+  };
+
+  const handleRemoveItemWishlist = async (data: IFurniture) => {
+    if (userId) {
+      await removeProductInWishlist(userId, data);
+      setCheckWishlist(false);
+    }
+  };
+
+  const handleModifyWishlist = () => {
+    if (checkWishlist) {
+      handleRemoveItemWishlist(data);
+    } else {
+      handleAddToWishlist(data);
+    }
+  };
 
   const generateNumber = (number?: number) => {
-    if (number === undefined) {
-      return "0.00"; // or handle it as per your requirement
-    }
-    return number.toFixed(2);
+    return number === undefined ? "0.00" : number.toFixed(2);
   };
 
   const calculateSale = (originalPrice: number, salePrice: number) => {
@@ -21,10 +70,7 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
   };
 
   return (
-    <Link
-      className={`flex ${type === "horizon" ? "flex-row" : "flex-col"}`}
-      href={`/products/${data._id}`}
-    >
+    <div className={`flex ${type === "horizon" ? "flex-row" : "flex-col"}`}>
       <div
         className={`relative group overflow-hidden ${
           type === "horizon" ? "pr-4" : ""
@@ -33,7 +79,7 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
         onMouseLeave={() => setHover(false)}
       >
         <div className={`relative overflow-hidden`}>
-          <div>
+          <Link href={`/products/${data._id}`}>
             <Image
               src={hover ? data?.imageHover : data?.images?.[0]}
               height={600}
@@ -42,43 +88,64 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
               className={`transition-transform duration-500 ease-in-out relative ${
                 hover ? "scale-110 opacity-90" : "scale-100 opacity-100"
               }`}
+              onClick={(e) => e.stopPropagation()} // Prevent click propagation to Link
             />
-          </div>
+          </Link>
           {hover && (
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-              <Button className="bg-[#a6946b] p-2 rounded-md">
-                <Image
-                  src="/icon/eye-on.svg"
-                  height={24}
-                  width={24}
-                  alt="View"
-                  className="fill-white"
-                />
+              <ViewFurniture data={data} />
+
+              <Button
+                className="bg-[#a6946b] p-2 rounded-md w-10"
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent Link navigation
+                  handleAddToCart();
+                }}
+              >
+                <div className="w-[20px] h-[20px] relative">
+                  <Image
+                    src="/icon/briefcase.svg"
+                    layout="fill"
+                    style={{ objectFit: "cover" }}
+                    alt="Add to Cart"
+                    className="fill-white"
+                  />
+                </div>
               </Button>
-              <Button className="bg-[#a6946b] p-2 rounded-md">
-                <Image
-                  src="/icon/briefcase.svg"
-                  height={24}
-                  width={24}
-                  alt="Add to Cart"
-                  className="fill-white"
-                />
+
+              <Button
+                className="bg-[#a6946b] p-2 rounded-md w-10"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleModifyWishlist();
+                }}
+              >
+                <div className="w-[20px] h-[20px] relative">
+                  <Image
+                    src={
+                      checkWishlist
+                        ? "/icon/star.svg"
+                        : "/icon/star-outline.svg"
+                    }
+                    layout="fill"
+                    style={{ objectFit: "cover" }}
+                    alt="Favorite"
+                  />
+                </div>
               </Button>
-              <Button className="bg-[#a6946b] p-2 rounded-md">
-                <Image
-                  src="/icon/star-outline.svg"
-                  height={24}
-                  width={24}
-                  alt="Favorite"
-                />
-              </Button>
-              <Button className="bg-[#a6946b] p-2 rounded-md">
-                <Image
-                  src="/icon/customer-information-list.svg"
-                  height={24}
-                  width={24}
-                  alt="Info"
-                />
+
+              <Button
+                className="bg-[#a6946b] p-2 rounded-md w-10"
+                onClick={(e) => e.stopPropagation()} // Prevent Link navigation
+              >
+                <div className="w-[20px] h-[20px] relative">
+                  <Image
+                    src="/icon/customer-information-list.svg"
+                    layout="fill"
+                    style={{ objectFit: "cover" }}
+                    alt="Info"
+                  />
+                </div>
               </Button>
             </div>
           )}
@@ -89,7 +156,7 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
           </div>
         )}
       </div>
-      <div>
+      <Link href={`/products/${data._id}`}>
         <div
           className={`font-semibold transition-colors duration-500 ease-in-out pt-4 ${
             hover ? "text-[#a6946b]" : "text-[#333333]"
@@ -107,8 +174,8 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
             </div>
           )}
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };
 
