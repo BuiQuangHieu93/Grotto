@@ -5,8 +5,8 @@ import Link from "next/link";
 const banners = [
   {
     src: "/image/L01-banner-01.webp",
-    subheading: "NESSENTIAL STYLES",
-    mainHeading: "Discover & Find Your new product",
+    subheading: "ESSENTIAL STYLES",
+    mainHeading: "Discover & Find Your New Product",
     link: "/collections/1",
   },
   {
@@ -17,7 +17,7 @@ const banners = [
   },
   {
     src: "/image/L01-banner-03.webp",
-    subheading: "NEW! SUPPER SUMMER",
+    subheading: "NEW! SUPER SUMMER",
     mainHeading: "Stylish Furniture in Unique Style",
     link: "/collections/1",
   },
@@ -25,28 +25,31 @@ const banners = [
 
 const BannerSection = () => {
   return (
-    <div className="flex flex-row flex-nowrap justify-between bg-[#e9e8e4] w-full p-4">
+    <div className="w-full p-4 bg-[#e9e8e4] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {banners.map((banner, index) => (
-        <div key={index} className="relative">
-          <Image
-            src={banner.src}
-            height={585}
-            width={476}
-            alt={`banner-${index + 1}`}
-          />
+        <div key={index} className="relative w-full ">
+          <div className="w-full h-0 pb-[66.67%] relative">
+            <Image
+              src={banner.src}
+              layout="fill"
+              alt={`banner-${index + 1}`}
+              className="object-cover"
+            />
+          </div>
+
           <div
             className={`absolute ${
-              index === 1 ? "bottom-0 right-0 mb-8" : "inset-0 mt-8"
-            } flex items-center flex-col ml-16 mr-16`}
+              index === 1 ? "bottom-0 right-0 mb-4" : "top-0 left-0 mt-4"
+            } flex flex-col items-center px-2 py-1 md:px-4 md:py-2 bg-gradient-to-t from-black via-transparent to-transparent w-full`}
           >
-            <div className="text-white text-base font-semibold text-center">
+            <div className="text-white text-xs md:text-sm lg:text-base font-semibold text-center">
               {banner.subheading}
             </div>
-            <div className="text-white text-3xl font-semibold text-center mt-2">
+            <div className="text-white text-base md:text-lg lg:text-2xl font-semibold text-center mt-2">
               {banner.mainHeading}
             </div>
             <Link href={banner.link}>
-              <Button className="text-gray-600 font-medium bg-gray-100 hover:bg-[#a6946b] mt-6">
+              <Button className="mt-3 md:mt-4 bg-gray-100 text-gray-600 hover:bg-[#a6946b] text-xs md:text-sm lg:text-base">
                 Shop Now
               </Button>
             </Link>

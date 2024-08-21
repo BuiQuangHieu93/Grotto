@@ -46,6 +46,7 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
       setCheckWishlist(true);
     }
   };
+
   const handleAddToCompare = async (data: IFurniture) => {
     if (userId) {
       await addProductToCompare(userId, data);
@@ -77,7 +78,11 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
   };
 
   return (
-    <div className={`flex ${type === "horizon" ? "flex-row" : "flex-col"}`}>
+    <div
+      className={`flex flex-col md:flex-row ${
+        type === "horizon" ? "md:flex-row" : "md:flex-col"
+      }`}
+    >
       <div
         className={`relative group overflow-hidden ${
           type === "horizon" ? "pr-4" : ""
@@ -89,10 +94,10 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
           <Link href={`/products/${data._id}`}>
             <Image
               src={hover ? data?.imageHover : data?.images?.[0]}
-              height={600}
-              width={600}
+              height={400}
+              width={400}
               alt="furniture"
-              className={`transition-transform duration-500 ease-in-out relative ${
+              className={`transition-transform duration-500 ease-in-out ${
                 hover ? "scale-110 opacity-90" : "scale-100 opacity-100"
               }`}
               onClick={(e) => e.stopPropagation()} // Prevent click propagation to Link
@@ -103,13 +108,13 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
               <ViewFurniture data={data} />
 
               <Button
-                className="bg-[#a6946b] p-2 rounded-md w-10"
+                className="bg-[#a6946b] p-2 rounded-md md:w-10 md:h-10 w-8 h-8"
                 onClick={(e) => {
                   e.stopPropagation(); // Prevent Link navigation
                   handleAddToCart();
                 }}
               >
-                <div className="w-[20px] h-[20px] relative">
+                <div className="md:w-[20px] md:h-[20px] w-[12px] h-[12px] relative">
                   <Image
                     src="/icon/briefcase.svg"
                     layout="fill"
@@ -121,13 +126,13 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
               </Button>
 
               <Button
-                className="bg-[#a6946b] p-2 rounded-md w-10"
+                className="bg-[#a6946b] p-2 rounded-md md:w-10 md:h-10 w-8 h-8"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleModifyWishlist();
                 }}
               >
-                <div className="w-[20px] h-[20px] relative">
+                <div className="md:w-[20px] md:h-[20px] w-[12px] h-[12px] relative">
                   <Image
                     src={
                       checkWishlist
@@ -142,13 +147,13 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
               </Button>
 
               <Button
-                className="bg-[#a6946b] p-2 rounded-md w-10"
+                className="bg-[#a6946b] p-2 rounded-md md:w-10 md:h-10 w-8 h-8"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleAddToCompare(data);
-                }} // Prevent Link navigation
+                }}
               >
-                <div className="w-[20px] h-[20px] relative">
+                <div className="md:w-[20px] md:h-[20px] w-[12px] h-[12px] relative">
                   <Image
                     src="/icon/customer-information-list.svg"
                     layout="fill"
@@ -161,20 +166,20 @@ const FurnitureCard = ({ data, type }: FurnitureData) => {
           )}
         </div>
         {data?.salePrice && (
-          <div className="absolute top-4 left-4 h-6 w-14 rounded-lg bg-[#a6946b] flex items-center justify-center transition-all duration-500 ease-in-out text-xs text-white">
+          <div className="absolute top-4 left-4 h-6 w-14 rounded-lg bg-[#a6946b] flex items-center justify-center text-xs text-white">
             - {calculateSale(data.originalPrice, data.salePrice)}%
           </div>
         )}
       </div>
       <Link href={`/products/${data._id}`}>
         <div
-          className={`font-semibold transition-colors duration-500 ease-in-out pt-4 ${
+          className={`font-semibold pt-4 transition-colors duration-500 ease-in-out ${
             hover ? "text-[#a6946b]" : "text-[#333333]"
           }`}
         >
           {data?.title}
         </div>
-        <div className="flex pt-2">
+        <div className="flex flex-col md:flex-row pt-2">
           <div className="text-[#666666] line-through mr-4">
             ${generateNumber(data?.originalPrice)} USD
           </div>

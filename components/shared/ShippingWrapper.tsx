@@ -2,14 +2,14 @@ import Image from "next/legacy/image";
 
 const ShippingWrapper = () => {
   return (
-    <div className="bg-[#13392c] w-full flex justify-between p-4 text-white pt-20 pb-20">
-      <div className="p-4 text-4xl w-[45%] font-semibold h-[472px] relative">
-        <div className="sticky h-[160px] top-0">
+    <div className="bg-[#13392c] w-full flex flex-col lg:flex-row justify-between p-4 text-white pt-20 pb-20">
+      <div className="p-4 text-xl md:text-3xl lg:text-4xl w-full lg:w-[45%] font-semibold lg:h-[472px] relative">
+        <div className="lg:sticky lg:h-[160px] top-0">
           Providing A Wide Range Of Architectural And Interior Design Services.
           Sustainable Trends You'll Love Forever
         </div>
       </div>
-      <div className="grid grid-cols-2 grid-rows-2 w-[45%] gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full lg:w-[45%]">
         <div className="group">
           <Image
             width={50}

@@ -1,52 +1,21 @@
-"use client";
-import WishlistCard from "@/components/shared/WishlistCard";
-import { getWishlistById } from "@/lib/actions/wishlist.actions";
-import { IFurniture, IWishlist } from "@/types";
-import { useAuth } from "@clerk/nextjs";
-import React, { useEffect, useState } from "react";
+import CollectionCard from "@/components/shared/CollectionCard";
+import { CardData } from "@/constants";
 
-const Wishlist = () => {
-  const [wishlists, setWishlists] = useState<IFurniture[]>([]);
-  const { userId } = useAuth();
-  useEffect(() => {
-    const fetchWishlist = async () => {
-      if (userId) {
-        const wishlist = await getWishlistById(userId);
-        setWishlists(wishlist);
-      }
-    };
-    fetchWishlist();
-    console.log(wishlists);
-  }, [userId]);
-
-  const handleDeleteProduct = (productId: string) => {
-    setWishlists((prevProducts) =>
-      prevProducts.filter((product) => product._id !== productId)
-    );
-  };
-
+const Page = () => {
   return (
-    <div className="bg-[#e9e8e4] px-5 py-20">
-      <div className="flex-center pb-20">
-        <div className="text-4xl font-semibold">Wishlist</div>
+    <div className="flex-center w-full bg-[#e9e8e4] flex-col">
+      <div className="text-4xl font-semibold my-12 text-center px-4">
+        Collections
       </div>
-      <div className="grid grid-cols-4 gap-5">
-        {wishlists &&
-          wishlists.map((wishlists) => (
-            <WishlistCard
-              data={wishlists}
-              key={wishlists._id}
-              onDelete={handleDeleteProduct}
-            />
-          ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 px-5 py-8">
+        {CardData.map((data, index) => (
+          <div className="flex-center w-full" key={index}>
+            <CollectionCard data={data} />
+          </div>
+        ))}
       </div>
-      {wishlists.length == 0 && (
-        <div className="flex-center">
-          <div className="text-xl">No item in Wishlist</div>
-        </div>
-      )}
     </div>
   );
 };
 
-export default Wishlist;
+export default Page;

@@ -8,13 +8,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import FurnitureCard from "./FurnitureCard";
-import { FurnitureTrending } from "@/constants";
-import Link from "next/link";
 import { IFurniture } from "@/types";
 import { getAllFurniture } from "@/lib/actions/product.actions";
 
 const ProductCollection = () => {
-  const [active, setActive] = useState("Office");
+  const [active, setActive] = useState("Home");
   const [product, setProduct] = useState<IFurniture[]>([]);
 
   useEffect(() => {
@@ -31,14 +29,14 @@ const ProductCollection = () => {
   }, []);
 
   return (
-    <div className="flex-center flex-col bg-[#e9e8e4] w-full pl-4 pr-4 pt-20 pb-20">
+    <div className="flex-center flex-col bg-[#e9e8e4] w-full px-4 pt-20 pb-20">
       <div className="text-[#a6946b] font-semibold mb-2">TOP COLLECTIONS</div>
-      <div className="text-[#383921] text-4xl font-semibold">
+      <div className="text-[#383921] text-4xl font-semibold text-center">
         Special Product
       </div>
-      <div className="flex justify-between w-[35%] py-8">
+      <div className="flex justify-between w-full sm:w-[60%] md:w-[50%] lg:w-[45%] py-8 space-x-2 overflow-x-auto scrollbar-hide md:overflow-hidden">
         <Button
-          className={`p-6 text-white hover:bg-[#a6946b] ${
+          className={`flex-1 p-3 sm:p-4 md:p-6 text-sm sm:text-base md:text-lg text-white hover:bg-[#a6946b] ${
             active === "Office" ? "bg-[#a6946b]" : "bg-[#333333]"
           }`}
           onClick={() => setActive("Office")}
@@ -46,7 +44,7 @@ const ProductCollection = () => {
           Office Furniture
         </Button>
         <Button
-          className={`p-6 text-white hover:bg-[#a6946b] ${
+          className={`flex-1 p-3 sm:p-4 md:p-6 text-sm sm:text-base md:text-lg text-white hover:bg-[#a6946b] ${
             active === "Home" ? "bg-[#a6946b]" : "bg-[#333333]"
           }`}
           onClick={() => setActive("Home")}
@@ -54,7 +52,7 @@ const ProductCollection = () => {
           Home Furniture
         </Button>
         <Button
-          className={`p-6 text-white hover:bg-[#a6946b] ${
+          className={`flex-1 p-3 sm:p-4 md:p-6 text-sm sm:text-base md:text-lg text-white hover:bg-[#a6946b] ${
             active === "Kitchen" ? "bg-[#a6946b]" : "bg-[#333333]"
           }`}
           onClick={() => setActive("Kitchen")}
@@ -62,14 +60,36 @@ const ProductCollection = () => {
           Kitchen Furniture
         </Button>
       </div>
+
       <div className="w-full bg-[#e9e8e4] flex-center">
         <div className="relative w-[95%] overflow-hidden">
           <Swiper
             autoplay={{ delay: 3000, disableOnInteraction: false }}
             loop={true}
             modules={[Autoplay, Navigation, Pagination]}
-            slidesPerView={4}
-            spaceBetween={30}
+            spaceBetween={20}
+            breakpoints={{
+              320: {
+                slidesPerView: 2, // Mobile devices
+                spaceBetween: 10,
+              },
+              640: {
+                slidesPerView: 2, // Small tablets
+                spaceBetween: 15,
+              },
+              768: {
+                slidesPerView: 2, // Medium tablets
+                spaceBetween: 20,
+              },
+              1024: {
+                slidesPerView: 3, // Large tablets and small desktops
+                spaceBetween: 25,
+              },
+              1280: {
+                slidesPerView: 4, // Desktops
+                spaceBetween: 30,
+              },
+            }}
             className="p-4"
           >
             {product

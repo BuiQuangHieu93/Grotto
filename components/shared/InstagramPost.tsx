@@ -16,8 +16,29 @@ const InstagramPost = () => {
             autoplay={{ delay: 3000, disableOnInteraction: false }}
             loop={true}
             modules={[Autoplay, Navigation, Pagination]}
-            slidesPerView={5}
             spaceBetween={30}
+            breakpoints={{
+              320: {
+                slidesPerView: 2, // Mobile devices
+                spaceBetween: 10,
+              },
+              640: {
+                slidesPerView: 2, // Small tablets
+                spaceBetween: 15,
+              },
+              768: {
+                slidesPerView: 3, // Medium tablets
+                spaceBetween: 20,
+              },
+              1024: {
+                slidesPerView: 4, // Large tablets and small desktops
+                spaceBetween: 25,
+              },
+              1280: {
+                slidesPerView: 5, // Desktops
+                spaceBetween: 30,
+              },
+            }}
             className="p-4"
           >
             {InstagramPostData.map((data, index) => (

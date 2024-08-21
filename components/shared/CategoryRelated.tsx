@@ -12,17 +12,17 @@ const CategoryRelated = ({ category, id }: CategoryRelatedProps) => {
       setProducts(product);
     };
     fetchRelatedProduct();
-  }, [category]); // Include `category` as a dependency
+  }, [category]);
 
   // Filter out the current product from the related products
   const relatedProduct = products.filter((item) => item._id !== id);
 
   return (
     <div className="flex flex-col pb-20">
-      <div className="flex-center text-4xl font-semibold uppercase py-20">
-        You may also like
+      <div className="md:text-4xl text-2xl font-semibold uppercase py-20 md:text-left px-5 flex-center">
+        <div>You may also like</div>
       </div>
-      <div className="grid grid-cols-4 gap-5 px-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 px-5">
         {relatedProduct.slice(0, 4).map((product) => (
           <FurnitureCard data={product} type="origin" key={product._id} />
         ))}

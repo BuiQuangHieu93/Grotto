@@ -25,7 +25,9 @@ export default function RootLayout({
   return (
     <ClerkProvider afterSignOutUrl="/home">
       <html lang="en">
-        <body className={`${poppins.variable}`}>{children}</body>
+        <body className={`${poppins.variable}`} suppressHydrationWarning={true}>
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   );

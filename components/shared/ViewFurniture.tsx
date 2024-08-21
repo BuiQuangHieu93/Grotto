@@ -33,16 +33,16 @@ const ViewFurniture = ({ data }: { data: IFurniture }) => {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="bg-[#a6946b] p-2 rounded-md hover:bg-[#8a7a57]">
-            <div className="h-[24px] w-[24px] relative">
+          <Button className="bg-[#a6946b] p-2 rounded-md md:w-10 md:h-10 w-8 h-8">
+            <div className="md:w-[20px] md:h-[20px] w-[12px] h-[12px] relative">
               <Image src="/icon/eye-on.svg" height={24} width={24} alt="View" />
             </div>
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] min-w-[1000px] bg-[#e9e8e4]">
+        <DialogContent className="sm:max-w-[425px] max-w-full p-4 bg-[#e9e8e4]">
           {data && (
-            <div className="flex flex-row space-x-4">
-              <div className="w-[450px] h-[450px] relative">
+            <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+              <div className="w-full h-[300px] md:w-[450px] md:h-[450px] relative">
                 <Image
                   src={data.images[0]}
                   layout="fill"
@@ -51,8 +51,10 @@ const ViewFurniture = ({ data }: { data: IFurniture }) => {
                 />
               </div>
 
-              <div className="flex flex-col w-1/2">
-                <div className="font-semibold text-2xl">{data.title}</div>
+              <div className="flex flex-col w-full md:w-1/2">
+                <div className="font-semibold text-xl md:text-2xl">
+                  {data.title}
+                </div>
 
                 {data.salePrice ? (
                   <div className="flex items-center mt-2">
@@ -74,7 +76,7 @@ const ViewFurniture = ({ data }: { data: IFurniture }) => {
 
                 <div className="mt-2">Available: {data.available}</div>
 
-                <div className="flex items-center mt-4">
+                <div className="flex flex-col md:flex-row items-start md:items-center mt-4 space-y-2 md:space-y-0 md:space-x-4">
                   <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
                     <Button
                       onClick={() => setValue(value > 1 ? value - 1 : 1)}
@@ -82,7 +84,7 @@ const ViewFurniture = ({ data }: { data: IFurniture }) => {
                     >
                       -
                     </Button>
-                    <span className="px-6 py-2 bg-[#e9e8e4] text-center">
+                    <span className="px-4 py-2 bg-[#e9e8e4] text-center">
                       {value}
                     </span>
                     <Button
@@ -93,7 +95,7 @@ const ViewFurniture = ({ data }: { data: IFurniture }) => {
                     </Button>
                   </div>
                   <Button
-                    className="ml-4 py-2 px-6 bg-[#d3c3a4] text-white rounded-md hover:bg-[#b09e82] flex-grow"
+                    className="w-full md:w-auto py-2 px-6 bg-[#d3c3a4] text-white rounded-md hover:bg-[#b09e82]"
                     onClick={handleAddToCart}
                   >
                     Add to Cart
@@ -113,7 +115,7 @@ const ViewFurniture = ({ data }: { data: IFurniture }) => {
                 />
                 <Link
                   href={`/products/${data._id}`}
-                  className="uppercase text-sm mt-2 hover:text-[#8a7a57] flex flex-row"
+                  className="uppercase text-sm mt-2 hover:text-[#8a7a57] flex items-center"
                 >
                   <span className="pr-2">View Product details</span>
                   <Image

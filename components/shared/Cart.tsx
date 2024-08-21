@@ -113,12 +113,12 @@ const Cart = () => {
           <div className="font-normal ml-2">Cart</div>
         </Button>
       </SheetTrigger>
-      <SheetContent className="min-w-[525px] h-full p-6">
+      <SheetContent className="min-w-[320px] md:min-w-[525px] h-full p-4 md:p-6">
         <SheetHeader>
-          <SheetTitle className="text-2xl font-bold text-[#333333]">
+          <SheetTitle className="text-xl md:text-2xl font-bold text-[#333333]">
             Main Cart
           </SheetTitle>
-          <SheetDescription className="text-[#555555] mt-2">
+          <SheetDescription className="text-sm md:text-base text-[#555555] mt-2">
             {totalPrice < 300 ? (
               <div>
                 Buy ${(300 - totalPrice).toFixed(2)} more to enjoy free shipping
@@ -131,107 +131,105 @@ const Cart = () => {
         </SheetHeader>
 
         {products.length === 0 ? (
-          <div className="flex-center text-gray-500 h-[400px] ">
+          <div className="flex-center text-gray-500 h-[300px] md:h-[400px]">
             <div> Your cart is empty.</div>
           </div>
         ) : (
           <>
-            <div className="flex justify-between border-b pb-2">
-              <span className="text-sm font-semibold text-[#333333]">
-                Product
-              </span>
-              <span className="text-sm font-semibold text-[#333333]">
-                Total
-              </span>
-            </div>
-            <div className="flex flex-col space-y-6 mt-4 h-[400px] overflow-y-auto scroll">
-              {products.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between border-b py-4"
-                >
-                  <div className="flex items-center space-x-4 w-full">
-                    <div className="w-[80px] h-[80px] relative">
-                      {item.product && item.product.images?.[0] && (
-                        <Image
-                          src={item.product.images[0]}
-                          layout="fill"
-                          style={{ objectFit: "cover" }}
-                          alt={item.product.title}
-                        />
-                      )}
-                    </div>
-                    <div className="flex flex-col w-full">
-                      {item.product && (
-                        <>
-                          <div className="flex justify-between">
-                            <div className="flex flex-col">
-                              <span className="text-lg font-semibold text-[#333333]">
-                                {item.product.title}
-                              </span>
-                              <span className="text-sm text-gray-500">
+            <div className="flex flex-col space-y-4 border-b pb-4 md:pb-2">
+              <div className="flex justify-between text-sm md:text-base font-semibold text-[#333333]">
+                <span>Product</span>
+                <span>Total</span>
+              </div>
+              <div className="flex flex-col space-y-6 overflow-y-auto h-[300px] md:h-[400px]">
+                {products.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col md:flex-row items-start md:items-center justify-between border-b pb-4"
+                  >
+                    <div className="flex items-start md:items-center space-x-4 w-full">
+                      <div className="w-[80px] h-[80px] relative">
+                        {item.product && item.product.images?.[0] && (
+                          <Image
+                            src={item.product.images[0]}
+                            layout="fill"
+                            style={{ objectFit: "cover" }}
+                            alt={item.product.title}
+                          />
+                        )}
+                      </div>
+                      <div className="flex flex-col w-full">
+                        {item.product && (
+                          <>
+                            <div className="flex flex-col md:flex-row justify-between md:items-center">
+                              <div className="flex flex-col">
+                                <span className="text-base md:text-lg font-semibold text-[#333333]">
+                                  {item.product.title}
+                                </span>
+                                <span className="text-sm text-gray-500">
+                                  $
+                                  {item.product.salePrice
+                                    ? item.product.salePrice.toFixed(2)
+                                    : item.product.originalPrice.toFixed(2)}
+                                </span>
+                              </div>
+                              <div className="text-base md:text-lg font-semibold text-[#333333]">
                                 $
                                 {item.product.salePrice
-                                  ? item.product.salePrice.toFixed(2)
-                                  : item.product.originalPrice.toFixed(2)}
-                              </span>
+                                  ? (
+                                      item.product.salePrice * item.quantity
+                                    ).toFixed(2)
+                                  : (
+                                      item.product.originalPrice * item.quantity
+                                    ).toFixed(2)}
+                              </div>
                             </div>
-                            <div className="text-lg font-semibold text-[#333333]">
-                              $
-                              {item.product.salePrice
-                                ? (
-                                    item.product.salePrice * item.quantity
-                                  ).toFixed(2)
-                                : (
-                                    item.product.originalPrice * item.quantity
-                                  ).toFixed(2)}
-                            </div>
-                          </div>
-                          <div className="flex items-center space-x-4 mt-2 justify-between">
-                            <div className="flex items-center border rounded-lg overflow-hidden">
+                            <div className="flex items-center space-x-4 mt-2">
+                              <div className="flex items-center border rounded-lg overflow-hidden">
+                                <button
+                                  className="px-2 py-1 bg-white border-r hover:bg-[#a6946b] transition text-gray-900"
+                                  onClick={() => handleMinus(item.product)}
+                                >
+                                  -
+                                </button>
+                                <span className="px-3 py-1 bg-[#e9e8e4] text-center">
+                                  {item.quantity}
+                                </span>
+                                <button
+                                  onClick={() => handleAdd(item.product)}
+                                  className="px-2 py-1 bg-white border-l hover:bg-[#a6946b] transition text-gray-900"
+                                >
+                                  +
+                                </button>
+                              </div>
                               <button
-                                className="px-3 py-1 bg-white border-r hover:bg-[#a6946b] transition text-gray-900"
-                                onClick={() => handleMinus(item.product)}
+                                onClick={() => handleRemove(item.product)}
+                                className="text-gray-500 hover:text-red-500 transition"
                               >
-                                -
-                              </button>
-                              <span className="px-4 py-1 bg-[#e9e8e4] text-center">
-                                {item.quantity}
-                              </span>
-                              <button
-                                onClick={() => handleAdd(item.product)}
-                                className="px-3 py-1 bg-white border-l hover:bg-[#a6946b] transition text-gray-900"
-                              >
-                                +
+                                <Image
+                                  src="/icon/trash.svg"
+                                  width={24}
+                                  height={24}
+                                  alt="trash"
+                                />
                               </button>
                             </div>
-                            <button
-                              onClick={() => handleRemove(item.product)}
-                              className="text-gray-500 hover:text-red-500 transition"
-                            >
-                              <Image
-                                src="/icon/trash.svg"
-                                width={24}
-                                height={24}
-                                alt="trash"
-                              />
-                            </button>
-                          </div>
-                        </>
-                      )}
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </>
         )}
-        <div className="bg-[#f9f9f9] p-4 rounded-lg mt-6">
-          <div className="flex justify-between text-lg font-semibold text-[#333333]">
+        <div className="bg-[#f9f9f9] p-4 rounded-lg mt-4 md:mt-6">
+          <div className="flex justify-between text-base md:text-lg font-semibold text-[#333333]">
             <span>Estimated total</span>
             <span>${totalPrice.toFixed(2)} USD</span>
           </div>
-          <div className="text-sm text-gray-500 mt-1">
+          <div className="text-xs md:text-sm text-gray-500 mt-1">
             Taxes, discounts, and shipping calculated at checkout
           </div>
         </div>

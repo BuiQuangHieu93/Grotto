@@ -2,12 +2,16 @@ import React from "react";
 
 const TextCircleSVG: React.FC = () => {
   return (
-    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      viewBox="0 0 200 200"
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64" // Responsive sizing
+    >
       <style>
         {`
         .rotate {
           animation: rotate 20s linear infinite;
-          transform-origin: center; /* Apply transform-origin using CSS */
+          transform-origin: center;
         }
   
         @keyframes rotate {

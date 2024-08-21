@@ -5,7 +5,7 @@ const Page = () => {
   return (
     <div className="flex-center w-full bg-[#e9e8e4] flex-col">
       <div className="text-4xl font-semibold my-12">Collections</div>
-      <div className="grid grid-cols-3 gap-8 px-5 py-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 px-5 py-8">
         {CardData.map((data, index) => (
           <div className="flex-center w-full" key={index}>
             <CollectionCard data={data} />

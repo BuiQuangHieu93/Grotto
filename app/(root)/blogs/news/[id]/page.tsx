@@ -18,20 +18,22 @@ const Page = () => {
 
   useEffect(() => {
     const fetchBlog = async () => {
-      const blogs = await getAllBlog();
-      setBlogs(blogs);
-    };
-
-    const getBlog = async () => {
+      // First, get the specific blog by ID
       if (blogId) {
         const blog = await GetBlogById(blogId);
         setBlog(blog);
-        setLoading(false); // Stop loading after fetching data
+
+        // After setting the blog, fetch all blogs and filter out the current blog
+        const blogs = await getAllBlog();
+        const blogsFilter = blogs.filter(
+          (item: GetBlogParams) => item._id !== blog._id
+        );
+        setBlogs(blogsFilter);
       }
+      setLoading(false); // Stop loading after fetching data
     };
 
     fetchBlog();
-    getBlog();
   }, [blogId]);
 
   const formattedDate = (day?: Date) => {
@@ -48,8 +50,9 @@ const Page = () => {
           Blog
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-8">
-        <div className="border-[1px] border-white h-[570px] rounded-md">
+
+      <div className="flex flex-col md:flex-row gap-8">
+        <div className="order-last md:order-first flex-shrink-0 border-[1px] border-white h-[570px] rounded-md">
           <h2 className="text-xl font-semibold bg-gray-100 p-5 rounded-t-md">
             Recent Post
           </h2>
@@ -62,9 +65,9 @@ const Page = () => {
               >
                 <div className="pr-4">
                   {loading ? (
-                    <Skeleton className="w-20 h-20 rounded-sm" />
+                    <Skeleton className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-sm" />
                   ) : (
-                    <div className="relative w-20 h-20">
+                    <div className="relative w-12 h-12 md:w-16 md:h-16 lg:w-24 lg:h-24">
                       <Image
                         src={data.image}
                         alt="image"
@@ -75,7 +78,7 @@ const Page = () => {
                   )}
                 </div>
                 <div className="flex flex-col">
-                  <div className="text-base text-[#666666] hover:text-black">
+                  <div className="text-sm md:text-base text-[#666666] hover:text-black">
                     {data.title}
                   </div>
                   <div className="flex flex-row pt-2">
@@ -83,8 +86,8 @@ const Page = () => {
                       <Image
                         src="/icon/calendar.svg"
                         alt="calendar"
-                        width={24}
-                        height={24}
+                        width={20}
+                        height={20}
                       />
                     </div>
                     <div className="text-[#a6946b]">
@@ -96,10 +99,9 @@ const Page = () => {
             ))}
           </div>
         </div>
-        <div className="col-span-2">
+        <div className="order-first md:order-last flex-grow">
           {loading ? (
-            // Render SkeletonDemo while loading
-            <Skeleton className="w-[1034px] h-[688px] rounded-sm" />
+            <Skeleton className="w-full h-[200px] sm:h-[400px] md:h-[688px] rounded-sm" />
           ) : (
             <div key={blog?._id} className="group">
               <div className="w-full overflow-hidden">
@@ -112,29 +114,29 @@ const Page = () => {
                 />
               </div>
               <div>
-                <div className="flex flex-row text-center text-sm text-[#a6946b] uppercase py-4">
+                <div className="flex flex-row text-center text-xs sm:text-sm text-[#a6946b] uppercase py-2 sm:py-4">
                   <span>
                     <Image
                       src="/icon/calendar.svg"
-                      width={24}
-                      height={24}
+                      width={20}
+                      height={20}
                       alt="calendar"
                     />
                   </span>
-                  <div className="pl-4">{formattedDate(blog?.day)}</div>
-                  <span className="px-2">&bull;</span>
+                  <div className="pl-2 sm:pl-4">{formattedDate(blog?.day)}</div>
+                  <span className="px-1 sm:px-2">&bull;</span>
                   <div>{blog?.location}</div>
                 </div>
-                <div className="text-2xl font-semibold pb-4 group-hover:text-[#a6946b]">
+                <div className="text-lg sm:text-xl md:text-2xl font-semibold pb-2 sm:pb-4 group-hover:text-[#a6946b]">
                   {blog?.title}
                 </div>
-                <div className="text-[#666666] font-normal text-sm">
+                <div className="text-xs sm:text-sm text-[#666666] font-normal">
                   {blog?.detail}
                 </div>
               </div>
             </div>
           )}
-          <Button className="flex items-center mt-5 py-2 bg-[#333333] text-white w-[20%]">
+          <Button className="flex items-center mt-5 py-2 bg-[#333333] text-white w-[80%] sm:w-[60%] md:w-[40%] lg:w-[20%]">
             <Image
               src="/icon/upload-share.svg"
               width={12}
@@ -145,15 +147,19 @@ const Page = () => {
           </Button>
         </div>
       </div>
-      <div className="flex-center mt-20">
-        <Link className="flex flex-row" href="/blog/news">
+
+      <div className="flex-center md:mt-16 lg:mt-20 mt-12">
+        <Link
+          className="flex flex-row items-center p-2 sm:p-3 md:p-4 text-sm sm:text-base"
+          href="/blog/news"
+        >
           <Image
             src="/icon/arrow-back.svg"
-            width={20}
-            height={20}
+            width={16}
+            height={16}
             alt="arrow-back"
           />
-          <span className="ml-4">Back to blog</span>
+          <span className="ml-2 sm:ml-4">Back to blog</span>
         </Link>
       </div>
     </div>
