@@ -53,38 +53,36 @@ const FurnitureSearch: React.FC<{ onClose?: () => void }> = ({ onClose }) => {
   };
 
   return (
-    <div className="relative w-full ">
-      <div className="relative flex items-center bg-white border rounded-lg shadow-md">
+    <div className="relative w-full">
+      <div className="flex-center min-h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
         <Input
-          className="focus-visible:ring-transparent border-none flex-1 px-3 py-2"
+          className="p-regular-16 border-0 bg-grey-50 outline-offset-0 placeholder:text-grey-500 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
           placeholder="Search..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        {query ? (
-          <button
-            className="absolute right-0 p-2"
-            onClick={() => setQuery("")}
-            aria-label="Clear search"
-          >
-            <FaTimes className="text-gray-500" />
-          </button>
-        ) : (
-          <Image
-            src="/icon/search.svg"
-            height={24}
-            width={24}
-            alt="search"
-            className="ml-2"
-          />
-        )}
+        <div className="relative w-8 h-8">
+          {query ? (
+            <button
+              className="absolute right-0 p-2"
+              onClick={() => setQuery("")}
+              aria-label="Clear search"
+            >
+              <FaTimes className="text-gray-500" />
+            </button>
+          ) : (
+            <div className="relative w-6 h-6">
+              <Image
+                src="/icon/search.svg"
+                layout="fill"
+                alt="search"
+                className="ml-2 mt-1"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+          )}
+        </div>
       </div>
-
-      {loading && (
-        <p className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded-lg mt-2 p-2 text-gray-600">
-          Loading...
-        </p>
-      )}
 
       {error && (
         <p className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded-lg mt-2 p-2 text-red-600">
