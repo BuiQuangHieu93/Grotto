@@ -301,3 +301,15 @@ export interface CompareCardProps {
   data: IFurniture;
   onDelete: (productId: string) => void;
 }
+
+//Dashboard
+
+export interface DashboardCardProps {
+  title: string;
+  value: string;
+  change: string;
+  changeType: "increase" | "decrease" | "neutral";
+  linkText: string;
+  linkHref: string;
+  icon: JSX.Element;
+}

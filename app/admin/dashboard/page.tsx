@@ -41,16 +41,16 @@ const Dashboard = () => {
 
   return (
     <div className="bg-[#666666]">
-      {user === false ? ( // Check user directly
-        <div className="w-full h-screen flex-center flex-col">
-          <p className="text-4xl font-semibold p-8">You are not Admin</p>
-          <p>Redirecting in {countdown} seconds...</p>
-        </div>
-      ) : (
+      {user ? ( // Check user directly
         <div>
           <div className="w-full h-full">
             <MainPage />
           </div>
+        </div>
+      ) : (
+        <div className="w-full h-screen flex-center flex-col">
+          <p className="text-4xl font-semibold p-8">You are not Admin</p>
+          <p>Redirecting in {countdown} seconds...</p>
         </div>
       )}
     </div>

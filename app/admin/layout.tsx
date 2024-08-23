@@ -10,11 +10,19 @@ export default function RootLayout({
     <main className="flex h-screen w-full font-inter">
       <Sidebar />
 
-      <div className="flex flex-col w-full h-full">
-        <div className="flex-none">
-          <Image src="/image/logo.png" width={30} height={30} alt="logo" />
+      <div className="flex-center flex-col w-full h-full">
+        <div className="p-4">
+          <div className="relative h-12 w-48">
+            <Image
+              src="/image/logo.png"
+              layout="fill"
+              style={{ objectFit: "cover" }}
+              alt="logo"
+            />
+          </div>
         </div>
-        <div className="flex-1 overflow-auto">{children}</div>
+
+        <div className="flex-1 overflow-auto w-full pt-5">{children}</div>
       </div>
     </main>
   );

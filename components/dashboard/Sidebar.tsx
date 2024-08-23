@@ -21,7 +21,7 @@ const Sidebar = () => {
     });
   }, [pathname]);
   return (
-    <section className="sticky left-0 top-0 flex h-screen w-fit flex-col  justify-between border-r border-gray-200  pt-8 text-white max-md:hidden sm:p-4 xl:p-6 2xl:w-[355px] bg-[#cccccc]">
+    <section className="sticky left-0 top-0 flex h-screen w-fit flex-col justify-between  pt-8 text-white max-md:hidden 2xl:w-[355px] bg-[#cccccc] pl-5 overflow-hidden">
       <nav className="flex flex-col gap-4">
         <Link href="/" className="mb-12 cursor-pointer flex items-center gap-2">
           <Image
@@ -46,8 +46,11 @@ const Sidebar = () => {
               href={item.route}
               key={item.label}
               className={cn(
-                "flex gap-3 items-center py-1 md:p-3 2xl:p-4 rounded-lg justify-center xl:justify-start bg-[#ffffff]",
-                { "bg-bank-gradient": isActive }
+                "relative flex gap-3 items-center py-1 md:p-3 2xl:p-4 rounded-l-full justify-center xl:justify-start bg-bank-gradient",
+                {
+                  "bg-[#ffffff] before:absolute before:right-0 before:w-20 before:h-20 before:translate-y-[-67px] before:shadow-[48px_48px_0_10px_white] before:rounded-full before:bg-transparent after:absolute after:right-0 after:w-20 after:h-20 after:translate-y-[67px] after:shadow-[48px_-48px_0_10px_white] after:rounded-full after:bg-transparent ":
+                    isActive,
+                }
               )}
             >
               <div className="relative size-6">
@@ -64,7 +67,7 @@ const Sidebar = () => {
                 className={cn(
                   "text-16 font-semibold text-black-2 max-xl:hidden",
                   {
-                    "!text-white": isActive,
+                    "!text-[#a6946b]": isActive,
                   }
                 )}
               >

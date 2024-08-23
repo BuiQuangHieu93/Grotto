@@ -39,6 +39,7 @@ export async function CheckUserRoleById(userId: string) {
 
     const user = await User.findOne({ userId: userId });
     const role = user.isAdmin;
+    console.log("Check role user in server:", role);
 
     if (!user) throw new Error("User not found");
     return JSON.parse(JSON.stringify(role));
